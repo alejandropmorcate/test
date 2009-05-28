@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Collabtive Center"
+     title_url="http://collabtive.o-dyn.de"
+     height="200"
+     author="Philipp Kiszka"
+     author_email="xxx@google.com">
+     <Require feature="tabs" />
+     </ModulePrefs>
+<Content type="html">
+<![CDATA[
+  <div id="one_id" style="font-size:12pt; padding:5px;">Dies ist das Collabtive Gadget für Igoogle und Google desktop<br />Hierhin kommt später auch noch mehr content. klickst du den "aufgaben" tab um die actio nzu sehen.</div>
+  <div id="three_id" style="font-size:12pt; padding:5px;">aa</div>
+  <script type="text/javascript">
+
+    // Get userprefs
+    var prefs = new _IG_Prefs();
+ 	var tabs = new _IG_Tabs(__MODULE_ID__, "Nachrichten");
+
+    function init() {
+
+        // Technique #2: Create the tab and define a corresponding <div> in the
+        // HTML portion of the gadget. Add static content to the <div>.
+        tabs.addTab("Nachrichten", "one_id");
+       // tabs.addTab("Aufgaben", "two_id");
+
+        // Technique #3: Create the tab and define a corresponding <div> in the
+        // HTML portion of the gadget. Add static content to the <div>.
+        // Use a callback function to add dynamic content to the static content.
+        tabs.addTab("Aufgaben", "three_id", mycallback);
+}
+
+function mycallback(tabId) {
+var description = prefs.getBool("fulltext");
+//var url = "http://www.collabtive.o-dyn.de/projekte/files/ics/feedtask-1.xml";
+var url = "http://collabtive.o-dyn.de/projekte/managerss.php?action=";
+url += _esc("rss-tasks&user=1");
+html = url;
+alert(html);
+	   //  _IG_FetchContent('http://doc.examples.googlepages.com/Contacts.csv', function (responseText) {
+            _IG_FetchXmlContent(url, function (response) {
+
+		   var html += "<div >";
+
+           var itemList = response.getElementsByTagName("item");
+
+           for (var i = 0; i < itemList.length ; i++) {
+             var nodeList = itemList.item(i).childNodes;
+
+             for (var j = 0; j < nodeList.length ; j++) {
+                var node = nodeList.item(j);
+                if (node.nodeName == "title") {
+                   var title = node.firstChild.nodeValue;
+                }
+                if (node.nodeName == "link") {
+                   var link = node.firstChild.nodeValue;
+                }
+
+		        if (node.nodeName == "description" && description==true)
+                {
+                   if (node.firstChild.nodeName == "#cdata-section")
+                      var data = node.firstChild.nodeValue;
+                }
+             }
+
+		     html += "<b>";
+             html += "<a href = '" + link + "'>" + title + "</a>";
+             html += "</b><br>";
+             if(description == true)
+             {
+             html += "&emsp;";
+             html += data;
+           	}
+		   html += "</div><br>";
+
+         html += "</div>";
+
+        _gel(tabId).innerHTML = html;
+        }
+
+    },{refreshInterval:0});
+  }
+
+_IG_RegisterOnloadHandler(init);
+  </script>
+]]>
+</Content>
+
+<UserPref name="fulltext" display_name="Vollen Text anzeigen ?" datatype="bool" default_value = "false" required = "true" />
+
+
+</Module>

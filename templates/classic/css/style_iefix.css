@@ -1,0 +1,33 @@
+#site_background {
+	min-height:100%;
+}
+* html #site_background {
+	height:100%;
+}
+
+#sitebody {
+	min-height:100%;
+}
+* html #sitebody {
+	height:100%;
+}
+
+
+/*# Form Button # */
+.butn button {
+	height:24px;
+	line-height:21px;
+	padding:0 8px 0px 3px;
+	overflow:visible;
+	width:auto;
+}
+/*# UL LI Tables # */
+.content_left ul li{
+	float:left;
+}
+
+/*# Calender # */
+
+div#calendar table{
+	border-collapse: collapse;
+}
