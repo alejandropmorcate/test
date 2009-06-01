@@ -26,6 +26,7 @@
 	{literal}
 	<script type = "text/javascript">
 	systemMsg('systemmsg');
+
 	 </script>
 	{/literal}
 
@@ -73,7 +74,8 @@
 			<div class="nosmooth" id="sm_files">
 			<div class="contenttitle">
 				<div class="contenttitle_menue">
-					<a class="dir_up_butn" href="javascript:change('manageajax.php?action=fileview&id={$project.ID}&folder=0','filescontent');" title=""></a>
+					<a id = "dirUp" class="dir_up_butn" href="javascript:change('manageajax.php?action=fileview&id={$project.ID}&folder=0','filescontent');" title=""></a>
+
 				</div>
 				<div class="contenttitle_in">
 					<a href="manageajax.php?action=fileview&id={$project.ID}&folder={$folders[fold].ID}"><!--pfad--></a>
@@ -82,11 +84,11 @@
 			<div class="content_in_wrapper">
 			<div class="content_in_wrapper_in">
 
-						<div id = "filescontent" class="inwrapper">
+						<div id = "filescontent" class="inwrapper" >
 							<ul>
 							{section name=fold loop=$folders}
-								<li>
-									<div class="itemwrapper" id="iw_{$folders[fold].ID}">
+								<li id="fdli_{$folders[fold].ID}" >
+									<div class="itemwrapper" id="iw_{$folders[fold].ID}" >
 
 											<table cellpadding="0" cellspacing="0" border="0">
 												<tr>
@@ -103,7 +105,7 @@
 													<td class="rightmen" valign="top">
 														<div class="inmenue">
 														{if $userpermissions.files.del}
-															<a class="del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'iw_{$folders[fold].ID}\',\'managefile.php?action=delfolder&amp;id={$project.ID}&amp;folder={$folders[fold].ID}&ajax=1\')');" title="{#delete#}" ></a>
+															<a class="del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'iw_{$folders[fold].ID}\',\'managefile.php?action=delfolder&amp;id={$project.ID}&amp;folder={$folders[fold].ID}&ajax=1\')');fadeToggle('iw_{$folders[fold].ID}');" title="{#delete#}" ></a>
 															<!-- <a class="edit" href="#" title="{#editfile#}"></a>-->
 														{/if}
                                                         </div>
@@ -112,12 +114,13 @@
 												<tr>
 													<td colspan="3">
 														<span class="name">
-															<a href = "{$myprojects[project].messages[message].files[file].datei}"{if $myprojects[project].messages[message].files[file].imgfile == 1} rel="lytebox[img{$myprojects[project].messages[message].ID}]" {elseif $myprojects[project].messages[message].files[file].imgfile == 2} rel = "lyteframe[text{$myprojects[project].messages[message].ID}]"{/if} title="{$myprojects[project].messages[message].files[file].name}">
+															<a href = "{$myprojects[project].messages[message].files[file].datei}"{if $myprojects[project].messages[message].files[file].imgfile == 1} rel="lytebox[img{$myprojects[project].messages[message].ID}]" {elseif $myprojects[project].messages[message].files[file].imgfile == 2} rel = "lyteframe[text{$myprojects[project].messages[message].ID}]"{/if} title="{$myprojects[project].messages[message].files[file].name}" >
 																{if $folders[fold].name != ""}
 																	{$folders[fold].name|truncate:13:"...":true}
 																{else}
 																	{#folder#}
 																{/if}
+
 															</a>
 														</span>
 													</td>
@@ -130,7 +133,7 @@
 
 
 							{section name=file loop=$files}
-								<li>
+								<li id = "fli_{$files[file].ID}">
 									<div class="itemwrapper" id="iw_{$files[file].ID}">
 
 											<table cellpadding="0" cellspacing="0" border="0">
@@ -141,7 +144,7 @@
 														</div>
 													</td>
 													<td class="thumb">
-													 	<a href = "{$files[file].datei}" {if $files[file].imgfile == 1} rel="lytebox[]" {elseif $files[file].imgfile == 2} rel = "lyteframe[text]" rev="width: 650px; height: 500px;"{/if}>
+													 	<a href = "{$files[file].datei}" {if $files[file].imgfile == 1} rel="lytebox[]" {elseif $files[file].imgfile == 2} rel = "lyteframe[text]" rev="width: 650px; height: 500px;"{/if} >
 													 		{if $files[file].imgfile == 1}
 													 		<img src = "thumb.php?pic={$files[file].datei}&amp;width=32" alt="{$files[file].name}" />
 													 		{else}
@@ -162,12 +165,14 @@
 												<tr>
 													<td colspan="3">
 														<span class="name">
-															<a href = "{$files[file].datei}"{if $files[file].imgfile == 1} rel="lytebox[img{$files[file].ID}]" {elseif $files[file].imgfile == 2} rel = "lyteframe[text{$files[file].ID}]"{/if} title="{$files[file].name}">
+															<a href = "{$files[file].datei}"{if $files[file].imgfile == 1} rel="lytebox[img{$files[file].ID}]" {elseif $files[file].imgfile == 2} rel = "lyteframe[text{$files[file].ID}]"{/if} title="{$files[file].name}" {if !$files[file].seen}style="color:#4CA543"{/if} >
 																{if $files[file].title != ""}
 																{$files[file].title|truncate:13:"...":true}
 																{else}
 																{$files[file].name|truncate:13:"...":true}
 																{/if}
+
+
 															</a>
 														</span>
 													</td>
@@ -176,19 +181,47 @@
 
 									</div> {*itemwrapper End*}
 								</li>
+								{literal}
+                                    <script type = "text/javascript">
+                                    try
+                                    {
+                                        new Draggable('{/literal}fli_{$files[file].ID}{literal}',{revert:true});
+                                    }
+                                    catch(e){}
+                                    </script>
+                                {/literal}
+
 							{/section} {*files in fldes End*}
 							</ul>
 						</div> {*inwrapper End*}
 
 
+		{section name=fold loop=$folders}
+						   {literal}
+								 <script type = "text/javascript">
+								 try{
+                                     Droppables.add('{/literal}fdli_{$folders[fold].ID}{literal}',{
+                                     onDrop: function(element) {
+                                     change('managefile.php?action=movefile&id={/literal}{$project.ID}{literal}&file='+element.id+'&target={/literal}{$folders[fold].ID}{literal}','jslog');
+                                     element.hide();
+                                     }
 
+                                   });
+                                   }
+                                   catch(e){}
+                                </script>
+                            {/literal}
+        {/section}
 			</div> {*content_in_wrapper_in End*}
 
 			</div> {*content_in_wrapper End*}
 
 			<div class="staterow">
+
+
 				<div class="staterowin">
 					<span id = "filenum">{$filenum}</span> {#files#}
+
 				</div>
 
 				<div class="staterowin_right"> <span >{$langfile.page} {paginate_prev} {paginate_middle} {paginate_next}</span>
@@ -219,6 +252,5 @@
 </div> {*Files END*}
 </div> {*content-left-in END*}
 </div> {*content-left END*}
-
 {include file="sidebar-a.tpl"}
 {include file="footer.tpl"}

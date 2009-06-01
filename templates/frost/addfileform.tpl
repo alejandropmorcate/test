@@ -57,6 +57,30 @@
 		</div>
 
 		<div class="row"><label for = "desc">{#description#}</label><textarea name="desc" id="desc" rows="3" cols="1"></textarea></div>
+      <div class = "row">
+	   <label>Visibility:</label>
+
+	   <select name = "visible[]" multiple style = "height:80px;">
+	   <option value = "" selected>All</option>
+	   {section name=role loop=$roles}
+       <option value = "{$roles[role].ID}" >{$roles[role].name}</option>
+	   {/section}
+	   </select>
+	</div>
+
+    <div class = "row">
+	   <label>Notify:</label>
+
+	   <select name = "sendto[]" multiple style = "height:100px;">
+	   <option value = "" disabled style = "color:black;font-weight:bold;">General</option>
+	   <option value = "all" selected>All</option>
+	   <option value = "none" >None</option>
+	   <option value = "" disabled style = "color:black;font-weight:bold;">Project members</option>
+	   {section name=member loop=$members}
+       <option value = "{$members[member].ID}" >{$members[member].name}</option>
+	   {/section}
+	   </select>
+	</div>
 
 	<div class="row-butn-bottom">
 		<label>&nbsp;</label>

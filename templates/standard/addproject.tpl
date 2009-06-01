@@ -31,55 +31,6 @@
 		<input type = "text" class="text" name = "budget" id = "budget" />
 		</div>
 
-        <div class = "row">
-		<label for = "task1">Automatic tasks</label>
-		<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Name:</label> <input type = "text" class="text" name = "task1" id = "task1" value = "CustomerCompany - Task1" disabled/></div>
-		<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Due:</label> <input type = "text" class="text" name = "wann" id = "task1" value = "11.05.2009" /></div>
-		<div class="row" style = "margin-left:140px;">
-            <label style = "width:60px;">Assign to:</label>
-            <select name = "bla">
-	        <option value = "please choose">Please choose</option>
-            </select>
-	      	</div>
-	      	<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Name:</label> <input type = "text" class="text" name = "task1" id = "task1" value = "CustomerCompany - Task2" disabled/></div>
-		<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Due:</label> <input type = "text" class="text" name = "wann" id = "task1" value = "11.07.2009" /></div>
-		<div class="row" style = "margin-left:140px;">
-            <label style = "width:60px;">Assign to:</label>
-            <select name = "bla">
-	        <option value = "please choose">Please choose</option>
-            </select>
-	      	</div>
-
-<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Name:</label> <input type = "text" class="text" name = "task1" id = "task1" value = "CustomerCompany - Task3" disabled/></div>
-		<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Due:</label> <input type = "text" class="text" name = "wann" id = "task1" value = "16.05.2009" /></div>
-		<div class="row" style = "margin-left:140px;">
-            <label style = "width:60px;">Assign to:</label>
-            <select name = "bla">
-	        <option value = "please choose">Please choose</option>
-            </select>
-	      	</div>
-
-
-
-
-		</div>
-
-        <div class = "row">
-		<label for = "task1">Automatic milestones</label>
-		<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Name:</label> <input type = "text" class="text" name = "task1" id = "task1" value = "CustomerCompany - Milestone1" disabled/></div>
-		<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Due:</label> <input type = "text" class="text" name = "wann" id = "task1" value = "11.05.2009" /></div>
-
-	      	<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Name:</label> <input type = "text" class="text" name = "task1" id = "task1" value = "CustomerCompany - Milestone2" disabled/></div>
-		<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Due:</label> <input type = "text" class="text" name = "wann" id = "task1" value = "12.06.2009" /></div>
-
-<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Name:</label> <input type = "text" class="text" name = "task1" id = "task1" value = "CustomerCompany - Milestone3" disabled/></div>
-		<div class = "row" style = "margin-left:140px;"><label style = "width:60px;">Due:</label> <input type = "text" class="text" name = "wann" id = "task1" value = "19.05.2009" /></div>
-
-		</div>
-		<div class = "row"><label></label></div>
-		<div class = "row"><label></label></div>
-
-
 		<div class="row"><label>{#members#}:</label>
 		<div style="float:left;">
         {section name=user loop=$users}
