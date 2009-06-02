@@ -36,9 +36,9 @@
 					<thead>
 						<tr>
 							<th class="a"></th>
-							<th class="b">{#project#}</th>
+							<th class="b" onclick = "sortBlock('desktopprojects','');">{#project#}</th>
 							<th class="c">{#done#}</th>
-							<th class="d">{#daysleft#}</th>
+							<th class="d" onclick = "sortBlock('desktopprojects','daysleft');">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -53,15 +53,15 @@
 
 					{*Color-Mix*}
 					{if $smarty.section.project.index % 2 == 0}
-					<tbody class="color-a" id="proj_{$myprojects[project].ID}">
+					<tbody class="color-a" id="proj_{$myprojects[project].ID}" rel = "{$myprojects[project].ID},{$myprojects[project].name},{$myprojects[project].daysleft}">
 					{else}
-					<tbody class="color-b" id="proj_{$myprojects[project].ID}">
+					<tbody class="color-b" id="proj_{$myprojects[project].ID}" rel = "{$myprojects[project].ID},{$myprojects[project].name},{$myprojects[project].daysleft}">
 					{/if}
 						<tr {if $myprojects[project].daysleft < 0} class="marker-late"{elseif $myprojects[project].daysleft == 0} class="marker-today"{/if}>
 							<td>{if $userpermissions.projects.close}<a class="butn_check" href="javascript:closeElement('proj_{$myprojects[project].ID}','manageproject.php?action=close&amp;id={$myprojects[project].ID}');" title="{#close#}"></a>{/if}</td>
 							<td>
 								<div class="toggle-in">
-								<span class="acc-toggle" onclick="javascript:accord_projects.activate($$('#projecthead .accordion_toggle')[{$smarty.section.project.index}]);toggleAccordeon('projecthead',this);"></span>
+								<span id = "desktopprojectstoggle{$myprojects[project].ID}" class="acc-toggle" onclick="javascript:accord_projects.activate($$('#projecthead .accordion_toggle')[{$smarty.section.project.index}]);toggleAccordeon('projecthead',this);"></span>
 									<a href="manageproject.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].name}">
 										{if $myprojects[project].name != ""}
 										{$myprojects[project].name|truncate:30:"...":true}
@@ -150,9 +150,9 @@
 					<thead>
 						<tr>
 							<th class="a"></th>
-							<th class="b">{#task#}</th>
-							<th class="c">{#project#}</th>
-							<th class="d">{#daysleft#}</th>
+							<th class="b" onclick = "sortBlock('desktoptasks','');">{#task#}</th>
+							<th class="c" onclick = "sortBlock('desktoptasks','project');">{#project#}</th>
+							<th class="d" onclick = "sortBlock('desktoptasks','daysleft');">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -167,9 +167,9 @@
 
 					{*Color-Mix*}
 					{if $smarty.section.task.index % 2 == 0}
-					<tbody class="color-a" id="task_{$tasks[task].ID}">
+					<tbody class="color-a" id="task_{$tasks[task].ID}" rel = "{$tasks[task].ID},{$tasks[task].title},{$tasks[task].daysleft},{$tasks[task].pname}">
 					{else}
-					<tbody class="color-b" id="task_{$tasks[task].ID}">
+					<tbody class="color-b" id="task_{$tasks[task].ID}" rel = "{$tasks[task].ID},{$tasks[task].title},{$tasks[task].daysleft},{$tasks[task].pname}">
 					{/if}
 						<tr {if $tasks[task].daysleft < 0} class="marker-late"{elseif $tasks[task].daysleft == 0} class="marker-today"{/if}>
 							<td>
@@ -178,7 +178,7 @@
                             {/if}</td>
 							<td>
 								<div class="toggle-in">
-								<span class="acc-toggle" onclick="javascript:accord_tasks.activate($$('#taskhead .accordion_toggle')[{$smarty.section.task.index}]);toggleAccordeon('taskhead',this);"></span>
+								<span id = "desktoptaskstoggle{$tasks[task].ID}" class="acc-toggle" onclick="javascript:accord_tasks.activate($$('#taskhead .accordion_toggle')[{$smarty.section.task.index}]);toggleAccordeon('taskhead',this);"></span>
 									<a href="managetask.php?action=showtask&amp;id={$tasks[task].project}&amp;tid={$tasks[task].ID}" title="{$tasks[task].title}">
 										{if $tasks[task].title != ""}
 										{$tasks[task].title|truncate:30:"...":true}

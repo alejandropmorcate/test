@@ -177,7 +177,7 @@ class task
 
         $upd = mysql_query("UPDATE tasks SET status = 0 WHERE ID = $id");
 
-		/*
+        /*
         $sql = mysql_query("SELECT liste FROM tasks WHERE ID = $id");
         $liste = mysql_fetch_row($sql);
         $sql2 = mysql_query("SELECT count(*) FROM tasks WHERE liste = $liste[0] AND status = 1");
@@ -189,7 +189,7 @@ class task
             $tasklist->close_liste($liste[0]);
         }
 		*/
-		
+
         if ($upd)
         {
             $nameproject = $this->getNameProject($id);
@@ -262,28 +262,37 @@ class task
         $task = mysql_fetch_array($sel, MYSQL_ASSOC);
         if (!empty($task))
         {
-            //format datestring according to dateformat option
+            // format datestring according to dateformat option
             $endstring = date(CL_DATEFORMAT, $task["end"]);
-
-            //get list and projectname of the task
+            // get list and projectname of the task
             $details = $this->getTaskDetails($task);
             $list = $details["list"];
             $pname = $details["pname"];
-
-            //get remainig days until due date
+            // get remainig days until due date
             $tage = $this->getDaysLeft($task['end']);
 
-
             $usel = mysql_query("SELECT user FROM tasks_assigned WHERE task = $task[ID]");
-            $usr = mysql_fetch_row($usel);
-            $usr = $usr[0];
+            $users = array();
+            while ($usr = mysql_fetch_row($usel))
+            {
 
-            $usel = mysql_query("SELECT name,id from user WHERE ID = $usr");
-            $user = mysql_fetch_row($usel);
+               array_push($users, $usr[0]);
+               $task["user"] = "All";
+               $task["user_id"] = $users;
+            }
+            if (count($users) < 2)
+            {
+                $usr = $users[0];
+                $usel = mysql_query("SELECT name,id from user WHERE ID = $usr");
+                $user = mysql_fetch_row($usel);
+                $task["user"] = stripslashes($user[0]);
+                $task["user_id"] = $user[1];
+            }
+
+
 
             $task["endstring"] = $endstring;
-            $task["user"] = stripslashes($user[0]);
-            $task["user_id"] = $user[1];
+
             $task["title"] = stripslashes($task["title"]);
             $task["text"] = stripslashes($task["text"]);
             $task["pname"] = stripslashes($pname);
@@ -480,8 +489,8 @@ class task
             return false;
         }
     }
-    
-	/**
+
+    /**
      * Return all done tasks of a user from a given project
      *
      * @param int $project Project ID

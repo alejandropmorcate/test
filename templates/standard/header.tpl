@@ -122,7 +122,7 @@ tinyMCE.init({
 </head>
 <body >
 
-<div id = "jslog" style = "color:red;position:absolute;top:80%;right:5%;"></div>
+<div id = "jslog" style = "color:red;position:absolute;top:70%;right:5%;width:300px;"></div>
 
 {if $showheader != "no"}
 	{include file = "search_modal.tpl"}

@@ -225,12 +225,14 @@ class tasklist
         $sel = mysql_query("SELECT * FROM tasklist WHERE project = $project AND status=$status");
         $tasklists = array();
 
+        $taskobj = new task();
         while ($list = mysql_fetch_array($sel))
         {
             $sel2 = mysql_query("SELECT * FROM tasks WHERE liste = $list[ID] AND status=1 ORDER BY `end` ASC");
             $list['tasks'] = array();
             while ($tasks = mysql_fetch_array($sel2))
             {
+            /*
                 $psel = mysql_query("SELECT name FROM projekte WHERE ID = $tasks[project]");
                 $pname = mysql_fetch_row($psel);
                 $pname = stripslashes($pname[0]);
@@ -261,13 +263,16 @@ class tasklist
                 }
                 $tasks[11] = $tage;
                 $tasks['daysleft'] = $tage;
-                array_push($list['tasks'], $tasks);
+                */
+
+                array_push($list['tasks'], $taskobj->getTask($tasks["ID"]));
             }
+
             $sel3 = mysql_query("SELECT * FROM tasks WHERE liste = $list[ID] AND status=0 ORDER BY `end` ASC");
             $list['oldtasks'] = array();
             while ($oldtasks = mysql_fetch_array($sel3))
             {
-                $psel = mysql_query("SELECT name FROM projekte WHERE ID = $oldtasks[project]");
+                /* $psel = mysql_query("SELECT name FROM projekte WHERE ID = $oldtasks[project]");
                 $pname = mysql_fetch_row($psel);
                 $pname = stripslashes($pname[0]);
 
@@ -286,9 +291,11 @@ class tasklist
                 }
                 $oldtasks[8] = $pname;
                 $oldtasks['pname'] = $pname;
-
-                array_push($list['oldtasks'], $oldtasks);
+                */
+                array_push($list['oldtasks'], $taskobj->getTask($oldtasks["ID"]));
             }
+
+
             array_push($tasklists, $list);
         }
 
@@ -342,10 +349,13 @@ class tasklist
         $id = (int) $id;
         $status = (int) $status;
 
+        $taskobj = new task();
+
         $sel = mysql_query("SELECT * FROM tasks WHERE `liste` = $id AND `status` = $status ORDER BY ID DESC");
         $tasks = array();
         while ($task = mysql_fetch_array($sel))
         {
+            /*
             $psel = mysql_query("SELECT name FROM projekte WHERE ID = $task[project]");
             $pname = mysql_fetch_row($psel);
             $pname = stripslashes($pname[0]);
@@ -376,7 +386,8 @@ class tasklist
 
             $task[11] = $tage;
             $task['daysleft'] = $tage;
-            array_push($tasks, $task);
+            */
+            array_push($tasks, $taskobj->getTask($task["ID"]));
         }
 
         if (!empty($tasks))
