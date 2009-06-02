@@ -187,7 +187,7 @@ class tasklist
         $tasks = $this->getTasksFromList($id);
         if (!empty($tasks))
         {
-        	$taskobj = new task();
+            $taskobj = new task();
             foreach($tasks as $task)
             {
                 $taskobj->close($task["ID"]);
@@ -228,73 +228,19 @@ class tasklist
         $taskobj = new task();
         while ($list = mysql_fetch_array($sel))
         {
-            $sel2 = mysql_query("SELECT * FROM tasks WHERE liste = $list[ID] AND status=1 ORDER BY `end` ASC");
+            $sel2 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status=1 ORDER BY `end` ASC");
             $list['tasks'] = array();
             while ($tasks = mysql_fetch_array($sel2))
             {
-            /*
-                $psel = mysql_query("SELECT name FROM projekte WHERE ID = $tasks[project]");
-                $pname = mysql_fetch_row($psel);
-                $pname = stripslashes($pname[0]);
-                $end = $tasks["end"];
-                $tod = date("d.m.Y");
-                $now = strtotime($tod);
-                $diff = $end - $now;
-                $tage = floor($diff / 86400);
-
-                $tasks["title"] = stripslashes($tasks["title"]);
-                $tasks["text"] = stripslashes($tasks["text"]);
-
-                $usel = mysql_query("SELECT user FROM tasks_assigned WHERE task = $tasks[ID]");
-                $usr = mysql_fetch_row($usel);
-                $usr = $usr[0];
-
-                if ($usr != "")
-                {
-                    $user = mysql_fetch_row(mysql_query("SELECT `name`,`id` from user WHERE ID = $usr"));
-
-                    $tasks[8] = $pname;
-                    $tasks['pname'] = $pname;
-
-                    $tasks[9] = $user[0];
-                    $tasks["user"] = stripslashes($user[0]);
-                    $tasks[10] = $user[1];
-                    $tasks["user_id"] = $user[1];
-                }
-                $tasks[11] = $tage;
-                $tasks['daysleft'] = $tage;
-                */
-
                 array_push($list['tasks'], $taskobj->getTask($tasks["ID"]));
             }
 
-            $sel3 = mysql_query("SELECT * FROM tasks WHERE liste = $list[ID] AND status=0 ORDER BY `end` ASC");
+            $sel3 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status=0 ORDER BY `end` ASC");
             $list['oldtasks'] = array();
             while ($oldtasks = mysql_fetch_array($sel3))
             {
-                /* $psel = mysql_query("SELECT name FROM projekte WHERE ID = $oldtasks[project]");
-                $pname = mysql_fetch_row($psel);
-                $pname = stripslashes($pname[0]);
-
-                $usel = mysql_query("SELECT user FROM tasks_assigned WHERE task = $oldtasks[ID]");
-                $usr = mysql_fetch_row($usel);
-                $usr = $usr[0];
-
-                if ($usr != "")
-                {
-                    $usel = mysql_query("SELECT name,id from user WHERE ID = $usr");
-                    $user = mysql_fetch_row($usel);
-                    $oldtasks[9] = stripslashes($user[0]);
-                    $oldtasks["user"] = stripslashes($user[0]);
-                    $oldtasks[10] = $user[1];
-                    $oldtasks["user_id"] = $user[1];
-                }
-                $oldtasks[8] = $pname;
-                $oldtasks['pname'] = $pname;
-                */
                 array_push($list['oldtasks'], $taskobj->getTask($oldtasks["ID"]));
             }
-
 
             array_push($tasklists, $list);
         }
@@ -351,42 +297,10 @@ class tasklist
 
         $taskobj = new task();
 
-        $sel = mysql_query("SELECT * FROM tasks WHERE `liste` = $id AND `status` = $status ORDER BY ID DESC");
+        $sel = mysql_query("SELECT ID FROM tasks WHERE `liste` = $id AND `status` = $status ORDER BY ID DESC");
         $tasks = array();
         while ($task = mysql_fetch_array($sel))
         {
-            /*
-            $psel = mysql_query("SELECT name FROM projekte WHERE ID = $task[project]");
-            $pname = mysql_fetch_row($psel);
-            $pname = stripslashes($pname[0]);
-            $end = $task["end"];
-            $tod = date("d.m.Y");
-            $now = strtotime($tod);
-            $diff = $end - $now;
-            $tage = floor($diff / 86400);
-
-            $usel = mysql_query("SELECT user FROM tasks_assigned WHERE task = $task[ID]");
-            $usr = mysql_fetch_row($usel);
-            $usr = $usr[0];
-
-			if($usr)
-			{
-            $usel = mysql_query("SELECT name,id from user WHERE ID = $usr");
-            $user = mysql_fetch_row($usel);
-
-            $task[9] = stripslashes($user[0]);
-            $task["user"] = stripslashes($user[0]);
-            $task[10] = $user[1];
-            $task["user_id"] = $user[1];
-			}
-
-            $task[8] = $pname;
-            $task['pname'] = $pname;
-
-
-            $task[11] = $tage;
-            $task['daysleft'] = $tage;
-            */
             array_push($tasks, $taskobj->getTask($task["ID"]));
         }
 
@@ -400,4 +314,5 @@ class tasklist
         }
     }
 }
+
 ?>
