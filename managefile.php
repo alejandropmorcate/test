@@ -219,7 +219,6 @@ if ($action == "upload")
 
                 if (is_array($filevis))
                 {
-                    array_push($filevis, 18);
                     if (in_array($userpermissions["ID"], $filevis))
                     {
                         array_push($finfiles, $file);

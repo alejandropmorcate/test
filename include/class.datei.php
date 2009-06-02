@@ -100,10 +100,9 @@ class datei
         $folder = str_replace("ö", "oe" , $folder);
         $folder = str_replace("ü", "ue" , $folder);
         $folder = str_replace("ß", "ss" , $folder);
-         // remove whitespace
+        // remove whitespace
         $folder = preg_replace("/\W/", "", $folder);
         $folder = preg_replace("/[^-_0-9a-zA-Z]/", "_", $folder);
-
         // insert the folder into the db
         $ins = mysql_query("INSERT INTO projectfolders (ID,parent,project,name,description,visible) VALUES ('',$parent,$project,'$folder','$desc','$visstr')");
         if ($ins)
@@ -250,13 +249,17 @@ class datei
         {
             $this->loeschen($file["ID"]);
         }
-        foreach($folder["subfolders"] as $sub)
+        if (!empty($folders["subfolders"]))
         {
-            $this->deleteFolder($sub["ID"], $id);
+            foreach($folder["subfolders"] as $sub)
+            {
+                $this->deleteFolder($sub["ID"], $sub["project"]);
+            }
         }
         $del = mysql_query("DELETE FROM projectfolders WHERE ID = $id");
         // remove directory
         $foldstr = CL_ROOT . "/files/" . CL_CONFIG . "/$project/" . $folder["name"] . "/";
+        echo $foldstr . "<br>";
         delete_directory($foldstr);
 
         return true;
@@ -281,18 +284,9 @@ class datei
         $tstr = $fname . "-title";
         $tastr = $fname . "-tags";
         $visible = $_POST["visible"];
-        if (is_array($visible))
-        {
-            if (!in_array(1, $visible))
-            {
-                array_push($visible, 1);
-            }
-            $visstr = serialize($visible);
-        }
-        else
-        {
-            $visstr = "";
-        }
+
+        $visstr = "";
+
         $title = $_POST[$tstr];
         $tags = $_POST[$tastr];
         $error = $_FILES[$fname]['error'];
@@ -517,8 +511,7 @@ class datei
 
         $files = array();
 
-
-            $sel2 = mysql_query("SELECT * FROM files WHERE project = $id  ORDER BY  ID DESC");
+        $sel2 = mysql_query("SELECT * FROM files WHERE project = $id  ORDER BY  ID DESC");
 
         $tagobj = new tags();
         while ($file = mysql_fetch_array($sel2))

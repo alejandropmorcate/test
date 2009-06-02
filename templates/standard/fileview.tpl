@@ -78,7 +78,7 @@
 												<tr>
 													<td colspan="3">
 														<span class="name">
-															<a href = "{$files[file].datei}"{if $files[file].imgfile == 1} rel="lytebox[img{$files[file].ID}]" {elseif $files[file].imgfile == 2} rel = "lyteframe[text{$files[file].ID}]"{/if} title="{$files[file].name}" {if !$files[file].seen}style="color:#4CA543"{/if} onmousedown = "change('managefile.php?action=makeseen&file={$files[file].ID}&id={$project.ID}','jslog');">
+															<a href = "{$files[file].datei}"{if $files[file].imgfile == 1} rel="lytebox[img{$files[file].ID}]" {elseif $files[file].imgfile == 2} rel = "lyteframe[text{$files[file].ID}]"{/if} title="{$files[file].name}" onmousedown = "change('managefile.php?action=makeseen&file={$files[file].ID}&id={$project.ID}','jslog');">
 																{if $files[file].title != ""}
 																{$files[file].title|truncate:13:"...":true}
 																{else}

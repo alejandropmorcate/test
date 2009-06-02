@@ -3,6 +3,7 @@ Collabtive 0.6
 + Added "add project" functionality to the projects block on the desktop.
 + Fixed a bug preventing the attaching of existing files to messages.
 + Refactoring of class project. Removed a lot of unneeded code.
++ Refactoring of class tasklist. Removed a lot of unneeded code.
 + Refactoring of class message. Removed some uneeded code.
 + Refactoring of class milestone. Removed a lot of unneeded code.
 + Fixed a bug in class milestone, preventing milestones with end date "today" from showing up when there where no other milestones.
@@ -18,6 +19,8 @@ Collabtive 0.6
 + Implemented access control on a per-file basis.
 + Removed deprecated function session_register() from user::login(), now relying on $_SESSION only.
 + Implemented E-Mail notify when uploading new files
++ Tasks can now be assigned to multiple users
++
 
 Collabtive 0.5.5
 + Roles may now be edited

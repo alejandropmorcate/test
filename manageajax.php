@@ -246,31 +246,14 @@ if ($action == "timeline1next")
     {
         foreach($ordner as $file)
         {
-            if ($file["seenby"])
-            {
-                $seenby = unserialize($file["seenby"]);
-                if (is_array($seenby))
-                {
-                    if (in_array($userid, $seenby))
-                    {
-                        $file["seen"] = true;
-                    }
-                    else
-                    {
-                        $file["seen"] = false;
-                    }
-                }
-                else
-                {
-                    $file["seen"] = false;
-                }
-            }
+
             if ($file["visible"])
             {
                 $filevis = unserialize($file["visible"]);
 
                 if (is_array($filevis))
                 {
+                    //array_push($filevis, 18);
                     if (in_array($userpermissions["ID"], $filevis))
                     {
                         array_push($finfiles, $file);
