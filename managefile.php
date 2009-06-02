@@ -66,44 +66,44 @@ if ($action == "upload")
     {
         $fid = $myfile->upload("userfile$i", $upath, $id, $upfolder);
         $fileprops = $myfile->getFile($fid);
-    }
-    if ($settings["mailnotify"])
-    {
-        $sendto = getArrayVal($_POST, "sendto");
-        $usr = (object) new project();
-        $pname = $usr->getProject($id);
-        $users = $usr->getProjectMembers($id, 10000);
-        if ($sendto[0] == "all")
+
+        if ($settings["mailnotify"])
         {
-            $sendto = $users;
-            $sendto = reduceArray($sendto);
-        } elseif ($sendto[0] == "none")
-        {
-            $sendto = array();
-        }
-        foreach($users as $user)
-        {
-            if (!empty($user["email"]))
+            $sendto = getArrayVal($_POST, "sendto");
+            $usr = (object) new project();
+            $pname = $usr->getProject($id);
+            $users = $usr->getProjectMembers($id, 10000);
+            if ($sendto[0] == "all")
             {
-                if (is_array($sendto))
+                $sendto = $users;
+                $sendto = reduceArray($sendto);
+            } elseif ($sendto[0] == "none")
+            {
+                $sendto = array();
+            }
+            foreach($users as $user)
+            {
+                if (!empty($user["email"]))
                 {
-                    if (in_array($user["ID"], $sendto))
+                    if (is_array($sendto))
+                    {
+                        if (in_array($user["ID"], $sendto))
+                        {
+                            // send email
+                            $themail = new emailer($settings);
+                            $themail->send_mail($user["email"], $langfile["filecreatedsubject"], $langfile["filecreatedbody1"] . "<br />$langfile[project]: " . $pname["name"] . "<br />$langfile[folder]: " . $thefolder . "$langfile[file]: <a href = \"$url/$fileprops[datei]\">$url/$fileprops[datei]</a>");
+                        }
+                    }
+                    else
                     {
                         // send email
                         $themail = new emailer($settings);
-                        $themail->send_mail($user["email"], $langfile["filecreatedsubject"], $langfile["filecreatedbody1"] . "<br />$langfile[project]: " . $pname["name"] . "<br />$langfile[folder]: " . $thefolder . "$langfile[file]: $url/$fileprops[datei]");
+                        $themail->send_mail($user["email"], $langfile["filecreatedsubject"], "");
                     }
-                }
-                else
-                {
-                    // send email
-                    $themail = new emailer($settings);
-                    $themail->send_mail($user["email"], $langfile["filecreatedsubject"], "");
                 }
             }
         }
     }
-
     $loc = $url .= "managefile.php?action=showproject&id=$id&mode=added";
     header("Location: $loc");
 } elseif ($action == "editform")
@@ -232,27 +232,6 @@ if ($action == "upload")
                     $file["seen"] = false;
                 }
             }
-            if ($file["visible"])
-            {
-                $filevis = unserialize($file["visible"]);
-
-                if (is_array($filevis))
-                {
-                    array_push($filevis,18);
-                    if (in_array($userpermissions["ID"], $filevis))
-                    {
-                        array_push($finfiles, $file);
-                    }
-                }
-                else
-                {
-                    array_push($finfiles, $file);
-                }
-            }
-            else
-            {
-                array_push($finfiles, $file);
-            }
         }
     }
 
@@ -347,4 +326,5 @@ if ($action == "upload")
     $target = $_GET["target"];
     $myfile->moveFile($file, $target);
 }
+
 ?>
