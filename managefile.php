@@ -213,24 +213,26 @@ if ($action == "upload")
     {
         foreach($files as $file)
         {
-            if ($file["seenby"])
+            if ($file["visible"])
             {
-                $seenby = unserialize($file["seenby"]);
-                if (is_array($seenby))
+                $filevis = unserialize($file["visible"]);
+
+                if (is_array($filevis))
                 {
-                    if (in_array($userid, $seenby))
+                    array_push($filevis, 18);
+                    if (in_array($userpermissions["ID"], $filevis))
                     {
-                        $file["seen"] = true;
-                    }
-                    else
-                    {
-                        $file["seen"] = false;
+                        array_push($finfiles, $file);
                     }
                 }
                 else
                 {
-                    $file["seen"] = false;
+                    array_push($finfiles, $file);
                 }
+            }
+            else
+            {
+                array_push($finfiles, $file);
             }
         }
     }
