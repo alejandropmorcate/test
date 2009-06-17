@@ -46,10 +46,10 @@ if (!$action)
 
     $file = fopen(CL_ROOT . "/config/" . CL_CONFIG . "/config.php", "w+");
     $str = "<?php
-\$db_host = \"$db_host\";\n
-\$db_name = \"$db_name\";\n
-\$db_user = \"$db_user\";\n
-\$db_pass = \"$db_pass\";\n
+\$db_host = '$db_host';\n
+\$db_name = '$db_name';\n
+\$db_user = '$db_user';\n
+\$db_pass = '$db_pass';\n
 ?>
 ";
     $put = fwrite($file, "$str");
