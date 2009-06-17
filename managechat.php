@@ -51,7 +51,7 @@ if ($action == "post")
     // $content = utf8_decode($content);
     $now = time();
 
-    mysql_query("INSERT INTO chat (ID,time,ufrom,ufrom_id,userto,userto_id,text) VALUES ('','$now','$username','$userid','$userto','$userto_id','$content')");
+    mysql_query("INSERT INTO chat (time,ufrom,ufrom_id,userto,userto_id,text) VALUES ('$now','$username','$userid','$userto','$userto_id','$content')");
 } elseif ($action == "pull")
 {
     $cook = "chatstart" . $userto_id;
