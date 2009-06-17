@@ -104,7 +104,7 @@ class datei
         $folder = preg_replace("/\W/", "", $folder);
         $folder = preg_replace("/[^-_0-9a-zA-Z]/", "_", $folder);
         // insert the folder into the db
-        $ins = mysql_query("INSERT INTO projectfolders (ID,parent,project,name,description,visible) VALUES ('',$parent,$project,'$folder','$desc','$visstr')");
+        $ins = mysql_query("INSERT INTO projectfolders (parent,project,name,description,visible) VALUES ($parent,$project,'$folder','$desc','$visstr')");
         if ($ins)
         {
             // create the folder
