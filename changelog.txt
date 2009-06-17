@@ -20,7 +20,9 @@ Collabtive 0.6
 + Removed deprecated function session_register() from user::login(), now relying on $_SESSION only.
 + Implemented E-Mail notify when uploading new files
 + Tasks can now be assigned to multiple users
-+
++ Added (fake) progress indicator when uploading files
++ Fixed a bad string replacement in install.php, preventing some users from installing
++ Fixed some MySQL queries that caused problems on some configurations (mloeffen)
 
 Collabtive 0.5.5
 + Roles may now be edited
