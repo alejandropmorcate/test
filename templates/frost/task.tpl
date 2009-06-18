@@ -22,7 +22,11 @@
 			<ul>
 				{if $userpermissions.tasks.close}
 				<li class="link" id = "closetoggle">
+				{if $task.status == 1}
 				<a class="close" href="javascript:closeElement('closetoggle','managetask.php?action=close&amp;tid={$task.ID}&amp;id={$project.ID}');" title="{#close#}"></a></li>
+				{else}
+				<a class="close" href="javascript:closeElement('closetoggle','managetask.php?action=open&amp;tid={$task.ID}&amp;id={$project.ID}');" title="{#open#}"></a></li>
+				{/if}
 				{/if}
 				{if $userpermissions.tasks.edit}
 				<li class="link"><a class="edit" href="javascript:void(0);"  id="edit_butn" onclick="blindtoggle('form_edit');toggleClass(this,'edit-active','edit');toggleClass('sm_task','smooth','nosmooth');" title="{#edit#}"></a></li>
