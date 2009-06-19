@@ -111,7 +111,7 @@ $upd = mysql_query("UPDATE settings SET dateformat='d.m.Y'");
 
 $sel = mysql_query("SELECT COUNT(*) FROM roles");
 $rolenum = mysql_fetch_row($sel);
-if ($rolenum < 1)
+if ((int)$rolenum[0] < 1)
 {
     // insert default roles
     $rolesobj = new roles();
