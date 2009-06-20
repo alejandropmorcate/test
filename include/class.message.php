@@ -350,7 +350,7 @@ class message
             }
             $set = new settings();
             $settings = $set->getSettings();
-            $myfile = "./templates/" . $settings["template"] . "/img/symbols/files/" . $thisfile["type"] . ".png";
+            $myfile = "./templates/" . $settings["template"] . "/images/files/" . $thisfile["type"] . ".png";
             if (stristr($thisfile["type"], "image"))
             {
                 $thisfile["imgfile"] = 1;

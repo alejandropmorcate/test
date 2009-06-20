@@ -81,7 +81,7 @@
 											<input type="file" class="file" name="userfile1" id="file" required="0" realname="{#file#}" size="26" onchange = "file_{$myprojects[project].ID}.value = this.value;" />
 											<table class = "faux" cellpadding="0" cellspacing="0" border="0" style="padding:0;margin:0;border:none;">
 												<tr>
-												<td><input type="text" class="text-file" name = "file-$myprojects[project].ID" id="file_{$myprojects[project].ID}"></td>
+												<td><input type="text" class="text-file" name = "file-{$myprojects[project].ID}" id="file_{$myprojects[project].ID}"></td>
 												<td class="choose"><button class="inner" onclick="return false;">{#chooseone#}</button></td>
 												</tr>
 											</table>				

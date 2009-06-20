@@ -208,7 +208,7 @@
 
 			<div id="block-answers" class="block">
 			{*Add Reply*}
-			{if $userpermssions.messages.close}
+			{if $userpermissions.messages.close}
 				<div id = "form_reply_b" class="addmenue" style = "display:none;">
 					{include file="replyform.tpl" showhtml="no" }
 				</div>
