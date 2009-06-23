@@ -17,7 +17,7 @@
 
 
 		<div class="row">
-			<label>{#files#}</label>
+			<label>{#files#}:</label>
 			<button class="inner" onclick="blindtoggle('files-add');toggleClass(this,'inner-active','inner');return false;" onfocus="this.blur()">{#addbutton#}</button>
 			<button class="inner" onclick="blindtoggle('files-attach');toggleClass(this,'inner-active','inner');return false;" onfocus="this.blur()">{#attachbutton#}</button>
 		</div>
@@ -27,7 +27,7 @@
 		<div id = "files-attach" class="blinded" style = "display:none;clear:both;">
 
 		   	<div class="row">
-				<label for = "thefiles">{#attachfile#}</label>
+				<label for = "thefiles">{#attachfile#}:</label>
 					<select name = "mode" id = "thefiles">
 						<option value = "0">{#chooseone#}</option>
 						{section name = file loop=$myprojects[project].files}

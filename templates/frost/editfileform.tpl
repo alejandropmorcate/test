@@ -18,9 +18,9 @@
 					<form class="main" method="post" action="managefile.php?action=edit&amp;id={$project.ID}&amp;file={$file.ID}" {literal}onsubmit="return validateCompleteForm(this);"{/literal} >
 					<fieldset>
 
-					<div class="row"><label for="title">{#title#}: </label><input type="text" value="{$file.title}" name="title" id="title" required="1" realname="{#title#}" /></div>
-					<div class="row"><label for = "desc"{#description#}</label></div><div class="editor"><textarea name="desc" id="desc" rows="3" cols="1">{$file.desc}</textarea></div>
-					<div class="row"><label for="tags">{#tags#}: </label><input type="text" value="{$file.tags}" name="tags" id="tags" required="0" realname="{#tags#}" /></div>
+					<div class="row"><label for="title">{#title#}:</label><input type="text" value="{$file.title}" name="title" id="title" required="1" realname="{#title#}" /></div>
+					<div class="row"><label for = "desc">{#description#}:</label></div><div class="editor"><textarea name="desc" id="desc" rows="3" cols="1">{$file.desc}</textarea></div>
+					<div class="row"><label for="tags">{#tags#}:</label><input type="text" value="{$file.tags}" name="tags" id="tags" required="0" realname="{#tags#}" /></div>
 
 					<div class="row">
 					<label>&nbsp;</label>

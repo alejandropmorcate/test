@@ -123,8 +123,8 @@
 								<td class="tools">
 									{if $userpermissions.milestones.edit}
 										<a class="tool_edit" href="managemilestone.php?action=editform&amp;mid={$latemilestones[latestone].ID}&amp;id={$project.ID}" title="{#edit#}"></a>
-										{/if}
-										{if $userpermissions.milestones.del}
+									{/if}
+									{if $userpermissions.milestones.del}
 										<a class="tool_del" href="javascript:confirmit('{#confirmdel#}','managemilestone.php?action=del&amp;mid={$latemilestones[latestone].ID}&amp;id={$project.ID}');" title="{#delete#}"></a>
 									{/if}
 								</td>
@@ -192,7 +192,7 @@
 										<a class="tool_edit" href="managemilestone.php?action=editform&amp;mid={$milestones[stone].ID}&amp;id={$project.ID}" title="{#edit#}"></a>
 									{/if}
 									{if $userpermissions.milestones.del}
-										<a class="tool_del" href="managemilestone.php?action=del&amp;mid={$milestones[stone].ID}&amp;id={$project.ID}" title="{#delete#}"></a>
+										<a class="tool_del" href="javascript:confirmit('{#confirmdel#}','managemilestone.php?action=del&amp;mid={$milestones[stone].ID}&amp;id={$project.ID}');" title="{#delete#}"></a>
 									{/if}
 								</td>
 							</tr>

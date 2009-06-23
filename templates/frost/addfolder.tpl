@@ -3,7 +3,7 @@
 	<form class="main" action="managefile.php?action=addfolder&amp;id={$project.ID}" method="post" {literal} onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
 	<fieldset>
  <div class = "row">
-            <label for = "folderparent">Eltern-Ordner</label>
+            <label for = "folderparent">{#parent#}:</label>
             <select name = "folderparent" id = "folderparent">
 		    <option value = "0">{#rootdir#}</option>
 			{section name=fold loop=$allfolders}
@@ -14,7 +14,7 @@
 	<div class="row"><label for = "foldertitle">{#title#}:</label><input type = "text" class="text" name = "foldertitle" id="foldertitle" /></div>
 	<div class="row"><label for = "folderdesc">{#description#}:</label><input type = "text" class="text" name = "folderdesc" id="folderdesc" /></div>
   <div class = "row">
-	   <label>Visibility:</label>
+	   <label>{#visibility#}:</label>
 
 	   <select name = "visible[]" multiple style = "height:80px;">
 	   {section name=role loop=$roles}

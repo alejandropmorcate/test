@@ -26,7 +26,7 @@
 		</script>	
 		
 		<div class = "row">
-		<label for = "budget">Budget</label>
+		<label for = "budget">{#budget#}:</label>
 		<input type = "text" class="text" name = "budget" id = "budget" />
 		</div>
 
