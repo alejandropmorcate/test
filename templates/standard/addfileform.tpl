@@ -24,7 +24,7 @@
 
 		<div class = "row">
 
-				<label for = "upfolder">Ordner:</label>
+				<label for = "upfolder">{#folder#}:</label>
 				<select name = "upfolder" id = "upfolder">
 				<option value = "">{#rootdir#}</option>
 				{section name=fold loop=$allfolders}
@@ -56,13 +56,13 @@
 
 		</div>
 
-		<div class="row"><label for = "desc">{#description#}</label><textarea name="desc" id="desc" rows="3" cols="1"></textarea></div>
+		<div class="row"><label for = "desc">{#description#}:</label><textarea name="desc" id="desc" rows="3" cols="1"></textarea></div>
 
     <div class = "row">
-	   <label>Visibility:</label>
+	   <label>{#visibility#}:</label>
 
 	   <select name = "visible[]" multiple style = "height:80px;">
-	   <option value = "" selected>All</option>
+	   <option value = "" selected>{#all#}</option>
 	   {section name=role loop=$roles}
        <option value = "{$roles[role].ID}" >{$roles[role].name}</option>
 	   {/section}
@@ -70,13 +70,13 @@
 	</div>
 
     <div class = "row">
-	   <label>Notify:</label>
+	   <label>{#notify#}:</label>
 
 	   <select name = "sendto[]" multiple style = "height:100px;">
-	   <option value = "" disabled style = "color:black;font-weight:bold;">General</option>
-	   <option value = "all" selected>All</option>
-	   <option value = "none" >None</option>
-	   <option value = "" disabled style = "color:black;font-weight:bold;">Project members</option>
+	   <option value = "" disabled style = "color:black;font-weight:bold;">{#general#}</option>
+	   <option value = "all" selected>{#all#}</option>
+	   <option value = "none" >{#none#}</option>
+	   <option value = "" disabled style = "color:black;font-weight:bold;">{#members#}</option>
 	   {section name=member loop=$members}
        <option value = "{$members[member].ID}" >{$members[member].name}</option>
 	   {/section}

@@ -85,7 +85,7 @@
 					{if $userpermissions.tasks.edit}
 					<a class="edit" href="managetasklist.php?action=editform&amp;tlid={$lists[list].ID}&amp;id={$project.ID}"><span>{#edit#}</span></a>{/if}
 					{if $userpermissions.tasks.del}
-					<a class="del" href="javascript:confirmit('{#confirmdel#}','managetasklist.php?action=del&amp;tlid={$lists[list].ID}&amp;id={$project.ID}');"><span>{#delete#}</span></a>
+						<a class="del" href="javascript:confirmit('{#confirmdel#}','managetasklist.php?action=del&amp;tlid={$lists[list].ID}&amp;id={$project.ID}');"><span>{#delete#}</span></a>
 					{/if}
 
 					{if $userpermissions.tasks.add}
