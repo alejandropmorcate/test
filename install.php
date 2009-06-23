@@ -26,6 +26,7 @@ $template->config_dir = "./language/$locale/";
 $template->template_dir = "./templates/standard/";
 if (!$action)
 {
+    //check if required directories are writable
     $configfilechk = is_writable(CL_ROOT . "/config/" . CL_CONFIG . "/config.php");
     $filesdir = is_writable(CL_ROOT . "/files/");
     $templatesdir = is_writable(CL_ROOT . "/templates_c/");
@@ -43,15 +44,14 @@ if (!$action)
     $db_name = $_POST['db_name'];
     $db_user = $_POST['db_user'];
     $db_pass = $_POST['db_pass'];
-
+    //write db login data to config file
     $file = fopen(CL_ROOT . "/config/" . CL_CONFIG . "/config.php", "w+");
     $str = "<?php
 \$db_host = '$db_host';\n
 \$db_name = '$db_name';\n
 \$db_user = '$db_user';\n
 \$db_pass = '$db_pass';\n
-?>
-";
+?>";
     $put = fwrite($file, "$str");
     if ($put)
     {
@@ -67,6 +67,7 @@ if (!$action)
         die();
     }
 
+    //Create MySQL Tables
     $table1 = mysql_query("CREATE TABLE `company` (
   `ID` int(10) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
@@ -90,8 +91,7 @@ if (!$action)
   KEY `user` (`user`)
 ) TYPE=MyISAM");
 
-    $table3 = mysql_query("
-CREATE TABLE `files` (
+    $table3 = mysql_query("CREATE TABLE `files` (
   `ID` int(10) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `desc` varchar(255) NOT NULL default '',
@@ -103,6 +103,8 @@ CREATE TABLE `files` (
   `type` varchar(50) NOT NULL default '',
   `title` varchar(255) NOT NULL default '',
   `folder` int(10) NOT NULL,
+  `visible` text NOT NULL,
+  `seenby` text NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `name` (`name`),
   KEY `datei` (`datei`),
@@ -315,13 +317,13 @@ CREATE TABLE `user` (
   KEY `ended` (`ended`)
 ) ENGINE=MyISAM");
 
-    $table18 = mysql_query("
-CREATE TABLE `projectfolders` (
+    $table18 = mysql_query("CREATE TABLE `projectfolders` (
   `ID` int(10) unsigned NOT NULL auto_increment,
-  `parent` int(10) unsigned NOT NULL,
+  `parent` int(11) NOT NULL,
   `project` int(11) NOT NULL default '0',
   `name` text NOT NULL,
-  `description` varchar(255) NOT NULL default '',
+  `description` varchar(255) NOT NULL,
+  `visible` text NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `project` (`project`)
 ) ENGINE=MyISAM");
@@ -356,6 +358,7 @@ CREATE TABLE `roles_assigned` (
         die();
     }
 
+    //Get the servers default timezone
     $timezone = date_default_timezone_get();
     // insert default settings
     $ins = mysql_query("INSERT INTO settings (name,subtitle,locale,timezone,dateformat,template,mailnotify,mailfrom,mailmethod) VALUES ('Collabtive','Projectmanagement','$locale','$timezone','d.m.Y','standard',1,'collabtive@localhost','mail')");

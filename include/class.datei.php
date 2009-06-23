@@ -19,69 +19,7 @@ class datei
     {
         $this->mylog = new mylog;
     }
-
-    /**
-     * Delete a file
-     *
-     * @param int $datei File ID
-     * @return bool
-     */
-    function loeschen($datei)
-    {
-        $datei = (int) $datei;
-
-        $sel1 = mysql_query("SELECT datei,name,project,title FROM files WHERE ID = $datei");
-        $thisfile = mysql_fetch_row($sel1);
-        if (!empty($thisfile))
-        {
-            $fname = $thisfile[1];
-            $project = $thisfile[2];
-            $ftitle = $thisfile[3];
-            $thisfile = $thisfile[0];
-
-            $delfile = "./" . $thisfile;
-
-            if (!file_exists($delfile))
-            {
-                return false;
-            }
-            $del = mysql_query("DELETE FROM files WHERE ID = $datei");
-            $del2 = mysql_query("DELETE FROM files_attached WHERE file = $datei");
-            if ($del)
-            {
-                if (unlink($delfile))
-                {
-                    $this->mylog->add($ftitle, 'datei' , 3, $project);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    function moveFile($file, $target)
-    {
-        $file = (int) $file;
-        $target = (int)$target;
-
-        $thefile = $this->getFile($file);
-
-        $thefolder = $this->getFolder($target);
-
-        $targetstr = "files/" . CL_CONFIG . "/" . $thefile["project"] . "/" . $thefolder["name"] . "/" . $thefile["name"];
-        $rootstr = CL_ROOT . "/" . $thefile["datei"];
-
-        $upd = mysql_query("UPDATE files SET datei = '$targetstr', folder = '$thefolder[ID]' WHERE ID = $thefile[ID]");
-        return rename($rootstr, $targetstr);
-    }
-
+    // FOLDER METHODS
     /**
      * Create a new folder
      *
@@ -131,6 +69,39 @@ class datei
     }
 
     /**
+     * Delete a folder
+     * Deletes the given folder with all files in it and all of its subfolders.
+     *
+     * @param int $id folder id
+     * @param int $id project id
+     * @return bool
+     */
+    function deleteFolder($id, $project)
+    {
+        $id = (int) $id;
+        $folder = $this->getFolder($id);
+        $files = $this->getProjectFiles($project, 10000, $id);
+        // delete all the files in the folder from the database (and filesystem as well)
+        foreach($files as $file)
+        {
+            $this->loeschen($file["ID"]);
+        }
+        if (!empty($folder["subfolders"]))
+        {
+            foreach($folder["subfolders"] as $sub)
+            {
+                $this->deleteFolder($sub["ID"], $sub["project"]);
+            }
+        }
+        $del = mysql_query("DELETE FROM projectfolders WHERE ID = $id");
+        // remove directory
+        $foldstr = CL_ROOT . "/files/" . CL_CONFIG . "/$project/" . $folder["name"] . "/";
+        delete_directory($foldstr);
+
+        return true;
+    }
+
+    /**
      * Get directory
      *
      * @param string $id Directory
@@ -145,6 +116,7 @@ class datei
 
         return $folder;
     }
+
     /**
      * Recursively get subdirectories of a given directory
      *
@@ -202,6 +174,7 @@ class datei
             return false;
         }
     }
+
     /**
      * Get all the directories in a project
      *
@@ -230,41 +203,7 @@ class datei
             return false;
         }
     }
-
-    /**
-     * Delete a folder
-     * Deletes the given folder with all files in it.
-     *
-     * @param int $id folder id
-     * @param int $id project id
-     * @return array $files Found files and directories
-     */
-    function deleteFolder($id, $project)
-    {
-        $id = (int) $id;
-        $folder = $this->getFolder($id);
-        $files = $this->getProjectFiles($project, 10000, $id);
-        // delete all the files in the folder from the database (and filesystem as well)
-        foreach($files as $file)
-        {
-            $this->loeschen($file["ID"]);
-        }
-        if (!empty($folders["subfolders"]))
-        {
-            foreach($folder["subfolders"] as $sub)
-            {
-                $this->deleteFolder($sub["ID"], $sub["project"]);
-            }
-        }
-        $del = mysql_query("DELETE FROM projectfolders WHERE ID = $id");
-        // remove directory
-        $foldstr = CL_ROOT . "/files/" . CL_CONFIG . "/$project/" . $folder["name"] . "/";
-        echo $foldstr . "<br>";
-        delete_directory($foldstr);
-
-        return true;
-    }
-
+    // FILE METHODS
     /**
      * Upload a file
      * Does filename sanitizing as well as MIME-type determination
@@ -284,8 +223,14 @@ class datei
         $tstr = $fname . "-title";
         $tastr = $fname . "-tags";
         $visible = $_POST["visible"];
-
-        $visstr = "";
+        if (is_array($visible))
+        {
+            $visstr = serialize($visible);
+        }
+        else
+        {
+            $visstr = "";
+        }
 
         $title = $_POST[$tstr];
         $tags = $_POST[$tastr];
@@ -406,6 +351,131 @@ class datei
     }
 
     /**
+     * Delete a file
+     *
+     * @param int $datei File ID
+     * @return bool
+     */
+    function loeschen($datei)
+    {
+        $datei = (int) $datei;
+
+        $sel1 = mysql_query("SELECT datei,name,project,title FROM files WHERE ID = $datei");
+        $thisfile = mysql_fetch_row($sel1);
+        if (!empty($thisfile))
+        {
+            $fname = $thisfile[1];
+            $project = $thisfile[2];
+            $ftitle = $thisfile[3];
+            $thisfile = $thisfile[0];
+
+            $delfile = "./" . $thisfile;
+
+            if (!file_exists($delfile))
+            {
+                return false;
+            }
+            $del = mysql_query("DELETE FROM files WHERE ID = $datei");
+            $del2 = mysql_query("DELETE FROM files_attached WHERE file = $datei");
+            if ($del)
+            {
+                if (unlink($delfile))
+                {
+                    $this->mylog->add($ftitle, 'datei' , 3, $project);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Return a file
+     *
+     * @param string $id File ID
+     * @return array $file File details
+     */
+
+    function getFile($id)
+    {
+        $id = (int) $id;
+        // get the file from MySQL
+        $sel = mysql_query("SELECT * FROM files WHERE ID=$id");
+        $file = mysql_fetch_array($sel);
+
+        if (!empty($file))
+        {
+            // determine if there is an mimetype icon corresponding to the files mimetype. If not set 'none'
+            $file['type'] = str_replace("/", "-", $file["type"]);
+            $set = new settings();
+            $settings = $set->getSettings();
+            $myfile = "./templates/" . $settings["template"] . "/images/files/" . $file['type'] . ".png";
+            if (!file_exists($myfile))
+            {
+                $file['type'] = "none";
+            }
+            // determine if its an image or textfile or some other file. this is needed for lightboxes
+            if (stristr($file['type'], "image"))
+            {
+                $file['imgfile'] = 1;
+            } elseif (stristr($file['type'], "text"))
+            {
+                $file['imgfile'] = 2;
+            }
+            else
+            {
+                $file['imgfile'] = 0;
+            }
+            // split the tags string into an array, and also count how many tags the file has
+            $tagobj = new tags();
+            $thetags = $tagobj->splitTagStr($file["tags"]);;
+            $file["tagsarr"] = $thetags;
+            $file["tagnum"] = count($file["tagsarr"]);
+            // strip slashes from titles , desc and tags
+            $file["title"] = stripslashes($file["title"]);
+            $file["desc"] = stripslashes($file["desc"]);
+            $file["tags"] = stripslashes($file["tags"]);
+
+            return $file;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Move a file to another folder
+     *
+     * @param int $file File ID
+     * @param int $folder Folder ID
+     * @return bool
+     */
+    function moveFile($file, $target)
+    {
+        $file = (int) $file;
+        $target = (int)$target;
+        // Get the file
+        $thefile = $this->getFile($file);
+        // Get the target folder
+        $thefolder = $this->getFolder($target);
+        // Build filesystem paths
+        $targetstr = "files/" . CL_CONFIG . "/" . $thefile["project"] . "/" . $thefolder["name"] . "/" . $thefile["name"];
+        $rootstr = CL_ROOT . "/" . $thefile["datei"];
+        // update database
+        $upd = mysql_query("UPDATE files SET datei = '$targetstr', folder = '$thefolder[ID]' WHERE ID = $thefile[ID]");
+        // move the file physically
+        return rename($rootstr, $targetstr);
+    }
+
+    /**
      * List all files associated to a given project
      *
      * @param string $id Project ID
@@ -454,6 +524,7 @@ class datei
         {
             if (!empty($file))
             {
+                /*
                 $file['type'] = str_replace("/", "-", $file['type']);
                 $set = new settings();
                 $settings = $set->getSettings();
@@ -482,6 +553,8 @@ class datei
                 $file["desc"] = stripslashes($file["desc"]);
                 $file["tags"] = stripslashes($file["tags"]);
                 array_push($files, $file);
+                */
+                array_push($files, $this->GetFile($file["ID"]));
             }
         }
 
@@ -518,6 +591,7 @@ class datei
         {
             if (!empty($file))
             {
+                /*
                 $file['type'] = str_replace("/", "-", $file['type']);
                 $set = new settings();
                 $settings = $set->getSettings();
@@ -546,6 +620,8 @@ class datei
                 $file["desc"] = stripslashes($file["desc"]);
                 $file["tags"] = stripslashes($file["tags"]);
                 array_push($files, $file);
+                */
+                array_push($files, $this->getFile($file["ID"]));
             }
         }
 
@@ -558,41 +634,7 @@ class datei
             return false;
         }
     }
-    /**
-     * Return a file
-     *
-     * @param string $id File ID
-     * @return array $file File details
-     */
-    function getFile($id)
-    {
-        $id = (int) $id;
 
-        $sel = mysql_query("SELECT * FROM files WHERE ID=$id");
-
-        $file = mysql_fetch_array($sel);
-        if (!empty($file))
-        {
-            $file['type'] = str_replace("/", "-", $file["type"]);
-            $set = new settings();
-            $settings = $set->getSettings();
-            $myfile = "./templates/" . $settings["template"] . "/images/files/" . $file['type'] . ".png";
-            if (!file_exists($myfile))
-            {
-                $file['type'] = "none";
-            }
-
-            $file["title"] = stripslashes($file["title"]);
-            $file["desc"] = stripslashes($file["desc"]);
-            $file["tags"] = stripslashes($file["tags"]);
-
-            return $file;
-        }
-        else
-        {
-            return false;
-        }
-    }
     /**
      * Seed the random number generator
      *
