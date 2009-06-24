@@ -111,7 +111,7 @@ $upd = mysql_query("UPDATE settings SET dateformat='d.m.Y'");
 
 $sel = mysql_query("SELECT COUNT(*) FROM roles");
 $rolenum = mysql_fetch_row($sel);
-if ($rolenum < 1)
+if ((int) $rolenum[0] < 1)
 {
     // insert default roles
     $rolesobj = new roles();
@@ -152,8 +152,8 @@ mysql_query("ALTER TABLE `user` DROP `admin`");
 // drop the favicon field in system settings, no longer needed
 mysql_query("ALTER TABLE `settings` DROP `favicon`");
 // add new fields for rss username and pass
-mysql_query("ALTER TABLE `settings` ADD `rssuser` VARCHAR( 255 ) NOT NULL ,
-ADD `rsspass` VARCHAR( 255 ) NOT NULL");
+mysql_query("ALTER TABLE `settings` ADD `rssuser` VARCHAR( 256 ) NOT NULL ,
+ADD `rsspass` VARCHAR( 256 ) NOT NULL");
 // 0.5.5
 mysql_query("ALTER TABLE `roles` ADD `chat` TEXT AFTER `timetracker`");
 mysql_query("ALTER TABLE `user` CHANGE `company` `company` VARCHAR( 256 )");
