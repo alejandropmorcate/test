@@ -319,7 +319,7 @@ CREATE TABLE `user` (
 
     $table18 = mysql_query("CREATE TABLE `projectfolders` (
   `ID` int(10) unsigned NOT NULL auto_increment,
-  `parent` int(11) NOT NULL,
+  `parent` int(10) unsigned NOT NULL default '0',
   `project` int(11) NOT NULL default '0',
   `name` text NOT NULL,
   `description` varchar(255) NOT NULL,

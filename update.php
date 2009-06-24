@@ -111,7 +111,7 @@ $upd = mysql_query("UPDATE settings SET dateformat='d.m.Y'");
 
 $sel = mysql_query("SELECT COUNT(*) FROM roles");
 $rolenum = mysql_fetch_row($sel);
-if ((int)$rolenum[0] < 1)
+if ($rolenum < 1)
 {
     // insert default roles
     $rolesobj = new roles();
@@ -159,7 +159,7 @@ mysql_query("ALTER TABLE `roles` ADD `chat` TEXT AFTER `timetracker`");
 mysql_query("ALTER TABLE `user` CHANGE `company` `company` VARCHAR( 256 )");
 
 //0.6
-mysql_query("ALTER TABLE `projectfolders` ADD `parent` INT NOT NULL AFTER `ID`");
+mysql_query("ALTER TABLE `projectfolders` ADD `parent` INT(10) NOT NULL AFTER `ID`");
 // version independent
 // clear templates cache
 $handle = opendir($template->compile_dir);
@@ -180,6 +180,7 @@ $opt6 = mysql_query("OPTIMIZE TABLE `milestones_assigned`");
 $opt7 = mysql_query("OPTIMIZE TABLE `projekte`");
 $opt8 = mysql_query("OPTIMIZE TABLE `projekte_assigned`");
 $opt8 = mysql_query("OPTIMIZE TABLE `timetracker`");
+$opt8 = mysql_query("OPTIMIZE TABLE `projectfolders`");
 $template->display("update.tpl");
 
 ?>
