@@ -152,14 +152,15 @@ mysql_query("ALTER TABLE `user` DROP `admin`");
 // drop the favicon field in system settings, no longer needed
 mysql_query("ALTER TABLE `settings` DROP `favicon`");
 // add new fields for rss username and pass
-mysql_query("ALTER TABLE `settings` ADD `rssuser` VARCHAR( 256 ) NOT NULL ,
-ADD `rsspass` VARCHAR( 256 ) NOT NULL");
+mysql_query("ALTER TABLE `settings` ADD `rssuser` VARCHAR( 255 ) NOT NULL ,
+ADD `rsspass` VARCHAR( 255 ) NOT NULL");
 // 0.5.5
 mysql_query("ALTER TABLE `roles` ADD `chat` TEXT AFTER `timetracker`");
 mysql_query("ALTER TABLE `user` CHANGE `company` `company` VARCHAR( 256 )");
 
 //0.6
-mysql_query("ALTER TABLE `projectfolders` ADD `parent` INT(10) NOT NULL AFTER `ID`");
+mysql_query("ALTER TABLE `projectfolders` ADD `parent` INT(10) unsigned NOT NULL default '0' AFTER `ID`");
+mysql_query("ALTER TABLE `user` CHANGE `zip` `zip` VARCHAR( 10 )"); // overlooked with 0.5
 // version independent
 // clear templates cache
 $handle = opendir($template->compile_dir);
