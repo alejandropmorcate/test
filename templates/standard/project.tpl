@@ -152,13 +152,7 @@
 
 	{literal}
 		<script type = "text/javascript">
-		{/literal}
-		{if !$userpermissions.admin.add}
-		{literal}
 		changeshow('manageproject.php?action=cal&id={/literal}{$project.ID}{literal}','thecal','progress');
-		{/literal}
-		{/if}
-		{literal}
 		</script>
 	{/literal}
 
