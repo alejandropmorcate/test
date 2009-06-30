@@ -92,7 +92,7 @@ function smarty_function_paginate_first($params, &$smarty) {
     $_url .= SmartyPaginate::getUrlVar($_id) . '=1';
 
   //  return '<a class = "last" href="' . str_replace('&','&amp;', $_url) . '"' . $_attrs . '>' . $_text . '</a>';
-    return '<a  href="' . str_replace('&','&amp;', $_url) . '"' . $_attrs . '><img src = "templates/'. $smarty->tname . '/img/paging_last.png" alt = ""  /></a>';
+    return '<a  href="' . str_replace('&','&amp;', $_url) . '"' . $_attrs . '><img src = "templates/'. $smarty->tname . '/images/paging_last.png" alt = ""  /></a>';
 }
 
 ?>

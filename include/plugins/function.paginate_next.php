@@ -96,7 +96,7 @@ function smarty_function_paginate_next($params, &$smarty) {
         $_show = false;
     }
  //   return $_show ? '<a class = "next" href="' . str_replace('&','&amp;', $_url) . '"' . $_attrs . '>' . $_text . '</a>' : '';
-    return $_show ? '<a  href="' . str_replace('&','&amp;', $_url) . '"' . $_attrs . '><img src = "templates/' . $smarty->tname . '/img/paging_next.png" alt = ""  /></a>' : '';
+    return $_show ? '<a  href="' . str_replace('&','&amp;', $_url) . '"' . $_attrs . '><img src = "templates/' . $smarty->tname . '/images/paging_next.png" alt = ""  /></a>' : '';
 
 }
 

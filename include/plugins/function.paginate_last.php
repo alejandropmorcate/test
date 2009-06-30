@@ -95,7 +95,7 @@ function smarty_function_paginate_last($params, &$smarty) {
     $_url .= ($_total % $_limit > 0) ? $_total - ( $_total % $_limit ) + 1 : $_total - $_limit + 1;
 
    // return '<a class = "next" href="' . str_replace('&','&amp;', $_url) . '"' . $_attrs . '>' . $_text . '</a>';
-  return '<a  href="' . str_replace('&','&amp;', $_url) . '"' . $_attrs . '><img src = "templates/' . $smarty->tname . '/img/paging_next.png" alt = ""  /></a>';
+  return '<a  href="' . str_replace('&','&amp;', $_url) . '"' . $_attrs . '><img src = "templates/' . $smarty->tname . '/images/paging_next.png" alt = ""  /></a>';
 }
 
 ?>

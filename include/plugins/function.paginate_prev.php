@@ -106,7 +106,7 @@ function smarty_function_paginate_prev($params, &$smarty)
     }
 
     //return $_show ? '<a class = "last" href="' . str_replace('&', '&amp;', $_url) . '"' . $_attrs . '>' . $_text . '</a>' : '';
-    return $_show ? '<a href="' . str_replace('&', '&amp;', $_url) . '"' . $_attrs . '><img src = "templates/'. $smarty->tname . '/img/paging_last.png" alt = "" />' : '';
+    return $_show ? '<a href="' . str_replace('&', '&amp;', $_url) . '"' . $_attrs . '><img src = "templates/'. $smarty->tname . '/images/paging_last.png" alt = "" />' : '';
 }
 
 ?>
