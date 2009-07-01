@@ -13,6 +13,7 @@
 class task
 {
     private $mylog;
+    private $plugins;
 
     /**
      * Constructor
@@ -20,7 +21,10 @@ class task
      */
     function __construct()
     {
+
         $this->mylog = new mylog;
+        $plugin =  new plugin();
+        $this->plugins = $plugin->loadPlugins();
     }
 
     /**
@@ -74,6 +78,7 @@ class task
             // logentry
             $nameproject = $this->getNameProject($insid);
             $this->mylog->add($nameproject[0], 'task', 1, $nameproject[1]);
+            $this->plugins->callSignalFuncs("task","add",$insid);
             return $insid;
         }
         else
@@ -110,6 +115,7 @@ class task
         {
             $nameproject = $this->getNameProject($id);
             $this->mylog->add($nameproject[0], 'task', 2, $nameproject[1]);
+            $this->plugins->callSignalFuncs("task","add");
             return true;
         }
         else

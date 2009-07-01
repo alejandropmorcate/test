@@ -2,54 +2,56 @@
 
 class plugin
 {
+    private $pluginFuncs;
     /**
      * Constructor
      *
      * @access protected
      */
-    public $task;
-    public $tasklist;
-    public $project;
-    public $user;
-    public $datei;
     function __construct()
     {
-        $task = new task();
-        $tasklist = new tasklist();
-        $project = new project();
-        $user = new user();
-        $datei = new datei();
+        $this->pluginFuncs = array();
+    }
 
-        $this->task = $task;
-        $this->tasklist = $tasklist;
-        $this->project = $project;
-        $this->user = $user;
-        $this->datei = $datei;
-
-	}
-
-    public function getAvailablePlugins()
+    public function loadPlugins()
     {
-        $dir = scandir("./plugins/");
-        $plugins = array();
-
-        foreach($dir as $folder)
+        $sel = mysql_query("SELECT * FROM plugins");
+        while ($plugins = mysql_fetch_array($sel, MYSQL_ASSOC))
         {
-            if ($folder != "." and $folder != "..")
-            {
-                array_push($plugins, $folder);
-            }
+            $this->registerPlugin($plugins["signal"], $plugins["action"] , $plugins["name"] , unserialize($plugins["params"]));
         }
-        if (!empty($plugins))
+        return $this->getFunclist();
+    }
+
+    public function registerPlugin($signal, $action, $name, $params)
+    {
+        $this->pluginFuncs[$signal][$action][] = array("name" => $name, "params" => $params);
+    }
+
+    public function unregisterPlugin()
+    {
+    }
+
+    public function getFunclist()
+    {
+        return $this->pluginFuncs;
+    }
+
+    public function callSignalFuncs($signal, $action = "", $objid = 0)
+    {
+        if (!$action)
         {
-            return $plugins;
+            $thefunctions = $this->pluginFuncs[$signal];
         }
         else
         {
-            return false;
+            $thefunctions = $this->pluginFuncs[$signal][$action];
         }
-    }
-    public function setPluginStatus($id, $status)
-    {
+
+        foreach($thefunctions as $thefunction)
+        {
+            array_push($thefunction["params"], $objid);
+            @call_user_func_array($thefunction["name"], $thefunction["params"]);
+        }
     }
 }
