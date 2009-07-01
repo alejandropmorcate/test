@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pluginconfig>
+ <name>testplugin</name>
+ <description>Hello world</description>
+ <calls>
+    <call>
+        <signal>task</signal>
+        <action>add</action>
+        <name>testplugin::testit()</name>
+        <params></params>
+    </call>
+ </calls>
+</pluginconfig>

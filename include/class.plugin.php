@@ -34,7 +34,7 @@ class plugin
     {
         $id = (int) $id;
         $del = mysql_query("DELETE FROM plugins WHERE ID = $id");
-        $del2 = mysql_query("DELETE FROM pluginevents WHERE pid = $id");
+        $this->delAllPluginEvents($id);
 
         if ($del1 and $del2)
         {
@@ -44,6 +44,18 @@ class plugin
         {
             return false;
         }
+    }
+
+    public function activatePlugin($plugin)
+    {
+        $plugin = (int) $plugin;
+        $upd = mysql_query("UPDATE plugins SET state = 1 WHERE ID = $id");
+    }
+
+    public function deactivatePlugin($plugin)
+    {
+        $plugin = (int) $plugin;
+        $upd = mysql_query("UPDATE plugins SET state = 0 WHERE ID = $id");
     }
 
     public function isInstalledPlugin($pluginname)
@@ -66,6 +78,7 @@ class plugin
 
     public function scanPlugindir()
     {
+        echo CL_ROOT . "/plugins/";
         $dir = scandir(CL_ROOT . "/plugins/");
         $plugins = array();
 
@@ -75,7 +88,15 @@ class plugin
             {
                 if (!$this->isInstalledPlugin($folder))
                 {
-                    $this->installPlugin($folder, "");
+                    $file = simplexml_load_file(CL_ROOT . "/plugins/" . $folder . "/config.xml");
+                    $insid = $this->installPlugin($file->name, $file->description);
+                    if ($insid)
+                    {
+                        foreach($file->calls as $call)
+                        {
+                            $this->addPluginEvent($insid, $call->call->signal , $call->call->action , $call->call->name , "");
+                        }
+                    }
                 }
             }
         }
@@ -87,6 +108,29 @@ class plugin
         {
             return false;
         }
+    }
+
+    public function addPluginEvent($plugin, $signal, $action, $name, $params)
+    {
+        $plugin = (int) $plugin;
+        $signal = mysql_real_escape_string($signal);
+        $action = mysql_real_escape_string($action);
+        $name = mysql_real_escape_string($name);
+        $params = serialize($params);
+
+        return $ins = mysql_query("INSERT INTO pluginevents (pid,signal,action,name,params) VALUE ($plugin,'$signal','$action','$name','$params')");
+    }
+
+    public function delPluginEvent($event)
+    {
+        $event = (int) $event;
+        return $del = mysql_query("DELETE FROM pluginevents WHERE ID = $event");
+    }
+
+    public function delAllPluginEvents($plugin)
+    {
+        $plugin = (int) $plugin;
+        $del = mysql_query("DELETE FROM pluginevents WHERE pid = $plugin");
     }
 
     public function getPluginEvents($plugin)
@@ -120,6 +164,8 @@ class plugin
         {
             array_push($plugins, $this->getPlugin($plugin["ID"]));
         }
+
+        return $plugins;
     }
 
     public function getFunclist()
@@ -137,11 +183,22 @@ class plugin
         {
             $thefunctions = $this->pluginFuncs[$signal][$action];
         }
-
-        foreach($thefunctions as $thefunction)
+        if (!empty($thefunctions))
         {
-            array_push($thefunction["params"], $objid);
-            @call_user_func_array($thefunction["name"], $thefunction["params"]);
+            foreach($thefunctions as $thefunction)
+            {
+                $classname = explode("::",$thefunction["name"]);
+                $classname = $classname[0];
+
+                if(!class_exists($classname,false))
+                {
+                echo CL_ROOT . "/plugins/" . $classname . "/class.$classname.php";
+                    include(CL_ROOT . "/plugins/" . $classname . "/class.$classname.php");
+                }
+                $thefunction["params"] = array();
+                array_push($thefunction["params"], $objid);
+                call_user_func_array($thefunction["name"], $thefunction["params"]);
+            }
         }
     }
 

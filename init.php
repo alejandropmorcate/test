@@ -24,6 +24,8 @@ if (!empty($db_name) and !empty($db_user))
     $tdb = new datenbank();
     $conn = $tdb->connect($db_name, $db_user, $db_pass, $db_host);
 }
+
+
 // Start template engine
 $template = new Smarty();
 // get the available languages

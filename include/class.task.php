@@ -24,7 +24,7 @@ class task
 
         $this->mylog = new mylog;
         $plugin =  new plugin();
-        $this->plugins = $plugin->loadPlugins();
+       // $this->plugins = $plugin->loadPlugins();
     }
 
     /**
@@ -78,7 +78,7 @@ class task
             // logentry
             $nameproject = $this->getNameProject($insid);
             $this->mylog->add($nameproject[0], 'task', 1, $nameproject[1]);
-            $this->plugins->callSignalFuncs("task","add",$insid);
+            //$this->plugins->callSignalFuncs("task","add",$insid);
             return $insid;
         }
         else
