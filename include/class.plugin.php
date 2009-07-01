@@ -13,6 +13,15 @@ class plugin
         $this->pluginFuncs = array();
     }
 
+    /**
+    * Install a plugin to the plugin directory
+    * This just installs the plugin to the plugin directory, so Collabtive can find it.
+    *
+    * @param string name Name of the plugin
+    * @param string description Description of what it does
+    * @return int ID of the installed plugin
+    *
+    */
     public function installPlugin($name, $description)
     {
         $name = mysql_real_escape_string($name);
@@ -30,11 +39,28 @@ class plugin
         }
     }
 
-    public function uninstallPlugin($id)
+    public function installPluginFromAppStore()
     {
-        $id = (int) $id;
-        $del = mysql_query("DELETE FROM plugins WHERE ID = $id");
-        $this->delAllPluginEvents($id);
+
+    }
+
+    public function listAppStorePlugins()
+    {
+
+    }
+
+
+    /**
+    * Remove a plugin and all of its events
+    *
+    * @param int $id ID of the plugin
+    * @return bool
+    */
+    public function uninstallPlugin($plugin)
+    {
+        $plugin = (int) $plugin;
+        $del = mysql_query("DELETE FROM plugins WHERE ID = $plugin");
+        $this->delAllPluginEvents($plugin);
 
         if ($del1 and $del2)
         {
@@ -46,18 +72,36 @@ class plugin
         }
     }
 
+    /**
+    * Activate a plugin
+    *
+    * @param int $plugin ID of the plugin
+    * @return bool
+    */
     public function activatePlugin($plugin)
     {
         $plugin = (int) $plugin;
         $upd = mysql_query("UPDATE plugins SET state = 1 WHERE ID = $id");
     }
 
+    /**
+    * Deactivate a plugin
+    *
+    * @param int $plugin ID of the plugin
+    * @return bool
+    */
     public function deactivatePlugin($plugin)
     {
         $plugin = (int) $plugin;
         $upd = mysql_query("UPDATE plugins SET state = 0 WHERE ID = $id");
     }
 
+    /**
+    * Check if a plugin is installed to the directory
+    *
+    * @param string $pluginname Name of the plugin
+    * @return bool
+    */
     public function isInstalledPlugin($pluginname)
     {
         $pluginname = mysql_real_escape_string($pluginname);
@@ -76,9 +120,13 @@ class plugin
         }
     }
 
+    /**
+    * Scan the plugindir. Install not installed plugins to the directory and add its events.
+    *
+    * @return void $plugins
+    */
     public function scanPlugindir()
     {
-        echo CL_ROOT . "/plugins/";
         $dir = scandir(CL_ROOT . "/plugins/");
         $plugins = array();
 
@@ -100,14 +148,9 @@ class plugin
                 }
             }
         }
-        if (!empty($plugins))
-        {
-            return $plugins;
-        }
-        else
-        {
-            return false;
-        }
+
+            return true;
+
     }
 
     public function addPluginEvent($plugin, $signal, $action, $name, $params)
@@ -187,12 +230,11 @@ class plugin
         {
             foreach($thefunctions as $thefunction)
             {
-                $classname = explode("::",$thefunction["name"]);
+                $classname = explode("::", $thefunction["name"]);
                 $classname = $classname[0];
 
-                if(!class_exists($classname,false))
+                if (!class_exists($classname, false))
                 {
-                echo CL_ROOT . "/plugins/" . $classname . "/class.$classname.php";
                     include(CL_ROOT . "/plugins/" . $classname . "/class.$classname.php");
                 }
                 $thefunction["params"] = array();
