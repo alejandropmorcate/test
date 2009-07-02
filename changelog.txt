@@ -1,3 +1,6 @@
+Collabtive 0.6.5
++ Added translation(s): Greek
+
 Collabtive 0.6
 + Fixed bug where file description of files in subfolders could not be edited.
 + Added "add project" functionality to the projects block on the desktop.
