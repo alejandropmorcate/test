@@ -25,28 +25,28 @@ DatePicker.prototype	= {
    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
    'ro'	: [ 'ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie',
    'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie' ],
-   'cz'	: [ 'Leden', 'Únor', 'Brezen', 'Duben', 'Kvêten', 'Cerven',
+   'cs'	: [ 'Leden', 'Únor', 'Brezen', 'Duben', 'Kvêten', 'Cerven',
    'Cervenec', 'Srpen', 'Zárí', 'Ríjen', 'Listopad', 'Prosinec' ],
  }),
  _language_day	: $H({
   'fr'	: [ 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim' ],
   'en'	: [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ],
-  'sp'	: [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'S&#224;b', 'Dom' ],
+  'es'	: [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'S&#224;b', 'Dom' ],
   'it'	: [ 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom' ],
   'de'	: [ 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
   'pt'	: [ 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&#225;', 'Dom' ],
   'ro'	: [ 'l', 'ma', 'mi', 'j', 'v', 's', 'd' ],
-  'cz'	: [ 'Po', 'Út', 'St', 'Ct', 'Pá', 'So', 'Ne' ]
+  'cs'	: [ 'Po', 'Út', 'St', 'Ct', 'Pá', 'So', 'Ne' ]
  }),
  _language_close	: $H({
   'fr'	: 'fermer',
   'en'	: 'close',
-  'sp'	: 'cierre',
+  'es'	: 'cierre',
   'it'	: 'fine',
   'de'	: 'schliessen',
   'pt'	: 'fim',
   'ro'	: 'fim',
-  'cz'	: 'Uzavrít'
+  'cs'	: 'Uzavrít'
 //&#345;
  }),
  /* date manipulation */
