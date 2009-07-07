@@ -106,7 +106,7 @@ tinyMCE.init({
 	cleanup: true,
 	cleanup_on_startup: true,
 	force_p_newlines : false,
-	convert_newlines_to_brs : true,
+	convert_newlines_to_brs : false,
 	forced_root_block : false,
 	external_image_list_url: 'manageajax.php?action=jsonfiles&id={/literal}{$project.ID}{literal}'
 
