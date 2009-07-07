@@ -212,7 +212,7 @@
 
 
 							<tr>
-								<td class="a">{if $userpermissions.tasks.close}<a class="butn_checked" href="javascript:closeElement('task_{$lists[list].oldtasks[oldtask].ID}','managetask.php?action=open&amp;tid={$lists[list].oldtasks[oldtask].ID}&amp;id={$lists[list].ID}');" title="{#open#}"></a>{/if}</td>
+								<td class="a">{if $userpermissions.tasks.close}<a class="butn_checked" href="javascript:closeElement('task_{$lists[list].oldtasks[oldtask].ID}','managetask.php?action=open&amp;tid={$lists[list].oldtasks[oldtask].ID}&amp;id={$project.ID}');" title="{#open#}"></a>{/if}</td>
 								<td class="b">
 									<div class="toggle-in">
 									<span class="acc-toggle" onclick="javascript:accord_done_{$lists[list].ID}.activate($$('#done_{$lists[list].ID} .accordion_toggle')[{$smarty.section.oldtask.index}]);toggleAccordeon('done_{$lists[list].ID}',this);"></span>
@@ -229,10 +229,10 @@
 								<td class="d">{$lists[list].oldtasks[oldtask].daysleft}</td>
 								<td class="tools">
 									{if $userpermissions.tasks.edit}
-									<a class="tool_edit" href="managetask.php?action=editform&amp;tid={$lists[list].oldtasks[oldtask].ID}&amp;id={$lists[list].ID}" title="{#edit#}"></a>
+									<a class="tool_edit" href="managetask.php?action=editform&amp;tid={$lists[list].oldtasks[oldtask].ID}&amp;id={$project.ID}" title="{#edit#}"></a>
 									{/if}
 									{if $userpermissions.tasks.del}
-									<a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'task_{$lists[list].oldtasks[oldtask].ID}\',\'managetask.php?action=del&amp;tid={$lists[list].oldtasks[oldtask].ID}&amp;id={$lists[list].ID}\')');"  title="{#delete#}"></a>
+									<a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'task_{$lists[list].oldtasks[oldtask].ID}\',\'managetask.php?action=del&amp;tid={$lists[list].oldtasks[oldtask].ID}&amp;id={$project.ID}\')');"  title="{#delete#}"></a>
 									{/if}
 								</td>
 							</tr>
