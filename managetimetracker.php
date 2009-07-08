@@ -169,7 +169,7 @@ if ($action == "add")
 } elseif ($action == "del")
 {
 	/*
-    if ($adminstate < 5)
+    if (!$userpermissions["timetracker"]["del"])
     {
         $template->assign("errortext", "Permission denied.");
         $template->assign("mode", "error");

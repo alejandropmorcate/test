@@ -15,7 +15,7 @@
 				<div id = "datepicker_endfilter" class="picker" style = "display:none;"></div>
 			</div>
 
-	{if $adminstate > 4}
+	{if $userpermissions.admin.add}
 	
 		<div class="row">
 			<label for="usr">{#user#}:</label>

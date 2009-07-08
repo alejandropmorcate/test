@@ -198,8 +198,8 @@ YRCsiSPV34EgcnY.HiqXO2P1ukUMh0.tlLg9JjYxWqgfxgyeT1wUbg_oZ9OJ8Ti1Mg--"></script>
 							<td></td>
 							<td>{$opros[opro].daysleft}</td>
 							<td class="tools">
-								<a class="tool_edit" href="manageproject.php?action=editform&amp;id={$opros[opro].ID}" title="{#edit#}" {if $adminstate < 5}style="visibility:hidden;" {/if}></a>
-								<a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'proj_{$opros[opro].ID}\',\'manageproject.php?action=del&amp;id={$opros[opro].ID}\')');"  title="{#delete#}" {if $adminstate < 5}style="visibility:hidden;" {/if}></a>
+								<a class="tool_edit" href="manageproject.php?action=editform&amp;id={$opros[opro].ID}" title="{#edit#}" {if !$userpermissions.projects.edit}style="visibility:hidden;" {/if}></a>
+								<a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'proj_{$opros[opro].ID}\',\'manageproject.php?action=del&amp;id={$opros[opro].ID}\')');"  title="{#delete#}" {if !$userpermissions.projects.del}style="visibility:hidden;" {/if}></a>
 							</td>
 						</tr>
 
@@ -391,10 +391,11 @@ YRCsiSPV34EgcnY.HiqXO2P1ukUMh0.tlLg9JjYxWqgfxgyeT1wUbg_oZ9OJ8Ti1Mg--"></script>
 							<td>{$tracker[track].endstring|truncate:12:"...":true}</td>
 							<td>{$tracker[track].hours|truncate:12:"...":true}</td>
 							<td class="tools">
-								{if $adminstate > 0}
+								{if $userpermissions.timetracker.edit}
 								<a class="tool_edit" href="managetimetracker.php?action=editform&amp;tid={$tracker[track].ID}&amp;id={$tracker[track].project}" title="{#edit#}"></a>
+								{/if}
+								{if $userpermissions.timetracker.del}
 								<a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'track_{$tracker[track].ID}\',\'managetimetracker.php?action=del&amp;tid={$tracker[track].ID}&amp;id={$project.ID}\')');"  title="{#delete#}"></a>
-
 								{/if}
 							</td>
 						</tr>
