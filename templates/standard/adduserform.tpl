@@ -28,6 +28,7 @@
 		{/section}
 
 	    <div class="clear_both_b"></div>
+		</div>
 
 
 		<div class="row">
