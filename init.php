@@ -28,6 +28,11 @@ if (!empty($db_name) and !empty($db_user))
 
 // Start template engine
 $template = new Smarty();
+// Start Plugin system
+$plugin = new plugin();
+// Load the active Plugins and their events
+$plugins = $plugin->getPlugins();
+
 // get the available languages
 $languages = getAvailableLanguages();
 // get URL to collabtive
@@ -111,6 +116,16 @@ $template->config_dir = CL_ROOT . "/language/$locale/";
 $langfile = readLangfile($locale);
 $template->assign("langfile", $langfile);
 $template->assign("locale", $locale);
+
+$hookMainmenue = array();
+$template->assign("mainmenue",$hookMainmenue);
+
+$plugin->addHookData($template,"mainmenue",array("class"=>"desktop","href"=>"index.php","text"=>"huhu"));
+
+
+$hookAdminsubmenue = array();
+$template->assign("adminsubmenue",$hookAdminsubmenue);
+
 // css classes for headmenue
 // this indicates which of the 3 main stages the user is on
 $mainclasses = array("desktop" => "desktop",
