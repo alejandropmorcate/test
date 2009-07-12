@@ -48,8 +48,8 @@
 							<td></td>
 							<td>
 								<div class="toggle-in">
-								<span class="acc-toggle" onclick="javascript:accord_roles.activate($$('#acc-roles .accordion_toggle')[{$smarty.section.role.index}]);toggleAccordeon('acc-roles',this);"></span>
-									<a href="manageproject.php?action=showproject&amp;id={$roles[role].ID}" title="{$roles[role].name}">
+								<span class="acc-toggle" onclick="accord_roles.activate($$('#acc-roles .accordion_toggle')[{$smarty.section.role.index}]);toggleAccordeon('acc-roles',this);"></span>
+									<a href="javascript:accord_roles.activate($$('#acc-roles .accordion_toggle')[{$smarty.section.role.index}]);toggleAccordeon('acc-roles',this);">
 										{$roles[role].name|truncate:30:"...":true}
 									</a>
 								</div>
@@ -76,6 +76,7 @@
 
         <div class = "row"><label>{#permissions#}:</label>
 
+            {* Permissions for projects *}
             <div class = "row">
             <label></label>
             <label>{#projects#}</label>
@@ -93,6 +94,7 @@
             <label></label><input type = "checkbox" class = "checkbox" value = "1" name = "permissions_projects[close]" {if $roles[role].projects.close}checked{/if}  />{#close#}
             </div>
 
+            {* Permissions for milestones *}
             <div class = "row">
             <label></label>
             <label>{#milestones#}</label>
@@ -110,6 +112,7 @@
             <label></label><input type = "checkbox" class = "checkbox" value = "1" name = "permissions_milestones[close]" {if $roles[role].milestones.close}checked{/if}  />{#close#}
             </div>
 
+            {* Permissions for tasks *}
             <div class = "row">
             <label></label>
             <label>{#tasks#}</label>
@@ -127,6 +130,7 @@
             <label></label><input type = "checkbox" class = "checkbox" value = "1" name = "permissions_tasks[close]" {if $roles[role].tasks.close}checked{/if}  />{#close#}
             </div>
 
+            {* Permissions for messages, close = reply *}
             <div class = "row">
             <label></label>
             <label>{#messages#}</label>
@@ -144,6 +148,7 @@
             <label></label><input type = "checkbox" class = "checkbox" value = "1" name = "permissions_messages[close]" {if $roles[role].messages.close}checked{/if}  />{#answer#}
             </div>
 
+            {* Permissions for files *}
             <div class = "row">
             <label></label>
             <label>{#files#}</label>
@@ -158,6 +163,7 @@
             <label></label><input type = "checkbox" class = "checkbox" value = "1" name = "permissions_files[del]" {if $roles[role].files.del}checked{/if}   />{#delete#}
             </div>
 
+            {* Permissions for timetracker, read = read other's entries *}
             <div class = "row">
             <label></label>
             <label>{#timetracker#}</label>
@@ -183,6 +189,7 @@
             <label></label><input type = "checkbox" class = "checkbox" value = "1" name = "permissions_chat[add]" {if $roles[role].chat.add}checked{/if}  />{#chat#}
             </div>
 
+
             <div class = "row">
             <label></label>
             <label>{#admin#}</label>
@@ -204,6 +211,7 @@
 	</fieldset>
 	</form>
 								</div>
+
 							</td>
 						</tr>
 					</tbody>
