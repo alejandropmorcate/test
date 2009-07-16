@@ -41,7 +41,7 @@ class emailer
 		//send mail as HTML
 		$mailer->IsHTML(true);
 		//set charset
-		$mailer->CharSet = "utf8";
+		$mailer->CharSet = "utf-8";
 		//set mailing method... mail, smtp or sendmail
 		$mailer->Mailer = $this->mailsettings["mailmethod"];
 		//if it's smtp , set the smtp server
