@@ -114,6 +114,8 @@ $rolenum = mysql_fetch_row($sel);
 if ((int) $rolenum[0] < 1)
 {
     // insert default roles
+    mysql_query("ALTER TABLE `roles` ADD `chat` TEXT AFTER `timetracker`"); // needed when updating from before 0.5
+
     $rolesobj = new roles();
 
     $adminrid = $rolesobj->add("Admin", array("add" => 1, "edit" => 1, "del" => 1 , "close" => 1), array("add" => 1, "edit" => 1, "del" => 1, "close" => 1), array("add" => 1, "edit" => 1, "del" => 1, "close" => 1), array("add" => 1, "edit" => 1, "del" => 1, "close" => 1), array("add" => 1, "edit" => 1, "del" => 1), array("add" => 1, "edit" => 1, "del" => 1, "read" => 1), array("add" => 0), array("add" => 1));
