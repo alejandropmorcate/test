@@ -274,9 +274,11 @@ class task
             $details = $this->getTaskDetails($task);
             $list = $details["list"];
             $pname = $details["pname"];
-            // get remainig days until due date
-            $tage = $this->getDaysLeft($task['end']);
-
+            if ($task["end"])
+            {
+                // get remainig days until due date
+                $tage = $this->getDaysLeft($task['end']);
+            }
             $usel = mysql_query("SELECT user FROM tasks_assigned WHERE task = $task[ID]");
             $users = array();
             while ($usr = mysql_fetch_row($usel))
