@@ -401,7 +401,7 @@ function _parseBoolean(value){
 function _checkRegExp(regx, value){
   switch (regx){
   case "EMAIL":
-    return ((/^[0-9a-zA-ZüöäßÄÖÜ]+([\.-]?[0-9a-zA-ZüöäßÄÖÜ]+)*@[0-9a-zA-ZüöäßÄÖÜ]+([\.-]?[0-9a-zA-ZüöäßÄÖÜ]+)*(\.\w{2,5})+$/).test(value));
+    return ((/^[\x21-\x39\x41-\x5a\x5e-\x7e]+@[\x21-\x39\x41-\x5a\x5e-\x7e]+(\.\w{2,5})+$/).test(value));
   case "JSVAL_RX_TEL":
     return ((/^1?[\- ]?\(?\d{3}\)?[\- ]?\d{3}[\- ]?\d{4}$/).test(value));
   case "JSVAL_RX_PC":
