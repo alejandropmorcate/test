@@ -126,7 +126,7 @@
 					<ul>
 					{section name = file loop=$message.files}
 								<li>
-									<div class="itemwrapper" id="iw_{$ordner[file].ID}">
+									<div class="itemwrapper" id="iw_{$message.files[file].ID}">
 
 											<table cellpadding="0" cellspacing="0" border="0">
 												<tr>
@@ -136,11 +136,11 @@
 														</div>
 													</td>
 													<td class="thumb">
-													 	<a href = "{$ordner[file].datei}"{if $ordner[file].imgfile == 1} rel="lytebox[img{$ordner[file].ID}]" {elseif $ordner[file].imgfile == 2} rel = "lyteframe[text{$ordner[file].ID}]"{/if} title="{$ordner[file].name}">
-													 		{if $ordner[file].imgfile == 1}
-													 		<img src = "thumb.php?pic={$ordner[file].datei}&amp;width=32" alt="{$ordner[file].name}" />
+													 	<a href = "{$message.files[file].datei}"{if $message.files[file].imgfile == 1} rel="lytebox[img{$message.files[file].ID}]" {elseif $message.files[file].imgfile == 2} rel = "lyteframe[text{$message.files[file].ID}]"{/if} title="{$message.files[file].name}">
+													 		{if $message.files[file].imgfile == 1}
+													 		<img src = "thumb.php?pic={$message.files[file].datei}&amp;width=32" alt="{$message.files[file].name}" />
 													 		{else}
-													 		<img src = "templates/standard/images/files/{$ordner[file].type}.png" alt="{$ordner[file].name}" />
+													 		<img src = "templates/standard/images/files/{$message.files[file].type}.png" alt="{$message.files[file].name}" />
 													 		{/if}
 													 	</a>
 													</td>
@@ -154,11 +154,11 @@
 												<tr>
 													<td colspan="3">
 														<span class="name">
-															<a href = "{$ordner[file].datei}"{if $ordner[file].imgfile == 1} rel="lytebox[img{$ordner[file].ID}]" {elseif $ordner[file].imgfile == 2} rel = "lyteframe[text{$ordner[file].ID}]"{/if} title="{$ordner[file].name}">
-																{if $ordner[file].title != ""}
-																{$ordner[file].title|truncate:13:"...":true}
+															<a href = "{$message.files[file].datei}"{if $message.files[file].imgfile == 1} rel="lytebox[img{$message.files[file].ID}]" {elseif $message.files[file].imgfile == 2} rel = "lyteframe[text{$message.files[file].ID}]"{/if} title="{$message.files[file].name}">
+																{if $message.files[file].title != ""}
+																{$message.files[file].title|truncate:13:"...":true}
 																{else}
-																{$ordner[file].name|truncate:13:"...":true}
+																{$message.files[file].name|truncate:13:"...":true}
 																{/if}
 															</a>
 														</span>
@@ -268,7 +268,7 @@
 									<div class="acc-in">
 
 											{if $replies[reply].avatar != ""}
-												<div class="avatar"><img src = "thumb.php?width=80&amp;height=80&amp;pic=files/{$cl_config}/avatar/{$replies[reply].avatar}" alt="" /></div>
+												<div class="avatar"><img src = "thumb.php?width=80&amp;height=80&amp;pic=files/{$cl_config}/avatar/{$message.avatar}" alt="" /></div>
 											{else}
 												{if $replies[reply].gender == "f"}
 												<div class="avatar"><img src = "thumb.php?width=80&amp;height=80&amp;pic=templates/standard/images/no-avatar-female.jpg" alt="" /></div>
