@@ -25,7 +25,7 @@
 		{elseif $mode == "listadded"}
 		<span class="info_in_green"><img src="templates/frost/images/symbols/tasklist.png" alt=""/>{#tasklistwasadded#}</span>
         {elseif $mode == "listclosed"}
-		<span class="info_in_red"><img src="templates/frost/images/symbols/tasklist_done.png" alt=""/>{#tasklistwasclosed#}</span>
+		<span class="info_in_red"><img src="templates/frost/images/symbols/tasklist-done.png" alt=""/>{#tasklistwasclosed#}</span>
 		{elseif $mode == "listdeleted"}
 		<span class="info_in_red"><img src="templates/frost/images/symbols/tasklist.png" alt=""/>{#tasklistwasdeleted#}</span>
 		{elseif $mode == "listopened"}
@@ -42,7 +42,7 @@
 
 		<span id = "deassigned" style = "display:none;" class="info_in_yellow"><img src="templates/frost/images/symbols/task.png" alt=""/>{#taskwasdeassigned#}</span>
 		<span id = "listadded" style = "display:none;" class="info_in_green"><img src="templates/frost/images/symbols/tasklist.png" alt=""/>{#tasklistwasadded#}</span>
-        <span id = "listclosed" style = "display:none;" class="info_in_red"><img src="templates/frost/images/symbols/tasklist_done.png" alt=""/>{#tasklistwasclosed#}</span>
+        <span id = "listclosed" style = "display:none;" class="info_in_red"><img src="templates/frost/images/symbols/tasklist-done.png" alt=""/>{#tasklistwasclosed#}</span>
 		<span id = "listdeleted" style = "display:none;" class="info_in_red"><img src="templates/frost/images/symbols/tasklist.png" alt=""/>{#tasklistwasdeleted#}</span>
 		<span id = "listopened" style = "display:none;" class="info_in_green"><img src="templates/frost/images/symbols/tasklist.png" alt=""/>{#tasklistwasopened#}</span>
 
