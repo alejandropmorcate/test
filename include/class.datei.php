@@ -33,6 +33,14 @@ class datei
         $project = (int) $project;
         $folder = mysql_real_escape_string($folder);
         $desc = mysql_real_escape_string($desc);
+        if (is_array($visible))
+        {
+            $visstr = serialize($visible);
+        }
+        else
+        {
+            $visstr = "";
+        }
 
         $folder = str_replace("ä", "ae" , $folder);
         $folder = str_replace("ö", "oe" , $folder);

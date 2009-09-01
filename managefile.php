@@ -297,7 +297,6 @@ if ($action == "upload")
     $desc = getArrayVal($_POST, "folderdesc");
     $parent = getArrayVal($_POST, "folderparent");
     $visible = getArrayVal($_POST, "visible");
-    echo $visible;
     if ($myfile->addFolder($parent, $id, $name, $desc, $visible))
     {
         $loc = $url .= "managefile.php?action=showproject&id=$id&mode=folderadded";
