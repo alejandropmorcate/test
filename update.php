@@ -163,6 +163,8 @@ mysql_query("ALTER TABLE `user` CHANGE `company` `company` VARCHAR( 256 )");
 //0.6
 mysql_query("ALTER TABLE `projectfolders` ADD `parent` INT(10) unsigned NOT NULL default '0' AFTER `ID`");
 mysql_query("ALTER TABLE `projectfolders` ADD `visible` text NOT NULL AFTER `description`");
+mysql_query("ALTER TABLE `files` ADD `visible` text NOT NULL");
+mysql_query("ALTER TABLE `files` ADD `seenby` text NOT NULL");
 
 mysql_query("ALTER TABLE `user` CHANGE `zip` `zip` VARCHAR( 10 )"); // overlooked with 0.5
 // version independent
