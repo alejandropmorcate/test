@@ -1,4 +1,4 @@
-{include file="header.tpl" jsload = "ajax" }
+{include file="header.tpl" jsload = "ajax" jsload1 = "tinymce" }
 
 {include file="tabsmenue-project.tpl" timetab = "active"}
 <div id="content-left">
