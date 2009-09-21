@@ -1,5 +1,5 @@
 Collabtive 0.6.5
-+ Added translation(s): Greek
++ Added translation(s): Greek, Farsi/Persian
 
 Collabtive 0.6
 + Fixed bug where file description of files in subfolders could not be edited.
