@@ -186,6 +186,98 @@ class project
     }
 
     /**
+     * Copy a project
+     * by: Daniel Tlach <danaketh@gmail.com>
+     *
+     * @param int $id ID of project to copy
+     * @return int $insid ID des neu angelegten Projekts
+     */
+    function makecopy($id)
+    {
+        // copy project
+        $q = mysql_query("INSERT INTO projekte (`name`, `desc`, `end`, `start`, `status`, `budget`) SELECT `name`, `desc`, `end`, `start`, `status`, `budget` FROM projekte WHERE ID = " . (int)$id);
+
+        $insid = mysql_insert_id();
+        $uid = $_SESSION['userid'];
+        $this->assign($uid, $insid);
+
+        $milesobj = new milestone();
+        $objtasklist = new tasklist();
+        $objtask = new task();
+
+        if ($q)
+        {
+            // select name of the new project
+            $pname = $this->getProject($insid);
+            // update it with "Copy" so it can be easily identified
+            $name = $pname["name"] . " Copy";
+            mysql_query("UPDATE projekte SET `name` = '$name' WHERE ID = " . $insid . " LIMIT 1");
+            // now copy the milestones
+            $q = mysql_query("SELECT `ID`, `name`, `desc`, `start`, `end` FROM milestones WHERE project = " . $id);
+            $miles = $milesobj->getAllProjectMilestones($id);
+            if (!empty($miles))
+            {
+                // go through the milestones
+                foreach ($miles as $ms)
+                {
+                    // copy milestone
+                    $msid = $milesobj->add($insid, $ms["name"] , $ms["desc"] , $ms["end"] , 1);
+                    // get all tasklists for milestone
+                    $qb = mysql_query("SELECT * FROM tasklist WHERE project = $id AND milestone = $ms[ID]");
+                    if ($qb)
+                    {
+                        // go through the tasklists
+                        while ($tl = mysql_fetch_array($qb))
+                        {
+                            // copy tasklist
+                            $tlid = $objtasklist->add_liste($insid, $tl["name"] , $tl["desc"], 0, $msid);
+                            // get tasks for the tasklist
+                            $tasks = $objtasklist->getTasksFromList($tl["ID"]);
+                            if (!empty($tasks))
+                            {
+                                foreach ($tasks as $task)
+                                {
+                                    $taskobj->add($task["end"], $task["title"] , $task["text"] , $tlid , $uid , $insid);
+                                } // tasks END
+                            }
+                        } // tasklists END
+                    }
+                } // milestones END
+            }
+            // get all tasklists and tasks that do not belong to a milestone
+            $qb = mysql_query("SELECT * FROM tasklist WHERE project = $id AND milestone = 0");
+            if ($qb)
+            {
+                $objtasklist = new tasklist();
+                $objtask = new task();
+                // go through the tasklists
+                while ($tl = mysql_fetch_array($qb))
+                {
+                    // copy tasklist
+                    $tlid = $objtasklist->add_liste($insid, $tl["name"] , $tl["desc"], 0, $msid);
+                    // get tasks for the tasklist
+                    $tasks = $objtasklist->getTasksFromList($tl["ID"]);
+                    if (!empty($tasks))
+                    {
+                        foreach ($tasks as $task)
+                        {
+                            $taskobj->add($task["end"], $task["title"] , $task["text"] , $tlid , $uid , $insid);
+                        } // tasks END
+                    }
+                } // tasklists END
+            }
+
+            mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/$insid/", 0777);
+            $this->mylog->add($name, 'projekt', 1, $insid);
+            return $insid;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
      * Mark a project as "active / open"
      *
      * @param int $id Eindeutige Projektnummer
