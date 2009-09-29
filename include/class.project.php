@@ -187,7 +187,8 @@ class project
 
     /**
      * Copy a project
-     * by: Daniel Tlach <danaketh@gmail.com>
+     * by: Daniel Tlach <danaketh@gmail.com>,
+     * Philipp Kiszka <info@o-dyn.de>
      *
      * @param int $id ID of project to copy
      * @return int $insid ID des neu angelegten Projekts
@@ -207,13 +208,11 @@ class project
 
         if ($q)
         {
-            // select name of the new project
             $pname = $this->getProject($insid);
-            // update it with "Copy" so it can be easily identified
             $name = $pname["name"] . " Copy";
             mysql_query("UPDATE projekte SET `name` = '$name' WHERE ID = " . $insid . " LIMIT 1");
+
             // now copy the milestones
-            $q = mysql_query("SELECT `ID`, `name`, `desc`, `start`, `end` FROM milestones WHERE project = " . $id);
             $miles = $milesobj->getAllProjectMilestones($id);
             if (!empty($miles))
             {
@@ -248,9 +247,7 @@ class project
             $qb = mysql_query("SELECT * FROM tasklist WHERE project = $id AND milestone = 0");
             if ($qb)
             {
-                $objtasklist = new tasklist();
-                $objtask = new task();
-                // go through the tasklists
+               // go through the tasklists
                 while ($tl = mysql_fetch_array($qb))
                 {
                     // copy tasklist
