@@ -1,4 +1,3 @@
-
 	<ul>
 							{section name=fold loop=$folders}
 								<li id = "fdli_{$folders[fold].ID}">
@@ -18,7 +17,9 @@
 													</td>
 													<td class="rightmen" valign="top">
 														<div class="inmenue">
+														{if $userpermissions.files.del}
 															<a class="del" href="javascript:confirmfunction('{$langfile.confirmdel}','deleteElement(\'iw_{$folders[fold].ID}\',\'managefile.php?action=delfolder&amp;id={$project.ID}&amp;folder={$folders[fold].ID}&ajax=1\')');fadeToggle('iw_{$folders[fold].ID}');" title="{#delete#}" onclick=""></a>
+														{/if}
 															<!--<a class="edit" href="#" title="{#editfile#}"></a>-->
 														</div>
 													</td>
@@ -43,11 +44,6 @@
 							{/section} {*lop folder End*}
 
 
-
-
-
-
-
 							{section name=file loop=$files}
 								<li id = "fli_{$files[file].ID}">
 									<div class="itemwrapper" id="iw_{$files[file].ID}">
@@ -70,7 +66,9 @@
 													</td>
 													<td class="rightmen" valign="top">
 														<div class="inmenue">
+														{if $userpermissions.files.del}
 													<a class="del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'iw_{$files[file].ID}\',\'managefile.php?action=delete&amp;id={$project.ID}&amp;file={$files[file].ID}\')');" title="{#delete#}"></a>
+													    {/if}
 														<a class="edit" href="managefile.php?action=editform&amp;id={$project.ID}&amp;file={$files[file].ID}" title="{#editfile#}"></a>
 														</div>
 													</td>

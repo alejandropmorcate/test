@@ -35,8 +35,8 @@ $repeatpass = getArrayVal($_POST, "repeatpass");
 $rate = getArrayVal($_POST, "rate");
 $budget = getArrayVal($_POST, "budget");
 $role = getArrayVal($_POST, "role");
-$rssuser = getArrayVal($_POST,"rssuser" );
-$rsspass = getArrayVal($_POST,"rsspass" );
+$rssuser = getArrayVal($_POST, "rssuser");
+$rsspass = getArrayVal($_POST, "rsspass");
 
 $template->assign("mode", $mode);
 // get the available languages
@@ -52,7 +52,7 @@ $mainclasses = array("desktop" => "desktop",
     );
 $template->assign("mainclasses", $mainclasses);
 
-if (!$userpermissions["admin"]["add"])
+if (!$userpermissions["admin"]["add"] and $action != "addpro")
 {
     $errtxt = $langfile["nopermission"];
     $noperm = $langfile["accessdenied"];
@@ -457,7 +457,15 @@ if ($action == "index")
     $template->display("adminprojects.tpl");
 } elseif ($action == "addpro")
 {
-    echo $budget;
+    if (!$userpermissions["projects"]["add"])
+    {
+        $errtxt = $langfile["nopermission"];
+        $noperm = $langfile["accessdenied"];
+        $template->assign("errortext", "$errtxt<br>$noperm");
+        $template->display("error.tpl");
+        die();
+    }
+
     $add = $project->add($name, $desc, $end, $budget, 0);
     if ($add)
     {
