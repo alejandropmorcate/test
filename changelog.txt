@@ -1,5 +1,24 @@
-Collabtive 0.6.5
-+ Added translation(s): Greek, Farsi/Persian
+Collabtive 0.6.1
++ Fixed some bugs in the frost theme
++ Fixed a UTF-8 entity bug in the mailer component
++ Included missing picture for the upload progressbar
++ Removed some more calls to deprecated session_is_registered() in favor of isset($_SESSION)
++ Fixed a display Bug in Safari/Webkit
++ Fixed role editing in frost
++ Fixed a UI glitch in the login screen where to login-button would disappear onmouseover.
++ Included missing pictures for pagination arrows
++ Fixed inserting default roles fails when updating from an old version due to a missing
+field
++ Fixed a bug where the calendar view would not be displayed on the project page.
++ Tasks without an end-date no longer show as a lot of days overdue
++ Fixed a bug in the formvalidator where it would not accept certain valid e-mail adresses
++ Improved Catalan translation
++ Fixed a security bug where any user could delete any file or folder in projects he belonged to.
++ Fixed editing timetracker data did not show the tinyMCE editor (mloeffen)
++ Fixed bug in TinyMCE textfields where newlines were inserted after editing
++ File manager now stores who uploaded a file in the database. Uploader is displayed in the file list view.
++ First version of a plugin implementation
++ Fixed wrong version number in frost theme
 
 Collabtive 0.6
 + Fixed bug where file description of files in subfolders could not be edited.
@@ -9,6 +28,7 @@ Collabtive 0.6
 + Refactoring of class tasklist. Removed a lot of unneeded code.
 + Refactoring of class message. Removed some uneeded code.
 + Refactoring of class milestone. Removed a lot of unneeded code.
++ Refactoring of class datei. Removed some unneeded code.
 + Fixed a bug in class milestone, preventing milestones with end date "today" from showing up when there where no other milestones.
 + Fixed a bug in the calculation of days left of milestones.
 + When closing or deleting stuff (tasks, milestones, messages, etc) asynchronously, the alternating background color of the table rows is properly restored.
