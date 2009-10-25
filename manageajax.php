@@ -154,7 +154,7 @@ if ($action == "timeline1next")
 {
     $templ = $url . "managesearch.php?action=search&amp;query={searchTerms}";
     $templ2 = $url . "managesearch.php?action=searchjson&amp;query={searchTerms}";
-    $fav = $url . "templates/standard/img/favicon.ico";
+    $fav = $url . "templates/standard/images/favicon.ico";
     $strsearch = $langfile["search"];
     $sysname = $settings["name"];
     echo "
@@ -174,7 +174,7 @@ if ($action == "timeline1next")
 {
     $templ = $url . "managesearch.php?action=projectsearch&amp;project=$project&amp;query={searchTerms}";
     $templ2 = $url . "managesearch.php?action=searchjson-project&amp;project=$project&amp;query={searchTerms}";
-    $fav = $url . "templates/standard/img/favicon.ico";
+    $fav = $url . "templates/standard/images/favicon.ico";
     $project = $_GET['project'];
     $strsearch = $langfile["search"];
     $pro = new project();
@@ -330,7 +330,116 @@ if ($action == "timeline1next")
     $template->assign("files", $finfiles);
     $template->assign("postmax", $POST_MAX_SIZE);
     $template->display("fileview.tpl");
-} elseif ($action == "folderview")
+}
+elseif ($action == "fileview_list")
+{
+    if (!chkproject($userid, $id))
+    {
+        $errtxt = $langfile["notyourproject"];
+        $noperm = $langfile["accessdenied"];
+        $template->assign("errortext", "$errtxt<br>$noperm");
+        $template->display("error.tpl");
+        die();
+    }
+
+    $POST_MAX_SIZE = ini_get('post_max_size');
+    $POST_MAX_SIZE = $POST_MAX_SIZE . "B";
+    $folder = getArrayVal($_GET, "folder");
+
+    $myfile = new datei();
+    $ordner = $myfile->getProjectFiles($id, 1000000, $folder);
+    $finfiles = array();
+    if (!empty($ordner))
+    {
+        foreach($ordner as $file)
+        {
+
+            if ($file["visible"])
+            {
+                $filevis = unserialize($file["visible"]);
+
+                if (is_array($filevis))
+                {
+                    //array_push($filevis, 18);
+                    if (in_array($userpermissions["ID"], $filevis))
+                    {
+                        array_push($finfiles, $file);
+                    }
+                }
+                else
+                {
+                    array_push($finfiles, $file);
+                }
+            }
+            else
+            {
+                array_push($finfiles, $file);
+            }
+        }
+    }
+    $filenum = count($finfiles);
+    if (empty($finfiles))
+    {
+        $filenum = 0;
+    }
+
+    $filenum = count($finfiles);
+    if (empty($finfiles))
+    {
+        $filenum = 0;
+    }
+
+    if ($folder == 0)
+    {
+        $folders = $myfile->getProjectFolders($id);
+    }
+    else
+    {
+        $folders = $myfile->getProjectFolders($id, $folder);
+        $thefolder = $myfile->getFolder($folder);
+        $foldername = $thefolder["name"];
+    }
+
+    $finfolders = array();
+    if (!empty($folders))
+    {
+        foreach($folders as $folder)
+        {
+            if ($folder["visible"])
+            {
+                $foldvis = unserialize($folder["visible"]);
+
+                if (is_array($foldvis))
+                {
+                    if (in_array($userpermissions["ID"], $foldvis))
+                    {
+                        array_push($finfolders, $folder);
+                    }
+                }
+                else
+                {
+                    array_push($finfolders, $folder);
+                }
+            }
+            else
+            {
+                array_push($finfolders, $folder);
+            }
+        }
+
+        $template->assign("folders", $finfolders);
+    }
+    $template->assign("filenum", $filenum);
+    $template->assign("foldername", $foldername);
+    $template->assign("folderid", $thefolder["parent"]);
+    $template->assign("langfile", $langfile);
+    SmartyPaginate::assign($template);
+    $template->assign("files", $finfiles);
+    $template->assign("postmax", $POST_MAX_SIZE);
+    $template->display("fileview_list.tpl");
+}
+
+elseif ($action == "folderview")
 {
     if (!chkproject($userid, $id))
     {
