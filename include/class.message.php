@@ -302,7 +302,7 @@ class message
         $myfile = new datei();
         if ($fid > 0)
         {
-            $ins = mysql_query("INSERT INTO files_attached (file,message) VALUES ($fid,$mid)");
+            $ins = mysql_query("INSERT INTO files_attached (ID,file,message) VALUES ('',$fid,$mid)");
         }
         else
         {
@@ -312,7 +312,7 @@ class message
             for($i = 1;$i <= $num;$i++)
             {
                 $fid = $myfile->upload("userfile$i", "files/" . CL_CONFIG . "/$id", $id);
-                $ins = mysql_query("INSERT INTO files_attached (file,message) VALUES ($fid,$mid)");
+                $ins = mysql_query("INSERT INTO files_attached (ID,file,message) VALUES ('',$fid,$mid)");
             }
         }
         if ($ins)

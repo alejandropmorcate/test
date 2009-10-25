@@ -256,7 +256,7 @@ class search
                 $result["ftype"] = str_replace("/", "-", $result["type"]);
                 $set = new settings();
                 $settings = $set->getSettings();
-                $myfile = CL_ROOT . "/templates/" . $settings["template"] . "/img/symbols/files/" . $result["ftype"] . ".png";
+                $myfile = CL_ROOT . "/templates/" . $settings["template"] . "/images/files/" . $result["ftype"] . ".png";
                 if (stristr($result["type"], "image"))
                 {
                     $result["imgfile"] = 1;

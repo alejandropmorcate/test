@@ -23,7 +23,7 @@ class task
     {
 
         $this->mylog = new mylog;
-        $plugin =  new plugin();
+        $this->plugins =  new plugin();
        // $this->plugins = $plugin->loadPlugins();
     }
 
@@ -78,7 +78,7 @@ class task
             // logentry
             $nameproject = $this->getNameProject($insid);
             $this->mylog->add($nameproject[0], 'task', 1, $nameproject[1]);
-            //$this->plugins->callSignalFuncs("task","add",$insid);
+            $this->plugins->callSignalFuncs("task","add",$insid);
             return $insid;
         }
         else
@@ -115,7 +115,7 @@ class task
         {
             $nameproject = $this->getNameProject($id);
             $this->mylog->add($nameproject[0], 'task', 2, $nameproject[1]);
-            $this->plugins->callSignalFuncs("task","add");
+            $this->plugins->callSignalFuncs("task","edit");
             return true;
         }
         else
@@ -274,11 +274,9 @@ class task
             $details = $this->getTaskDetails($task);
             $list = $details["list"];
             $pname = $details["pname"];
-            if ($task["end"])
-            {
-                // get remainig days until due date
-                $tage = $this->getDaysLeft($task['end']);
-            }
+            // get remainig days until due date
+            $tage = $this->getDaysLeft($task['end']);
+
             $usel = mysql_query("SELECT user FROM tasks_assigned WHERE task = $task[ID]");
             $users = array();
             while ($usr = mysql_fetch_row($usel))
