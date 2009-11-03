@@ -105,7 +105,7 @@
 													<td class="rightmen" valign="top">
 														<div class="inmenue">
 														{if $userpermissions.files.del}
-															<a class="del" href="javascript:confirmit('{#confirmdel#}','deleteElement(\'iw_{$folders[fold].ID}\',\'managefile.php?action=delfolder&amp;id={$project.ID}&amp;folder={$folders[fold].ID}&ajax=1\')');fadeToggle('iw_{$folders[fold].ID}');" title="{#delete#}" ></a>
+															<a class="del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'iw_{$folders[fold].ID}\',\'managefile.php?action=delfolder&amp;id={$project.ID}&amp;folder={$folders[fold].ID}&ajax=1\')');fadeToggle('iw_{$folders[fold].ID}');" title="{#delete#}" ></a>
 															<!-- <a class="edit" href="#" title="{#editfile#}"></a>-->
 														{/if}
                                                         </div>
