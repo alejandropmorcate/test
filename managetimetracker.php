@@ -449,7 +449,7 @@ if ($action == "add")
     $end = getArrayVal($_POST, "end");
     $usr = getArrayVal($_POST, "usr");
     $taski = getArrayVal($_POST, "task");
-echo "usr". $usr;
+
     $task = new task();
     $ptasks = $task->getProjectTasks($id, 1);
     $tracker = (object) new timetracker();
