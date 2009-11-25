@@ -9,12 +9,16 @@ if (!session_is_registered("userid"))
     die();
 }
 */
-
+if (!isset($_SESSION["userid"]))
+{
+    $template->assign("loginerror", 0);
+    $template->display("login.tpl");
+    die();
+}
 $l = Array();
 $l['a_meta_charset'] = 'UTF-8';
 $l['a_meta_dir'] = 'ltr';
 $l['a_meta_language'] = 'en';
-
 // TRANSLATIONS --------------------------------------
 $l['w_page'] = 'page';
 // create timetracker instance
@@ -51,7 +55,7 @@ $strday = utf8_decode($langfile["day"]);
 $strended = utf8_decode($langfile["ended"]);
 $strhours = utf8_decode($langfile["hours"]);
 $strtask = utf8_decode($langfile["task"]);
-//$strtimetable = utf8_decode($langfile["timetable"]);
+// $strtimetable = utf8_decode($langfile["timetable"]);
 $strcomment = utf8_decode($langfile["comment"]);
 
 if (empty($usr))
@@ -75,7 +79,7 @@ $template->assign("classes", $classes);
 
 if ($action == "add")
 {
-	$ajaxreq = $_GET["ajaxreq"];
+    $ajaxreq = $_GET["ajaxreq"];
     if ($tracker->add($userid, $tproject, $task, $comment , $started, $ended, $logdate))
     {
         $redir = urldecode($redir);
@@ -83,10 +87,9 @@ if ($action == "add")
         {
             $redir = $url . $redir;
             header("Location: $redir");
-        }
-        elseif($ajaxreq == 1)
+        } elseif ($ajaxreq == 1)
         {
-        	echo "ok";
+            echo "ok";
         }
         else
         {
@@ -168,7 +171,7 @@ if ($action == "add")
     }
 } elseif ($action == "del")
 {
-	/*
+    /*
     if (!$userpermissions["timetracker"]["del"])
     {
         $template->assign("errortext", "Permission denied.");
@@ -188,10 +191,9 @@ if ($action == "add")
         }
         else
         {
-            //$loc = $url . "managetimetracker.php?action=showproject&id=$id&mode=deleted";
-        	echo "ok";
+            // $loc = $url . "managetimetracker.php?action=showproject&id=$id&mode=deleted";
+            echo "ok";
         }
-
     }
 } elseif ($action == "projectxls")
 {
@@ -248,81 +250,80 @@ if ($action == "add")
         $template->display("error.tpl");
         die();
     }
-	$sel = mysql_query("SELECT name FROM projekte WHERE ID = $id");
-	$pname = mysql_fetch_row($sel);
-	$pname = $pname[0];
+    $sel = mysql_query("SELECT name FROM projekte WHERE ID = $id");
+    $pname = mysql_fetch_row($sel);
+    $pname = $pname[0];
 
-	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true);
-	$pdf->SetHeaderData("", 0,"" , $langfile["timetable"] . " " . $pname);
+    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true);
+    $pdf->SetHeaderData("", 0, "" , $langfile["timetable"] . " " . $pname);
 
-	$pdf->setHeaderFont(Array(PDF_FONT_NAME_DATA, '', 20));
-	$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', 8));
-	$pdf->SetHeaderMargin(0);
-	$pdf->SetFont(PDF_FONT_NAME_DATA, "", 11);
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_DATA, '', 20));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', 8));
+    $pdf->SetHeaderMargin(0);
+    $pdf->SetFont(PDF_FONT_NAME_DATA, "", 11);
 
-	$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-	$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-	$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-	$pdf->setLanguageArray($l);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+    $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+    $pdf->setLanguageArray($l);
 
-	$pdf->AliasNbPages();
-	$pdf->AddPage();
+    $pdf->AliasNbPages();
+    $pdf->AddPage();
 
-	$htmltable =  "<table border=\"1\" bordercolor = \"#d9dee8\" >
+    $htmltable = "<table border=\"1\" bordercolor = \"#d9dee8\" >
 	<tr bgcolor=\"#d9dee8\" style=\"font-weight:bold;\">
 	<th align=\"center\">$langfile[user]</th><th align=\"center\">$langfile[task]</th><th align=\"center\">$langfile[comment]</th><th align=\"center\">$langfile[started] - $langfile[ended]</th><th align=\"center\">$langfile[hours]</th>
 	</tr>";
-	if (!empty($start) and !empty($end))
-	{
-		$track = $tracker->getProjectTrack($id, $usr, $taski, $start, $end, 1000);
-	}
-	else
-	{
-	    $track = $tracker->getProjectTrack($id, $usr , $taski, 0, 0, 1000);
-	}
-	$thetrack = array();
-	if (!empty($track))
-	{
-	 	$i = 0;
-	    foreach($track as $tra)
-	    {
-	        if (empty($tra["tname"]))
-	        {
-	            $tra["tname"] = "";
-	        }
-	        $hrs = round($tra["hours"], 2);
-			$hrs = number_format($hrs, 2, ",", ".");
+    if (!empty($start) and !empty($end))
+    {
+        $track = $tracker->getProjectTrack($id, $usr, $taski, $start, $end, 1000);
+    }
+    else
+    {
+        $track = $tracker->getProjectTrack($id, $usr , $taski, 0, 0, 1000);
+    }
+    $thetrack = array();
+    if (!empty($track))
+    {
+        $i = 0;
+        foreach($track as $tra)
+        {
+            if (empty($tra["tname"]))
+            {
+                $tra["tname"] = "";
+            }
+            $hrs = round($tra["hours"], 2);
+            $hrs = number_format($hrs, 2, ",", ".");
 
-	        $tra["comment"] = strip_tags($tra["comment"]);
+            $tra["comment"] = strip_tags($tra["comment"]);
 
-	        if($i % 2 == 0)
-	        {
-	         	$fill = "#ffffff";
-	        }
-	        else
-	        {
-	          	$fill = "#d9dee8";
-	        }
-	        $i = $i + 1;
+            if ($i % 2 == 0)
+            {
+                $fill = "#ffffff";
+            }
+            else
+            {
+                $fill = "#d9dee8";
+            }
+            $i = $i + 1;
 
-			$htmltable .=
-			"<tr bgcolor=\"$fill\">
+            $htmltable .= "<tr bgcolor=\"$fill\">
 			<td>$tra[uname]</td>
 			<td>$tra[tname]</td>
 			<td>$tra[comment]</td>
 			<td align=\"center\">$tra[startstring] - $tra[endstring]</td>
 			<td align=\"right\">$hrs</td>
 			</tr>";
-	    }
+        }
 
-	    $totaltime = $tracker->getTotalTrackTime($track);
-	    $totaltime = str_replace(".", ",", $totaltime);
+        $totaltime = $tracker->getTotalTrackTime($track);
+        $totaltime = str_replace(".", ",", $totaltime);
 
-	    $htmltable .= "<tr><td colspan=\"5\" align=\"right\">$totaltime</td></tr></table>";
+        $htmltable .= "<tr><td colspan=\"5\" align=\"right\">$totaltime</td></tr></table>";
 
-		$pdf->writeHTML($htmltable, true, 0, true, 0);
-		$pdf->Output("project-$id-timetable.pdf", "D");
-	}
+        $pdf->writeHTML($htmltable, true, 0, true, 0);
+        $pdf->Output("project-$id-timetable.pdf", "D");
+    }
 } elseif ($action == "userxls")
 {
     $excel = new xls(CL_ROOT . "/files/" . CL_CONFIG . "/ics/user-$id-timetrack.xls");
@@ -343,7 +344,7 @@ if ($action == "add")
         {
             $hrs = round($tra["hours"], 2);
             $hrs = str_replace(".", ",", $hrs);
-            $myArr = array($tra["pname"], $tra["tname"],$tra["comment"], $tra["daystring"], $tra["startstring"], $tra["endstring"], $hrs);
+            $myArr = array($tra["pname"], $tra["tname"], $tra["comment"], $tra["daystring"], $tra["startstring"], $tra["endstring"], $hrs);
             $excel->writeLine($myArr);
         }
 
@@ -377,27 +378,27 @@ if ($action == "add")
     $uname = mysql_fetch_array($sel);
     $uname = $uname[0];
 
-	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true);
-	$pdf->SetHeaderData("", 0, "", $langfile["timetable"] . " " . $uname);
-	$pdf->setHeaderFont(Array(PDF_FONT_NAME_DATA, '', 20));
-	$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', 8));
-	$pdf->SetHeaderMargin(0);
-	$pdf->SetFont(PDF_FONT_NAME_DATA, "", 11);
-	$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-	$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-	$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-	$pdf->setLanguageArray($l);
-	$pdf->AliasNbPages();
-	$pdf->AddPage();
+    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true);
+    $pdf->SetHeaderData("", 0, "", $langfile["timetable"] . " " . $uname);
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_DATA, '', 20));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', 8));
+    $pdf->SetHeaderMargin(0);
+    $pdf->SetFont(PDF_FONT_NAME_DATA, "", 11);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+    $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+    $pdf->setLanguageArray($l);
+    $pdf->AliasNbPages();
+    $pdf->AddPage();
 
-	$htmltable = "<table border=\"1\" bordercolor = \"#d9dee8\" >
+    $htmltable = "<table border=\"1\" bordercolor = \"#d9dee8\" >
 	<tr bgcolor=\"#d9dee8\" style=\"font-weight:bold;\">
 	<th align=\"center\">$langfile[project]</th><th align=\"center\">$langfile[task]</th><th align=\"center\">$langfile[comment]</th><th align=\"center\">$langfile[started] - $langfile[ended]</th><th align=\"center\">$langfile[hours]</th>
 	</tr>";
 
     if (!empty($track))
     {
-		$i = 0;
+        $i = 0;
         foreach($track as $tra)
         {
             if (empty($tra["tname"]))
@@ -405,20 +406,19 @@ if ($action == "add")
                 $tra["tname"] = "";
             }
             $hrs = round($tra["hours"], 2);
-			$hrs = number_format($hrs, 2, ",", ".");
+            $hrs = number_format($hrs, 2, ",", ".");
 
             $tra["comment"] = strip_tags($tra["comment"]);
-            if($i % 2 == 0)
+            if ($i % 2 == 0)
             {
-            	$fill = "#ffffff";
+                $fill = "#ffffff";
             }
             else
             {
-            	$fill = "#d9dee8";
+                $fill = "#d9dee8";
             }
             $i = $i + 1;
-			$htmltable .=
-			"<tr bgcolor=\"$fill\">
+            $htmltable .= "<tr bgcolor=\"$fill\">
 			<td>$tra[pname]</td>
 			<td>$tra[tname]</td>
 			<td>$tra[comment]</td>
@@ -430,16 +430,16 @@ if ($action == "add")
         $totaltime = $tracker->getTotalTrackTime($track);
         $totaltime = str_replace(".", ",", $totaltime);
 
-     	$htmltable .= "<tr><td colspan=\"5\" align=\"right\">$totaltime</td></tr></table>";
+        $htmltable .= "<tr><td colspan=\"5\" align=\"right\">$totaltime</td></tr></table>";
 
-		$pdf->writeHTML($htmltable, true, 0, true, 0);
-		$pdf->Output("user-$uname-timetable.pdf", "D");
+        $pdf->writeHTML($htmltable, true, 0, true, 0);
+        $pdf->Output("user-$uname-timetable.pdf", "D");
     }
 } elseif ($action == "showproject")
 {
+    $start = getArrayVal($_POST, "start");
+    $end = getArrayVal($_POST, "end");
 
-    $start = urldecode($start);
-    $end = urldecode($end);
     if (!chkproject($userid, $id))
     {
         $errtxt = $langfile["notyourproject"];
@@ -451,20 +451,20 @@ if ($action == "add")
     $task = new task();
     $ptasks = $task->getProjectTasks($id, 1);
     $tracker = (object) new timetracker();
-    if(!$usr)
-	{
-		    if (!$userpermissions["timetracker"]["read"])
-    		{
-      			$usr = $userid;
-      		}
-      		else
-      		{
-      			$usr = 0;
-      		}
-	}
+    if (!$usr)
+    {
+        if (!$userpermissions["timetracker"]["read"])
+        {
+            $usr = $userid;
+        }
+        else
+        {
+            $usr = 0;
+        }
+    }
     if (!empty($start) and !empty($end))
     {
-    	$track = $tracker->getProjectTrack($id, $usr, $taski, $start, $end);
+        $track = $tracker->getProjectTrack($id, $usr, $taski, $start, $end);
     }
     else
     {
@@ -479,7 +479,7 @@ if ($action == "add")
         $template->assign("end", $end);
     }
     $pro = new project();
-    $usrs = $pro->getProjectMembers($id,1000,false);
+    $usrs = $pro->getProjectMembers($id, 1000, false);
     $proj = $pro->getProject($id);
     $projectname = $proj["name"];
     $template->assign("projectname", $projectname);
@@ -495,4 +495,5 @@ if ($action == "add")
     SmartyPaginate::assign($template);
     $template->display("tracker_project.tpl");
 }
+
 ?>
