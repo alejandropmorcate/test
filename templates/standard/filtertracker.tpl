@@ -22,7 +22,7 @@
 			<select name="usr" id="usr" required="0" realname="{#user#}" />
 				<option value = "">{#chooseone#}</option>
 				{section name = usi loop=$users}
-				<option value = "{$users[usi].user}" {if $users[usi].ID == $usr}selected="selected"{/if}>{$users[usi].name}</option>
+				<option value = "{$users[usi].ID}" {if $users[usi].ID == $usr}selected="selected"{/if}>{$users[usi].name}</option>
 				{/section}
 			</select>
 		</div>

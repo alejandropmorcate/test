@@ -437,9 +437,6 @@ if ($action == "add")
     }
 } elseif ($action == "showproject")
 {
-    $start = getArrayVal($_POST, "start");
-    $end = getArrayVal($_POST, "end");
-
     if (!chkproject($userid, $id))
     {
         $errtxt = $langfile["notyourproject"];
@@ -448,6 +445,11 @@ if ($action == "add")
         $template->display("error.tpl");
         die();
     }
+    $start = getArrayVal($_POST, "start");
+    $end = getArrayVal($_POST, "end");
+    $usr = getArrayVal($_POST, "usr");
+    $taski = getArrayVal($_POST, "task");
+echo "usr". $usr;
     $task = new task();
     $ptasks = $task->getProjectTasks($id, 1);
     $tracker = (object) new timetracker();
@@ -464,11 +466,11 @@ if ($action == "add")
     }
     if (!empty($start) and !empty($end))
     {
-        $track = $tracker->getProjectTrack($id, $usr, $taski, $start, $end);
+        $track = $tracker->getProjectTrack($id, $usr, $taski[0], $start, $end);
     }
     else
     {
-        $track = $tracker->getProjectTrack($id, $usr, $taski);
+        $track = $tracker->getProjectTrack($id, $usr, $taski[0]);
     }
     if (!empty($track))
     {
