@@ -26,7 +26,7 @@
 			<div class="row">
 						<label for="file">{#file#}:</label>
 						<div class="fileinput" >
-								<input type="file" class="file" name="importfile" id="importfile" required="0" realname="{#file#}" size="26" onchange = "file.value = this.value;" />
+								<input type="file" class="file" name="importfile" id="importfile"  realname="{#file#}" size="26" onchange = "file.value = this.value;" />
 								<table class = "faux" cellpadding="0" cellspacing="0" border="0" style="padding:0;margin:0;border:none;">
 									<tr>
 									<td><input type="text" class="text-file" name = "userfile1" id="file" required="1" realname="{#file#}"></td>

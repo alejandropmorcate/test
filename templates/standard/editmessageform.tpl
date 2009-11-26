@@ -23,8 +23,8 @@
 					<form class="main" method="post" action="managemessage.php?action=edit&amp;id={$project.ID}" {literal}onsubmit="return validateCompleteForm(this);"{/literal}>
 					<fieldset>
 						<div class="row"><label for="title">{#title#}:</label><input type="text" value="{$message.title}" name="title" id="title" required="1" realname="{#title#}"/></div>
-						<div class="row"><label for="text">{#text#}</label><div class="editor"><textarea name="text" id="text" required="0" realname="{#text#}" rows="3" cols="1" >{$message.text}</textarea></div></div>
-						<div class="row"><label for="tags">{#tags#}:</label><input type="text" value="{$message.tags}" name="tags" id="tags" required="0" realname="{#tags#}"/></div>
+						<div class="row"><label for="text">{#text#}</label><div class="editor"><textarea name="text" id="text"  realname="{#text#}" rows="3" cols="1" >{$message.text}</textarea></div></div>
+						<div class="row"><label for="tags">{#tags#}:</label><input type="text" value="{$message.tags}" name="tags" id="tags"  realname="{#tags#}"/></div>
 						<input type="hidden" name="mid" value="{$message.ID}" />
 
 						<div class="row-butn-bottom">

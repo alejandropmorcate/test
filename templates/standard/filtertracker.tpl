@@ -3,13 +3,13 @@
 
 	<form class="main" method="post" action="managetimetracker.php?action=showproject&id={$project.ID}" {literal}onsubmit="return validateCompleteForm(this);"{/literal} >
 	<fieldset>
-		<div class="row"><label for="start">{#start#}:</label><input type="text" class="text" name="start" id="start" required="0" realname="{#start#}" onfocus = "dpck.close();" value = "{$start}" /></div>
+		<div class="row"><label for="start">{#start#}:</label><input type="text" class="text" name="start" id="start"  realname="{#start#}" onfocus = "dpck.close();" value = "{$start}" /></div>
 
 			<div class="datepick">
 				<div id = "datepicker_startfilter" class="picker" style = "display:none;"></div>
 			</div>
 
-		<div class="row"><label for="end">{#end#}:</label><input type="text" class="text" name="end" id="end" required="0" realname="{#end#}" onfocus = "dpck2.close();" value = "{$end}"/></div>
+		<div class="row"><label for="end">{#end#}:</label><input type="text" class="text" name="end" id="end"  realname="{#end#}" onfocus = "dpck2.close();" value = "{$end}"/></div>
 
 			<div class="datepick">
 				<div id = "datepicker_endfilter" class="picker" style = "display:none;"></div>
@@ -19,7 +19,7 @@
 
 		<div class="row">
 			<label for="usr">{#user#}:</label>
-			<select name="usr" id="usr" required="0" realname="{#user#}" />
+			<select name="usr" id="usr"  realname="{#user#}" />
 				<option value = "">{#chooseone#}</option>
 				{section name = usi loop=$users}
 				<option value = "{$users[usi].ID}" {if $users[usi].ID == $usr}selected="selected"{/if}>{$users[usi].name}</option>

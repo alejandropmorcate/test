@@ -5,7 +5,7 @@
 	<fieldset>
 		<div class="row"><label for="name">{#name#}:</label><input type="text" class="text" name="name" id="name" required="1" realname="{#name#}" /></div>
 		<!--
-		<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc" required="0" rows="3" cols="1" ></textarea></div></div>
+		<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc"  rows="3" cols="1" ></textarea></div></div>
         -->
 		<div class="clear_both_b"></div>
         <div class = "row"><label>{#permissions#}:</label>

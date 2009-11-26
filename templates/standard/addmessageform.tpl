@@ -12,7 +12,7 @@
 
 	<div class="row">
 		<label for="text">{#text#}:</label>
-		<div class="editor"><textarea name="text" id="text" required="0" realname="{#text#}" rows="3" cols="1" ></textarea></div>
+		<div class="editor"><textarea name="text" id="text"  realname="{#text#}" rows="3" cols="1" ></textarea></div>
 	</div>
 
 
@@ -66,7 +66,7 @@
 				<div class="row"><label for = "title">{#title#}:</label><input type = "text" name = "userfile1-title" id="title" /></div>
 				<div class="row">	<label for="file">{#file#}:</label>
 					<div class="fileinput" >
-							<input type="file" class="file" name="userfile1" id="file" required="0" realname="{#file#}" size="26" onchange = "file_{$myprojects[project].ID}.value = this.value;" />
+							<input type="file" class="file" name="userfile1" id="file"  realname="{#file#}" size="26" onchange = "file_{$myprojects[project].ID}.value = this.value;" />
 							<table class = "faux" cellpadding="0" cellspacing="0" border="0" style="padding:0;margin:0;border:none;">
 								<tr>
 									<td><input type="text" class="text-file" name = "file-$myprojects[project].ID" id="file_{$myprojects[project].ID}"></td>
@@ -83,13 +83,13 @@
 
 	<div class="row">
 		<label for="tags">{#tags#}:</label>
-		<input type="text" name="tags" id="tags" required="0" realname="{#tags#}" />
+		<input type="text" name="tags" id="tags"  realname="{#tags#}" />
 	</div>
 
 
 	<div class="row">
 		<label for="milestone">{#milestone#}:</label>
-		<select name="milestone" id="milestone" required="0" realname="{#milestone#}">
+		<select name="milestone" id="milestone"  realname="{#milestone#}">
 			<option value="0" selected="selected">{#chooseone#}</option>
 			{section name=stone loop=$milestones}
 			<option value="{$milestones[stone].ID}">{$milestones[stone].name}</option>

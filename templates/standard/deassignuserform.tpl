@@ -21,7 +21,7 @@
 					        <option value = "0" selected>{#deletetasks#}</option>
                             {section name=member loop=$members}
                             {if $members[member].ID != $user.ID}
-                            <option value="{$members[member].ID}" required="0" />{$members[member].name}</option>
+                            <option value="{$members[member].ID}"  />{$members[member].name}</option>
                             {/if}
                             {/section}
                             </select>

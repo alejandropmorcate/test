@@ -4,13 +4,13 @@
 	<form class="main" method="post" action="admin.php?action=addpro" {literal}onsubmit="return validateCompleteForm(this);"{/literal} >
 	<fieldset>
 		<div class="row"><label for="name">{#name#}:</label><input type="text" class="text" name="name" id="name" required="1" realname="{#name#}" /></div>
-		<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc" required="0" rows="3" cols="1" ></textarea></div></div>
+		<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc"  rows="3" cols="1" ></textarea></div></div>
 
 	    <div class="clear_both_b"></div>
 
 		<div class="row">
 		<label for="end">{#due#}:</label>
-		<input type="text" class="text" name="end"  id="end" required="0" realname="{#due#}" regexp="{literal}\d{2}.\d{2}.\d{4}{/literal}" />
+		<input type="text" class="text" name="end"  id="end"  realname="{#due#}" regexp="{literal}\d{2}.\d{2}.\d{4}{/literal}" />
 		</div>
 
 		<div class="datepick">
@@ -35,7 +35,7 @@
 		<div style="float:left;">
         {section name=user loop=$users}
 	        <div class="row">
-	        <input type="checkbox" class="checkbox" value="{$users[user].ID}" name="assignto[]" id="{$users[user].ID}" required="0" {if $users[user].ID == $userid} checked="checked"{/if} /><label for="{$users[user].ID}">{$users[user].name}</label><br />
+	        <input type="checkbox" class="checkbox" value="{$users[user].ID}" name="assignto[]" id="{$users[user].ID}"  {if $users[user].ID == $userid} checked="checked"{/if} /><label for="{$users[user].ID}">{$users[user].name}</label><br />
 	      	</div>
 	    {/section}
 	    </div>

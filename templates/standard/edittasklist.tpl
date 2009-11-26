@@ -28,11 +28,11 @@
 					<fieldset>
 
 						<div class="row"><label for="name">{#name#}:</label><input type="text" value="{$tasklist.name}" name="name" id="name" required="1" realname="{#name#}" /></div>
-						<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc" required="0" rows="3" cols="1" >{$tasklist.desc}</textarea></div></div>
+						<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc"  rows="3" cols="1" >{$tasklist.desc}</textarea></div></div>
 
 						<div class="row">
 						<label for="milestone">{#milestone#}:</label>
-						<select name="milestone" id="milestone" required="0">
+						<select name="milestone" id="milestone" >
 							{section name=stone loop=$milestones}
 							<option value="{$milestones[stone].ID}" {if $tasklist.milestone == $milestones[stone].ID}selected = "selected"{/if}>{$milestones[stone].name}</option>
 							{/section}

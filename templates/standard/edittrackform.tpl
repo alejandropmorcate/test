@@ -25,7 +25,7 @@
 					<fieldset>
 
                     <div class="row"><label for="ttask">{#task#}:</label>
-					<select name="ttask" class="select" id="ttask" required="0">
+					<select name="ttask" class="select" id="ttask" >
 					<option value = "" {if $track.task < 1}selected = "selected"{/if} >{#noassociatedtask#}</option>
                     {section name=task loop=$tasks}
                     <option value="{$tasks[task].ID}" {if $tasks[task].ID == $track.task}selected = "selected"{/if}>{$tasks[task].name}</option>
@@ -48,7 +48,7 @@
 
                     <div class="row"><label for="started">{#started#}:</label><input type="text" class="text" value="{$track.started}" name="started" id="started" required="1" realname="{#started#}" /></div>
                     <div class="row"><label for="ended">{#ended#}:</label><input type="text" class="text" value="{$track.ended}" name="ended" id="ended" required="1" realname="{#ended#}" /></div>
-                    <div class="row"><label for="comment">{#comment#}:</label><textarea name="comment" id="comment" required="0" rows="3" cols="1" >{$track.comment}</textarea></div>
+                    <div class="row"><label for="comment">{#comment#}:</label><textarea name="comment" id="comment"  rows="3" cols="1" >{$track.comment}</textarea></div>
 
 
 					<div class="row">

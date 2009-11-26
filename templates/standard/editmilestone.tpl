@@ -29,7 +29,7 @@
 					<fieldset>
 
 					<div class="row"><label for="name">{#name#}:</label><input type="text" value="{$milestone.name}" name="name" id="name" required="1" realname="{#name#}" /></div>
-					<div class="row"><label for="desc">{#description#}:</label><textarea name="desc" id="desc" required="0" rows="3" cols="1">{$milestone.desc}</textarea></div>
+					<div class="row"><label for="desc">{#description#}:</label><textarea name="desc" id="desc"  rows="3" cols="1">{$milestone.desc}</textarea></div>
 					<div class="row"><label for="end">{#end#}:</label><input type="text" value="{$milestone.endstring}" name="end"  id="end" required="1" realname="{#end#}" /></div>
 
 					<div class="datepick">
