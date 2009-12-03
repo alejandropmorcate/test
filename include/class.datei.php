@@ -33,14 +33,6 @@ class datei
         $project = (int) $project;
         $folder = mysql_real_escape_string($folder);
         $desc = mysql_real_escape_string($desc);
-        if (is_array($visible))
-        {
-            $visstr = serialize($visible);
-        }
-        else
-        {
-            $visstr = "";
-        }
 
         $folder = str_replace("ä", "ae" , $folder);
         $folder = str_replace("ö", "oe" , $folder);
@@ -57,7 +49,7 @@ class datei
             $makefolder = CL_ROOT . "/files/" . CL_CONFIG . "/$project/$folder/";
             if (!file_exists($makefolder))
             {
-                if (mkdir($makefolder, 0777))
+                if (mkdir($makefolder, 0777, true))
                 {
                     // folder created return true
                     return true;
@@ -231,7 +223,8 @@ class datei
         $tstr = $fname . "-title";
         $tastr = $fname . "-tags";
         $visible = $_POST["visible"];
-        if (is_array($visible))
+
+        if (!empty($visible[0]))
         {
             $visstr = serialize($visible);
         }
@@ -296,6 +289,7 @@ class datei
             if (move_uploaded_file($tmp_name, $datei_final))
             {
                 $filesize = filesize($datei_final);
+
                 if ($project > 0)
                 {
                     /**
@@ -450,6 +444,13 @@ class datei
             $file["title"] = stripslashes($file["title"]);
             $file["desc"] = stripslashes($file["desc"]);
             $file["tags"] = stripslashes($file["tags"]);
+            $file["size"] = filesize($file["datei"]) / 1024;
+            $file["size"] = round($file["size"]);
+            $file["addedstr"] = date("d.m.y",$file["added"]);
+            $userobj = new user();
+            $file["userdata"] = $userobj->getProfile($file["user"]);
+
+
 
             return $file;
         }
@@ -678,10 +679,11 @@ class datei
         $project = (int) $project;
         $milestone = (int) $milestone;
         $folder = (int) $folder;
+        $userid = $_SESSION["userid"];
         $type = mysql_real_escape_string($type);
         $title = mysql_real_escape_string($title);
         $now = time();
-        $ins = mysql_query("INSERT INTO files (`name`,`desc`,`project`,`milestone`,`tags`,`added`,`datei`,`type`,`title`,`folder`,`visible`) VALUES ('$name','$desc',$project,$milestone,'$tags','$now','$datei','$type','$title','$folder','$visstr')");
+        $ins = mysql_query("INSERT INTO files (`name`,`desc`,`project`,`milestone`,`user`,`tags`,`added`,`datei`,`type`,`title`,`folder`,`visible`) VALUES ('$name','$desc',$project,$milestone,$userid,'$tags','$now','$datei','$type','$title','$folder','$visstr')");
 
         if ($ins)
         {
