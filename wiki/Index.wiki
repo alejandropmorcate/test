@@ -1,5 +1,3 @@
-#The starting point for the Wiki
-
 = Collabtive wiki =
 
   * [Index Known problems]
