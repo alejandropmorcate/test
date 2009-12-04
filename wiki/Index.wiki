@@ -1,4 +1,3 @@
-#labels Featured
 = Collabtive wiki =
   * [FAQ]
   * [KnownProblems Known problems]
