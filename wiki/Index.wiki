@@ -1,0 +1,3 @@
+#The starting point for the wiki
+
+= Collabtive wiki =
