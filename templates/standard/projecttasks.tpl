@@ -151,7 +151,7 @@
 									</a>
 								</div>
 							</td>
-							<td><a href="manageuser.php?action=profile&amp;id={$lists[list].tasks[task].user_id}">{$lists[list].tasks[task].user|truncate:23:"...":true}</a></td>
+							<td><a href="manageuser.php?action=profile&amp;id={$lists[list].tasks[task].user_id}">{$lists[list].tasks[task].user|truncate:30:"...":true}</a></td>
 							<td>{$lists[list].tasks[task].daysleft}</td>
 							<td class="tools">
 								{if $userpermissions.tasks.edit}

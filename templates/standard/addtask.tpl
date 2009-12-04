@@ -24,9 +24,8 @@
 
 	<div class="row">
 		<label for="assigned" >{#assignto#}:</label>
-		<select name="assigned" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}" multiple style = "height:80px">
+		<select name="assigned[]" multiple style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}" >
 			<option value="-1" selected="selected">{#chooseone#}</option>
-		    <option value="0">{#all#}</option>
 			{section name=user loop=$assignable_users}
 				<option value="{$assignable_users[user].ID}">{$assignable_users[user].name}</option>
 			{/section}

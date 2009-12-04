@@ -21,10 +21,9 @@ class task
      */
     function __construct()
     {
-
         $this->mylog = new mylog;
-        $this->plugins =  new plugin();
-       // $this->plugins = $plugin->loadPlugins();
+        $this->plugins = new plugin();
+        // $this->plugins = $plugin->loadPlugins();
     }
 
     /**
@@ -44,7 +43,7 @@ class task
         $title = mysql_real_escape_string($title);
         $text = mysql_real_escape_string($text);
         $liste = (int) $liste;
-        $assigned = (int) $assigned;
+       // $assigned = (int) $assigned;
         $project = (int) $project;
 
         $end_fin = strtotime($end);
@@ -61,24 +60,23 @@ class task
         {
             $insid = mysql_insert_id();
             // if assginee is set, assign the task to this user
-            if ($assigned > 0)
+
+
+            if (count($assigned) == 1)
             {
                 $this->assign($insid, $assigned);
-            } elseif ($assigned == 0)
+            } elseif (count($assigned) > 1)
             {
-                // if no assignee is set, assign task to all users in the project
-                $proj = new project();
-                $project_members = $proj->getProjectMembers($project);
-
-                foreach ($project_members as $member)
+                foreach ($assigned as $member)
                 {
-                    $this->assign($insid, $member["ID"]);
+                    $member = (int) $member;
+                    $this->assign($insid, $member);
                 }
             }
             // logentry
             $nameproject = $this->getNameProject($insid);
             $this->mylog->add($nameproject[0], 'task', 1, $nameproject[1]);
-            $this->plugins->callSignalFuncs("task","add",$insid);
+            $this->plugins->callSignalFuncs("task", "add", $insid);
             return $insid;
         }
         else
@@ -115,7 +113,7 @@ class task
         {
             $nameproject = $this->getNameProject($id);
             $this->mylog->add($nameproject[0], 'task', 2, $nameproject[1]);
-            $this->plugins->callSignalFuncs("task","edit");
+            $this->plugins->callSignalFuncs("task", "edit");
             return true;
         }
         else
@@ -281,12 +279,11 @@ class task
             $users = array();
             while ($usr = mysql_fetch_row($usel))
             {
-
-               array_push($users, $usr[0]);
-               $task["user"] = "All";
-               $task["user_id"] = $users;
+                array_push($users, $usr[0]);
+                $task["user"] = "All";
+                $task["user_id"] = $users;
             }
-            if (count($users) < 2)
+            if (count($users) == 1)
             {
                 $usr = $users[0];
                 $usel = mysql_query("SELECT name,id from user WHERE ID = $usr");
@@ -294,8 +291,17 @@ class task
                 $task["user"] = stripslashes($user[0]);
                 $task["user_id"] = $user[1];
             }
-
-
+            elseif(count($users) > 1)
+            {
+                $usrobj = new user();
+                $task["user"] = "";
+                $task["user_id"] = 0;
+                foreach($users as $user)
+                {
+                    $usr = $usrobj->getProfile($user);
+                    $task["user"] .=  $usr["name"] . " ";
+                }
+            }
 
             $task["endstring"] = $endstring;
 
