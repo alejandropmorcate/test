@@ -8,13 +8,13 @@
 
 <div class="infowin_left" style = "display:none;" id = "systemmsg">
 	{if $mode == "added"}
-		<span class="info_in_green"><img src="templates/frost/img/symbols/msg.png" alt=""/>{#messagewasadded#}</span>
+		<span class="info_in_green"><img src="templates/frost/images/symbols/msg.png" alt=""/>{#messagewasadded#}</span>
 		{elseif $mode == "edited"}
-		<span class="info_in_yellow"><img src="templates/frost/img/symbols/msg.png" alt=""/>{#messagewasedited#}</span>
+		<span class="info_in_yellow"><img src="templates/frost/images/symbols/msg.png" alt=""/>{#messagewasedited#}</span>
 		{elseif $mode == "deleted"}
-		<span class="info_in_red"><img src="templates/frost/img/symbols/msg.png" alt=""/>{#messagewasdeleted#}</span>
+		<span class="info_in_red"><img src="templates/frost/images/symbols/msg.png" alt=""/>{#messagewasdeleted#}</span>
 		{elseif $mode == "replied"}
-		<span class="info_in_green"><img src="templates/frost/img/symbols/msg_reply.png" alt=""/>{#replywasadded#}</span>
+		<span class="info_in_green"><img src="templates/frost/images/symbols/msg_reply.png" alt=""/>{#replywasadded#}</span>
 		{/if}
 	</div>
 	{literal}
