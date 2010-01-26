@@ -78,16 +78,19 @@ if ($action == "addform")
     if ($tid)
     {
         if ($settings["mailnotify"])
-        {
-            $usr = (object) new user();
-            $user = $usr->getProfile($assigned);
-
-            if (!empty($user["email"]))
-            {
-                // send email
-                $themail = new emailer($settings);
-                $themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
-            }
+		{
+			foreach($assigned as $member)
+			{
+				$usr = (object) new user();
+				$user = $usr->getProfile($member);
+				
+				if (!empty($user["email"]))
+				{
+					// send email
+					$themail = new emailer($settings);
+					$themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+				}
+			}
         }
         $loc = $url . "managetask.php?action=showproject&id=$id&mode=added";
         header("Location: $loc");
