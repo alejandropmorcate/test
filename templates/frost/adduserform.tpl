@@ -4,7 +4,7 @@
 	<fieldset>
 
 		<div class="row"><label for="name">{#name#}:</label><input type="text" name="name" id="name" required="1" realname="{#name#}" /></div>
-		<div class="row"><label for="email">{#email#}:</label><input type="text" name="email" id="email" required="0" realname="{#email#}" /></div>
+		<div class="row"><label for="email">{#email#}:</label><input type="text" name="email" id="email" realname="{#email#}" /></div>
 		<div class="row"><label for="pass">{#password#}:</label><input type="text" name="pass" id="pass" required="1" realname="{#password#}" /></div>
 		<div class = "row"><label id = "rate">{#rate#}:</label><input type = "text" name = "rate" id = "rate" /></div>
 
@@ -26,6 +26,7 @@
 		{section name = role loop=$roles}
 				<div class = "row"><label></label><input type="radio" class="checkbox" value="{$roles[role].ID}" name="role" id="role{$roles[role].ID}" realname = "{#role#}" required="1"        /><label for="role{$roles[role].ID}">{$roles[role].name}</label></div>
 		{/section}
+		</div>
 
 	    <div class="clear_both_b"></div>
 
