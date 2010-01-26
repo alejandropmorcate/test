@@ -1,11 +1,11 @@
 <?php
 /**
- * Die Klasse stellt Methoden bereit um Projekte zu bearbeiten
+ * This class provides methods for dealing with projects
  *
  * @author Open Dynamics <info@o-dyn.de>
  * @name project
  * @package Collabtive
- * @version 0.6
+ * @version 0.6.2
  * @link http://www.o-dyn.de
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
  */
@@ -14,8 +14,8 @@ class project
     private $mylog;
 
     /**
-     * Konstruktor
-     * Initialisiert den Eventlog
+     * Constructor
+     * Initialize event log
      */
     function __construct()
     {
@@ -25,11 +25,11 @@ class project
     /**
      * Add a project
      *
-     * @param string $name Name des Projekts
-     * @param string $desc Projektbeschreibung
+     * @param string $name Project name
+     * @param string $desc Project description
      * @param string $end Date on which the project is due
      * @param int $assignme Assign yourself to the project
-     * @return int $insid ID des neu angelegten Projekts
+     * @return int $insid New project's ID
      */
     function add($name, $desc, $end, $budget, $assignme = 0)
     {
