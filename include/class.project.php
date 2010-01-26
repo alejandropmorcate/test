@@ -69,7 +69,7 @@ class project
      * @param string $desc Description of the project
      * @param string $start Date on which the project was started
      * @param int $status Status of the project
-     * @return int $insid ID des neu angelegten Projekts
+     * @return int $insid New project's ID
      */
     function AddFromBasecamp($name, $desc, $start, $status = 1)
     {
@@ -100,11 +100,11 @@ class project
     }
 
     /**
-     * Bearbeitet ein Projekt
+     * Edit a project
      *
-     * @param int $id Eindeutige Projektnummer
-     * @param string $name Name des Projekts
-     * @param string $desc Beschreibungstext
+     * @param int $id Project ID
+     * @param string $name Project name
+     * @param string $desc Project description
      * @param string $end Date on which the project is due
      * @return bool
      */
@@ -191,7 +191,7 @@ class project
      * Philipp Kiszka <info@o-dyn.de>
      *
      * @param int $id ID of project to copy
-     * @return int $insid ID des neu angelegten Projekts
+     * @return int $insid New project's ID
      */
     function makecopy($id)
     {
@@ -277,7 +277,7 @@ class project
     /**
      * Mark a project as "active / open"
      *
-     * @param int $id Eindeutige Projektnummer
+     * @param int $id Project ID
      * @return bool
      */
     function open($id)
@@ -303,7 +303,7 @@ class project
     /**
      * Marks a project, its tasks, tasklists and milestones as "finished / closed"
      *
-     * @param int $id Eindeutige Projektnummer
+     * @param int $id Project ID
      * @return bool
      */
     function close($id)
@@ -357,10 +357,10 @@ class project
     }
 
     /**
-     * Weist ein Projekt einem bestimmten Mitglied zu
+     * Assign a new member to a project
      *
-     * @param int $user Eindeutige Mitgliedsnummer
-     * @param int $id Eindeutige Projektnummer
+     * @param int $user Member's user ID
+     * @param int $id Project ID
      * @return bool
      */
     function assign($user, $id)
@@ -382,10 +382,10 @@ class project
     }
 
     /**
-     * Entfernt ein Projekt aus der Zuweisung an ein bestimmtes Mitglied
+     * Delete the assignment of a member to a project
      *
-     * @param int $user Eindeutige Mitgliedsnummer
-     * @param int $id Eindeutige Projektnummer
+     * @param int $user Member's user ID
+     * @param int $id Project ID
      * @return bool
      */
     function deassign($user, $id)
@@ -437,11 +437,11 @@ class project
     }
 
     /**
-     * Gibt alle Daten eines Projekts aus
+     * Return a project
      *
-     * @param int $id Eindeutige Projektnummer
-     * @param int $status
-     * @return array $project Projektdaten
+     * @param int $id Project ID
+     * @param int $status Project status
+     * @return array $project Project data
      */
     function getProject($id)
     {
@@ -480,11 +480,11 @@ class project
     }
 
     /**
-     * Listet die aktuellsten Projekte auf
+     * List projects with the indicated status
      *
-     * @param int $status Bearbeitungsstatus der Projekte (1 = offenes Projekt)
-     * @param int $lim Anzahl der anzuzeigenden Projekte
-     * @return array $projekte Active projects
+     * @param int $status Status of the projects (1 = ongoing/open project)
+     * @param int $lim Maximum no. of projects to be returned
+     * @return array $projekte Projects of indicated status
      */
     function getProjects($status = 1, $lim = 10)
     {
@@ -513,11 +513,11 @@ class project
     }
 
     /**
-     * Listet alle einem Mitglied zugewiesenen Projekte auf
+     * List all projects with the indicated status a user is assigned to
      *
-     * @param int $user Eindeutige Mitgliedsnummer
-     * @param int $status Bearbeitungsstatus von Projekten (1 = offenes Projekt)
-     * @return array $myprojekte Projekte des Mitglieds
+     * @param int $user User ID
+     * @param int $status Status of the projects (1 = ongoing/open project)
+     * @return array $myprojekte User's projects
      */
     function getMyProjects($user, $status = 1)
     {
@@ -550,10 +550,10 @@ class project
     }
 
     /**
-     * Listet alle IDs der Projekte eines Mitglieds auf
+     * List the IDs of all projects a user is assigned to
      *
-     * @param int $user Eindeutige Mitgliedsnummer
-     * @return array $myprojekte Projekt-Nummern
+     * @param int $user User ID
+     * @return array $myprojekte Projects' IDs
      */
     function getMyProjectIds($user)
     {
@@ -585,11 +585,11 @@ class project
     }
 
     /**
-     * Listet alle einem bestimmen Projekt zugewiesenen Mitglieder auf
+     * List all members of a project
      *
-     * @param int $project Eindeutige Projektnummer
-     * @param int $lim Maximum auszugebender Mitglieder
-     * @return array $members Projektmitglieder
+     * @param int $project Project ID
+     * @param int $lim Maximum no. of users to be returned
+     * @return array $members Project members
      */
     function getProjectMembers($project, $lim = 10, $paginate = true)
     {
@@ -636,6 +636,12 @@ class project
         }
     }
 
+    /**
+     * Count the members of a project
+     *
+     * @param int $project Project ID
+     * @return array $members Member count
+     */
     function countMembers($project)
     {
         $project = (int) $project;
@@ -647,7 +653,7 @@ class project
      * Progressmeter
      *
      * @param int $project Project ID
-     * @return array $done Percent of finished tasks
+     * @return array $done Percent finished tasks
      */
     function getProgress($project)
     {
@@ -675,6 +681,12 @@ class project
         return $done;
     }
 
+    /**
+     * List all folders of a project
+     *
+     * @param int $project Project ID
+     * @return array $members Project's folders
+     */
     function getProjectFolders($project)
     {
         $project = (int) $project;
@@ -695,11 +707,12 @@ class project
             return false;
         }
     }
+	
     /**
-     * Gibt die verbleibenden Tage von einem gegeben Zeitpunkt bis heute zur?ck
+     * Return no. of days left from today until the given day
      *
-     * @param int $end Zu vergleichender Zeitpunkt
-     * @return int Verbleibende volle Tage
+     * @param int $end Given day
+     * @return int Remaining days
      */
     private function getDaysLeft($end)
     {
