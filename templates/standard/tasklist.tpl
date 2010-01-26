@@ -29,7 +29,7 @@
 	<div class="statuswrapper">
 			<ul>
 				{if $userpermissions.tasks.close}
-				<li class="link"><a class="close" href="managetasklist.php?action=close&amp;tlid={$tasklist.ID}&amp;id={$project.ID}" title="{#close#}"></a></li>
+				<li class="link">{if $tasklist.status == 1}<a class="open" href="managetasklist.php?action=close&amp;tlid={$tasklist.ID}&amp;id={$project.ID}" title="{#open#}"></a>{else}<a class="close" href="managetasklist.php?action=close&amp;tlid={$tasklist.ID}&amp;id={$project.ID}" title="{#close#}"></a>{/if}</li>
 				{/if}
 				{if $userpermissions.tasks.edit}
 				<li class="link"><a class="edit" href="javascript:void(0);"  id="edit_butn" onclick="blindtoggle('form_edit');toggleClass(this,'edit-active','edit');toggleClass('sm_tasklist','smooth','nosmooth');" title="{#edit#}"></a></li>
