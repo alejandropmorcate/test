@@ -15,7 +15,7 @@
 		<div style="float:left;">
 		{section name=project loop=$projects}
 			<div class="row">
-	        <input type="checkbox" class="checkbox" value="{$projects[project].ID}" name="assignto[]" id="{$projects[project].ID}" required="0" /><label for="{$projects[project].ID}" style="width:210px;">{$projects[project].name}</label>
+	        <input type="checkbox" class="checkbox" value="{$projects[project].ID}" name="assignto[]" id="{$projects[project].ID}" /><label for="{$projects[project].ID}" style="width:210px;">{$projects[project].name}</label>
 	        </div>
 	    {/section}
 	    </div>
