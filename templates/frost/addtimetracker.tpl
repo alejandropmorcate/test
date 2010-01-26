@@ -9,7 +9,7 @@
 	 	
 	 	<div class = "row">
 	  		<label for = "ttday">{#day#}:</label>
-	  		<input type = "text" class="text" style="width:80px;margin:0 6px 0 0;" id = "ttday" name = "ttday" required = "0" realname = "{#date#}" />
+	  		<input type = "text" class="text" style="width:80px;margin:0 6px 0 0;" id = "ttday" name = "ttday" realname = "{#date#}" />
 		</div>
 		
 		<div class="datepick">
@@ -40,7 +40,7 @@
 		
 	  	<div class = "row">
 	  		<label for ="trackcomm">{#comment#}:</label>
-	  		<textarea name = "comment" id = "trackcomm" required = "0"  ></textarea>
+	  		<textarea name = "comment" id = "trackcomm" ></textarea>
 	  	</div>
 	  	
 	  	<div class = "row">

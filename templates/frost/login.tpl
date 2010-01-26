@@ -18,7 +18,7 @@
 			
 			<div class="row">		
 				<label for="pass" class="pass"></label>
-				<input type="password" class="text" name="pass" id="pass" required = "0" realname = "{#password#}" />
+				<input type="password" class="text" name="pass" id="pass" realname = "{#password#}" />
 			</div>
 			
 			<div class="row">			

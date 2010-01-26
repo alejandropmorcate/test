@@ -19,7 +19,7 @@
 	<fieldset>
 
 	<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" name="title" id="title"  realname = "{#title#}" required = "1"  /></div>
-	<div class="row"><label for="text">{#text#}:</label><div class="editor"><textarea name="text" id="text" required = "0"  rows="3" cols="1" ></textarea></div></div>
+	<div class="row"><label for="text">{#text#}:</label><div class="editor"><textarea name="text" id="text" rows="3" cols="1" ></textarea></div></div>
 	<div class="row"><label for="end">{#due#}:</label><input type="text" class="text" name="end" realname="{#due#}"  id="end{$lists[list].ID}" required = "1" value = "{$day}.{$month}.{$year}" /></div>
 
 

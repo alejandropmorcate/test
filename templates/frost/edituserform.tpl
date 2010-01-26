@@ -63,7 +63,7 @@
 						<td class="right">
 
 								<div class="fileinput" >
-										<input type="file" class="file" name = "userfile" id="avatar" required="0" realname="{#file#}" size="26" onchange = "file_{$myprojects[project].ID}.value = this.value;"  tabindex="2" />
+										<input type="file" class="file" name = "userfile" id="avatar" realname="{#file#}" size="26" onchange = "file_{$myprojects[project].ID}.value = this.value;"  tabindex="2" />
 										<table class = "faux" cellpadding="0" cellspacing="0" border="0">
 											<tr>
 											<td><input type="text" class="text-file" name = "file-$myprojects[project].ID" id="file_{$myprojects[project].ID}"></td>
@@ -132,14 +132,14 @@
 				<tbody class="color-b">
 					<tr>
 						<td><label for="tel1">{#phone#}:</label></td>
-						<td class="right"><input type = "text" class="text" value = "{$user.tel1}" name = "tel1" id="tel1" required="0" /></td>
+						<td class="right"><input type = "text" class="text" value = "{$user.tel1}" name = "tel1" id="tel1" /></td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-a">
 					<tr>
 						<td><label for="tel2">{#cellphone#}:</label></td>
-						<td class="right"><input type = "text" class="text" value = "{$user.tel2}" name = "tel2" id="tel2" required="0" /></td>
+						<td class="right"><input type = "text" class="text" value = "{$user.tel2}" name = "tel2" id="tel2" /></td>
 					</tr>
 				</tbody>
 
@@ -153,35 +153,35 @@
 				<tbody class="color-a">
 					<tr>
 						<td><label for="address1">{#address#}:</label></td>
-						<td class="right"><input type = "text" value = "{$user.adress}" name = "address1" id="address1" required="0" /></td>
+						<td class="right"><input type = "text" value = "{$user.adress}" name = "address1" id="address1" /></td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-b">
 					<tr>
 						<td><label for="zip">{#zip#}:</label></td>
-						<td class="right"><input type = "text" name = "zip" id = "zip" realname = "{#zip#}" value = "{$user.zip}" required = "0" regexp = {literal}"\d{4,}" />{/literal}</td>
+						<td class="right"><input type = "text" name = "zip" id = "zip" realname = "{#zip#}" value = "{$user.zip}" regexp = {literal}"\d{4,}" />{/literal}</td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-a">
 					<tr>
 						<td><label for="address2">{#city#}:</label></td>
-						<td class="right"><input type = "text" class="text" value = "{$user.adress2}" name = "address2" id="address2" required="0" /></td>
+						<td class="right"><input type = "text" class="text" value = "{$user.adress2}" name = "address2" id="address2" /></td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-b">
 					<tr>
 						<td><label for="country">{#country#}:</label></td>
-						<td class="right"><input type = "text" class="text" value = "{$user.country}" name = "country" id="country" required=""  />	</td>
+						<td class="right"><input type = "text" class="text" value = "{$user.country}" name = "country" id="country" />	</td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-a">
 					<tr>
 						<td><label for="state">{#state#}:</label></td>
-						<td class="right"><input type = "text" class="text" value = "{$user.state}" name = "state" id="state" required="0" /></td>
+						<td class="right"><input type = "text" class="text" value = "{$user.state}" name = "state" id="state" /></td>
 					</tr>
 				</tbody>
 
@@ -196,7 +196,7 @@
 					<tr>
 						<td><label for="gender">{#gender#}:</label></td>
 						<td class="right">
-						<select name = "gender" id = "gender" realname = "{#gender#}" required = "0" />
+						<select name = "gender" id = "gender" realname = "{#gender#}" />
 							{if $user.gender == ""}
 							<option value = "" selected>{#chooseone#}</option>
 							{/if}
@@ -211,7 +211,7 @@
 					<tr>
 						<td><label for="locale">{#locale#}:</label></td>
 						<td class="right">
-							<select name = "locale" required="0" id="locale">
+							<select name = "locale" id="locale">
 							<option value = "" {if $user.locale == ""}selected="selected"{/if}>{#systemdefault#}</option>
 							{section name = lang loop=$languages_fin}
 							<option value = "{$languages_fin[lang].val}" {if $languages_fin[lang].val == $user.locale}selected="selected"{/if}>{$languages_fin[lang].str}</option>
@@ -226,21 +226,21 @@
 				<tbody class="color-a">
 					<tr>
 						<td><label for="oldpass">{#oldpass#}:</label></td>
-						<td class="right"><input type = "password" class="text" name = "oldpass" id = "oldpass" required = "0" /></td>
+						<td class="right"><input type = "password" class="text" name = "oldpass" id = "oldpass" /></td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-b">
 					<tr>
 						<td><label for="newpass">{#newpass#}:</label></td>
-						<td class="right"><input type = "password" name = "newpass" id = "newpass" required = "0" /></td>
+						<td class="right"><input type = "password" name = "newpass" id = "newpass" /></td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-a">
 					<tr>
 						<td><label for="repeatpass">{#repeatpass#}:</label></td>
-						<td class="right"><input type = "password" name = "repeatpass" id = "repeatpass" required = "0" /></td>
+						<td class="right"><input type = "password" name = "repeatpass" id = "repeatpass" /></td>
 					</tr>
 				</tbody>
 
