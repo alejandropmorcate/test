@@ -43,7 +43,6 @@ class task
         $title = mysql_real_escape_string($title);
         $text = mysql_real_escape_string($text);
         $liste = (int) $liste;
-       // $assigned = (int) $assigned;
         $project = (int) $project;
 
         $end_fin = strtotime($end);
@@ -59,12 +58,11 @@ class task
         if ($ins)
         {
             $insid = mysql_insert_id();
+			
             // if assginee is set, assign the task to this user
-
-
             if (count($assigned) == 1)
             {
-                $this->assign($insid, $assigned);
+                $this->assign($insid, $assigned[0]);
             } elseif (count($assigned) > 1)
             {
                 foreach ($assigned as $member)
@@ -535,6 +533,16 @@ class task
             return false;
         }
     }
+	
+	/**
+     * Return all tasks (from a project) due on the specified date
+     *
+	 * @param int $m Month
+	 * @param int $y Year
+	 * @param int $d Day
+     * @param int $project Project ID (Default: 0 = all projects)
+     * @return array $timeline Tasks
+     */
     function getTodayTasks($m, $y, $d, $project = 0)
     {
         $m = (int) $m;
