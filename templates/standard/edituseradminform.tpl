@@ -148,7 +148,7 @@
 				<tbody class="color-a">
 					<tr>
 						<td><label for="zip">{#zip#}:</label></td>
-						<td class="right"><input type = "text" name = "zip" id = "zip" realname = "{#zip#}" value = "{$user.zip}" required = "0" /></td>
+						<td class="right"><input type = "text" name = "zip" id = "zip" realname = "{#zip#}" value = "{$user.zip}" /></td>
 					</tr>
 				</tbody>
 
@@ -162,7 +162,7 @@
 				<tbody class="color-a">
 					<tr>
 						<td><label for="country">{#country#}:</label></td>
-						<td class="right"><input type = "text" class="text" value = "{$user.country}" name = "country" id="country" required=""  />	</td>
+						<td class="right"><input type = "text" class="text" value = "{$user.country}" name = "country" id="country" />	</td>
 					</tr>
 				</tbody>
 
@@ -184,7 +184,7 @@
 					<tr>
 						<td><label for="gender">{#gender#}:</label></td>
 						<td class="right">
-						<select name = "gender" id = "gender" realname = "{#gender#}" required = "0" />
+						<select name = "gender" id = "gender" realname = "{#gender#}" />
 							{if $user.gender == ""}
 							<option value = "" selected>{#chooseone#}</option>
 							{/if}
@@ -214,14 +214,14 @@
 				<tbody class="color-b">
 					<tr>
 						<td><label for="newpass">{#newpass#}:</label></td>
-						<td class="right"><input type = "password" name = "newpass" id = "newpass" required = "0" /></td>
+						<td class="right"><input type = "password" name = "newpass" id = "newpass" /></td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-a">
 					<tr>
 						<td><label for="repeatpass">{#repeatpass#}:</label></td>
-						<td class="right"><input type = "password" name = "repeatpass" id = "repeatpass" required = "0" /></td>
+						<td class="right"><input type = "password" name = "repeatpass" id = "repeatpass" /></td>
 					</tr>
 				</tbody>
 
