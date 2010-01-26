@@ -1,5 +1,5 @@
 <div class="headline">
-<h2><a href="javascript:void(0);" id="status_toggle" class="{$statbar}" onclick = "toggleBlock('status');"><img src="./templates/standard/img/symbols/projects.png" alt="" />
+<h2><a href="javascript:void(0);" id="status_toggle" class="{$statbar}" onclick = "toggleBlock('status');"><img src="./templates/standard/images/symbols/projects.png" alt="" />
 <span>{#project#}</span></a></h2>
 </div>
 
@@ -70,7 +70,7 @@
 						<td class="descript"><div style="width:588px;overflow:auto;">{$project.desc}
 						{if $userpermissions.projects.add}
 <strong>{#report#}:</strong>
-<br><a href = "manageproject.php?action=pdfreport&amp;id={$project.ID}" title = "{#report#}"><img src = "templates/standard/img/symbols/files/application-pdf.png"></a>
+<br><a href = "manageproject.php?action=pdfreport&amp;id={$project.ID}" title = "{#report#}"><img src = "templates/standard/images/symbols/files/application-pdf.png"></a>
 <br />
 {/if}
 						</div></td>

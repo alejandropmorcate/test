@@ -9,23 +9,23 @@
 
 	<div class="infowin_left" style = "display:none;" id = "systemmsg">
 	    {if $mode == "added"}
-	    <span class="info_in_green"><img src="templates/standard/img/symbols/task.png" alt=""/>{#taskwasadded#}</span>
+	    <span class="info_in_green"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasadded#}</span>
 	    {elseif $mode == "edited"}
-	    <span class="info_in_yellow"><img src="templates/standard/img/symbols/task.png" alt=""/>{#taskwasedited#}</span>
+	    <span class="info_in_yellow"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasedited#}</span>
 	    {elseif $mode == "deleted"}
-	    <span class="info_in_red"><img src="templates/standard/img/symbols/task.png" alt=""/>{#taskwasdeleted#}</span>
+	    <span class="info_in_red"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasdeleted#}</span>
 	    {elseif $mode == "opened"}
-	    <span class="info_in_green"><img src="templates/standard/img/symbols/task.png" alt=""/>{#taskwasopened#}</span>
+	    <span class="info_in_green"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasopened#}</span>
 	    {elseif $mode == "closed"}
-	    <span class="info_in_red"><img src="templates/standard/img/symbols/task.png" alt=""/>{#taskwasclosed#}</span>
+	    <span class="info_in_red"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasclosed#}</span>
 	    {elseif $mode == "assigned"}
-	    <span class="info_in_yellow"><img src="templates/standard/img/symbols/task.png" alt=""/>{#taskwasassigned#}</span>
+	    <span class="info_in_yellow"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasassigned#}</span>
 	    {elseif $mode == "deassigned"}
-	    <span class="info_in_yellow"><img src="templates/standard/img/symbols/task.png" alt=""/>{#taskwasdeassigned#}</span>
+	    <span class="info_in_yellow"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasdeassigned#}</span>
 	    {elseif $mode == "listclosed"}
-	    <span class="info_in_red"><img src="templates/standard/img/symbols/tasklist.png" alt=""/>{#tasklistwasclosed#}</span>
+	    <span class="info_in_red"><img src="templates/standard/images/symbols/tasklist.png" alt=""/>{#tasklistwasclosed#}</span>
 	    {elseif $mode == "listdeleted"}
-	    <span class="info_in_red"><img src="templates/standard/img/symbols/tasklist.png" alt=""/>{#tasklistwasdeleted#}</span>
+	    <span class="info_in_red"><img src="templates/standard/images/symbols/tasklist.png" alt=""/>{#tasklistwasdeleted#}</span>
 	    {/if}
 	</div>
 	{literal}
