@@ -111,8 +111,16 @@
 
 				<tbody class="color-a">
 					<tr>
-						<td><strong>{#state#}:</strong></td>
-						<td class="right">{$user.country} ({$user.state})</td>
+						{if $user.state == ""}
+							<td><strong>{#country#}:</strong></td>
+							<td class="right">{$user.country}</td>
+						{elseif $user.country == ""}
+							<td><strong>{#state#}:</strong></td>
+							<td class="right">{$user.state}</td>
+						{else}
+							<td><strong>{#country#} ({#state#}):</strong></td>
+							<td class="right">{$user.country} ({$user.state})</td>
+						{/if}
 					</tr>
 				</tbody>
 
