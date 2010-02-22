@@ -81,6 +81,7 @@ if ($action == "index")
     $projects = $project->getProjects(1, 10000);
     $roleobj = (object) new roles();
     $roles = $roleobj->getAllRoles();
+    $roles = $roleobj->getDefaultRoleNamesTranslated($roles);
     $i2 = 0;
     if (!empty($users))
     {
@@ -148,7 +149,7 @@ if ($action == "index")
             {
                 // send email
                 $themail = new emailer($settings);
-                $themail->send_mail($email, $langfile["profileaddedsubject"] , $langfile["profileaddedtext"] . $langfile["profileusername"] . ":" . "$name\n" . $langfile["profilepass"] . ":" . "$pass\n\n<a href = \"$url\">$url</a>");
+				$themail->send_mail($email, $langfile["profileaddedsubject"] , $langfile["profileaddedtext"] . "<br /><br />" . $langfile["profileusername"] . ":&nbsp;" . "$name<br />" . $langfile["profilepass"] . ":&nbsp;" . "$pass<br /><br />" . "<a href = \"$url\">$url</a>");
             }
         }
         header("Location: admin.php?action=users&mode=added");
@@ -188,6 +189,7 @@ if ($action == "index")
     $user = $user->getProfile($id);
     $roleobj = (object) new roles();
     $roles = $roleobj->getAllRoles();
+    $roles = $roleobj->getDefaultRoleNamesTranslated($roles);
 
     $title = $langfile['useradministration'];
     $template->assign("title", $title);
@@ -412,7 +414,7 @@ if ($action == "index")
                     {
                         // send email
                         $themail = new emailer($settings);
-                        $themail->send_mail($tuser["email"], $langfile["projectassignedsubject"] , $langfile["projectassignedtext"] . "<a href = \"" . $url . "manageproject.php?action=showproject&id=$pro\">" . $url . "manageproject.php?action=showproject&id=$pro</a>");
+						$themail->send_mail($tuser["email"], $langfile["projectassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["projectassignedtext"] . " <a href = \"" . $url . "manageproject.php?action=showproject&id=$pro\">" . $url . "manageproject.php?action=showproject&id=$pro</a>");
                     }
                 }
                 $project->assign($user, $pro);

@@ -429,6 +429,17 @@
 							<td class="tools"></td>
 						</tr>
 					</tbody>
+					<tbody class="paging">
+						<tr>
+							<td></td>
+							<td colspan="5">
+								<div id="paging">
+									{paginate_prev} {paginate_middle} {paginate_next}
+								</div>
+							</td>
+							<td class="tools"></td>
+						</tr>
+					</tbody>
 				</table>
 			</div> {*smooth End*}
 
@@ -438,7 +449,6 @@
 					</div>
 			</div>
 
-{paginate_prev} {paginate_middle} {paginate_next}
 		</div> {*block END*}
 </div> {*timetrack END*}
 {/if}

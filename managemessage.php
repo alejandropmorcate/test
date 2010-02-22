@@ -107,14 +107,14 @@ if ($action == "addform")
                         {
                             // send email
                             $themail = new emailer($settings);
-                            $themail->send_mail($user["email"], "Message was posted", $message . " <a href = \"" . $url . "managemessage.php?action=showmessage&id=$id&mid=$themsg\">$title</a>");
+							$themail->send_mail($user["email"], $langfile["messagewasaddedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["messagewasaddedtext"] . "<br /><br />". $message . "<br /><br /><a href = \"" . $url . "managemessage.php?action=showmessage&id=$id&mid=$themsg\">$title</a>");
                         }
                     }
                     else
                     {
                         // send email
                         $themail = new emailer($settings);
-                        $themail->send_mail($user["email"], "Message was posted", $message . " <a href = \"" . $url . "managemessage.php?action=showmessage&id=$id&mid=$themsg\">$title</a>");
+						$themail->send_mail($user["email"], $langfile["messagewasaddedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["messagewasaddedtext"] . "<br /><br />". $message . "<br /><br /><a href = \"" . $url . "managemessage.php?action=showmessage&id=$id&mid=$themsg\">$title</a>");
                     }
                 }
             }
@@ -380,18 +380,26 @@ if ($action == "addform")
 
     $htmltable = "<h1>$projectname / $langfile[messages]</h1><table border=\"1\" bordercolor = \"#d9dee8\" >";
 
-    foreach($messages as $message)
-    {
-        $htmltable .= "
-	<tr bgcolor=\"#d9dee8\" style=\"font-weight:bold;\">
-	<th align=\"left\">$langfile[message]: $message[title] $langfile[by]: $message[username] ($message[postdate])</th>
-	</tr>
-    <tr><td >$message[text]</td></tr>
-    ";
+	 if (!empty($messages))
+	 {
+		foreach($messages as $message)
+		{
+		$htmltable .= "
+		<tr bgcolor=\"#d9dee8\" style=\"font-weight:bold;\">
+		<th align=\"left\">$langfile[message]: $message[title] $langfile[by]: $message[username] ($message[postdate])</th>
+		</tr>
+		<tr><td >$message[text]</td></tr>
+		";
+		}
+	 } else {
+		$htmltable .= "
+		<tr><td >$langfile[none] $langfile[messages]</td></tr>
+		";
     }
-    $htmltable .= "</table>";
+    
     $pdf->writeHTML($htmltable, true, 0, true, 0);
     $pdf->Output("project-$id-messages.pdf", "D");
+    
 } elseif ($action == "export-single")
 {
     $l = Array();
@@ -512,16 +520,25 @@ if ($action == "addform")
     // construct html table for pdf export
     $htmltable = "<table border=\"1\" bordercolor = \"#d9dee8\" >";
 
-    foreach($messages as $message)
+	 if (!empty($messages))
     {
-        $htmltable .= "
-	<tr bgcolor=\"#d9dee8\" style=\"font-weight:bold;\">
-	<th align=\"left\">$langfile[message]: $message[title] $langfile[by]: $message[username] ($message[postdate])</th>
-	</tr>
-    <tr><td >$message[text]</td></tr>
-    ";
-    }
+    	foreach($messages as $message)
+    	{
+      	$htmltable .= "
+      	<tr bgcolor=\"#d9dee8\" style=\"font-weight:bold;\">
+      	<th align=\"left\">$langfile[message]: $message[title] $langfile[by]: $message[username] ($message[postdate])</th>
+      	</tr>
+      	<tr><td >$message[text]</td></tr>
+      	";
+		}
+	 } else {
+	 	$htmltable .= "
+	 	<tr><td >$langfile[none] $langfile[messages]</td></tr>
+	 	";
+	 }
+
     $htmltable .= "</table>";
+
     // write it to PDF
     $pdf->writeHTML($htmltable, true, 0, true, 0);
     $pdf->Output("mymessages-$id.pdf", "D");

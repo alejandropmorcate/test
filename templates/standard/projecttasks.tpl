@@ -324,7 +324,7 @@
 					<tbody class="color-b" id="task_{$oldlists[oldlist].ID}">
 					{/if}
 						<tr {if $oldlists[oldlist].daysleft < 0} class="marker-late"{elseif $oldlists[oldlist].daysleft == 0} class="marker-today"{/if}>
-							<td>{if $userpermissions.tasks.close}<a class="butn_check" href="javascript:closeElement('task_{$oldlists[oldlist].ID}','managetasklist.php?action=open&amp;tlid={$oldlists[oldlist].ID}&amp;id={$project.ID}');" title="{#open#}"></a>{/if}</td>
+							<td>{if $userpermissions.tasks.close}<a class="butn_check" href="managetasklist.php?action=open&amp;tlid={$oldlists[oldlist].ID}&amp;id={$project.ID}" title="{#open#}"></a>{/if}</td>
 							<td>
 								<div class="toggle-in">
 								<span class="acc-toggle" onclick="javascript:accord_donelists.activate($$('#block-donelists .accordion_toggle')[{$smarty.section.oldlist.index}]);toggleAccordeon('acc_{$lists[list].ID}',this);"></span>

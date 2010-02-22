@@ -101,18 +101,15 @@
 	   <label>{#notify#}:</label>
 
 	   <select name = "sendto[]" multiple style = "height:100px;">
-	   <option value = "" disabled style = "color:black;font-weight:bold;">General</option>
-	   <option value = "all" selected>All</option>
-	   <option value = "none" >None</option>
-	   <option value = "" disabled style = "color:black;font-weight:bold;">Project members</option>
-	   {section name=member loop=$members}
-       <option value = "{$members[member].ID}" >{$members[member].name}</option>
-	   {/section}
-	   </select>
+ 				<option value = "" disabled style = "color:black;font-weight:bold;">{#general#}</option>
+ 				<option value = "all" selected>{#all#}</option>
+ 				<option value = "none" >{#none#}</option>
+ 				<option value = "" disabled style = "color:black;font-weight:bold;">{#members#}</option>
+ 			{section name=member loop=$members}
+    			<option value = "{$members[member].ID}" >{$members[member].name}</option>
+ 			{/section}
+		</select>
 	</div>
-
-
-
 
 		<div class="row-butn-bottom">
 			<label>&nbsp;</label>

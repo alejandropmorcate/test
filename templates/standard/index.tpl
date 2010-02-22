@@ -129,11 +129,11 @@
 					<div class="export-main">
 						<a class="export"><span>{#export#}</span></a>
 						<div class="export-in"  style="width:46px;left: -46px;"> {*at two items*}
-							<a class="rss" href="managerss.php?action=rss-tasks&user={$userid}"><span>{#rssfeed#}</span></a>
 							<!--
 							<a class="pdf" href="#"><span>{#pdfexport#}</span></a>
 							-->
 							<a class="ical" href="managetask.php?action=ical"><span>{#icalexport#}</span></a>
+							<a class="rss" href="managerss.php?action=rss-tasks&user={$userid}"><span>{#rssfeed#}</span></a>
 						</div>
 					</div>
 				</div>
@@ -274,10 +274,10 @@
 					<div class="export-main">
 						<a class="export"><span>{#export#}</span></a>
 						<div class="export-in"  style="width:46px;left: -46px;"> {*at one item*}
-							<a class="rss" href="managerss.php?action=mymsgs-rss&amp;user={$userid}"><span>{#rssfeed#}</span></a>
 							<a class="pdf" href="managemessage.php?action=mymsgs-pdf&amp;id={$userid}"><span>{#pdfexport#}</span></a>
+							<a class="rss" href="managerss.php?action=mymsgs-rss&amp;user={$userid}"><span>{#rssfeed#}</span></a>
 							<!--
-                             <a class="ical" href="managetask.php?action=ical"><span>{#icalexport#}</span></a>
+							<a class="ical" href="managetask.php?action=ical"><span>{#icalexport#}</span></a>
 							-->
 						</div>
 					</div>

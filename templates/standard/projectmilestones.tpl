@@ -80,90 +80,7 @@
 
 					</table>
 
-					{*late Miles*}
-					{if $countlate > 0}
-
-					<table class="second-thead" cellpadding="0" cellspacing="0" border="0" onclick="blindtoggle('togglelate');toggleClass('togglemileslate','acc-toggle','acc-toggle-active');">
-
-							<tr>
-								<td class="a"></td>
-								<td class="b"><span id="togglemileslate" class="acc-toggle-active">{#latestones#}</span></td>
-								<td class="c"></td>
-								<td class="d"></td>
-								<td class="tools"></td>
-							</tr>
-
-					</table>
-
-					<div id="togglelate" class="toggleblock">
-						<table id="accordion_miles_late" cellpadding="0" cellspacing="0" border="0">
-
-						{section name=latestone loop=$latemilestones}
-
-						{if $smarty.section.latestone.index % 2 == 0}
-						<tbody class="color-a" id="miles_late_{$latemilestones[latestone].ID}">
-						{else}
-						<tbody class="color-b" id="miles_late_{$latemilestones[latestone].ID}">
-						{/if}
-
-							<tr class="marker-late">
-								<td class="a">
-                                    {if $userpermissions.milestones.close}
-                                        <a class="butn_check" href="managemilestone.php?action=close&amp;mid={$latemilestones[latestone].ID}&amp;id={$project.ID}" title="{#close#}"></a>
-                                    {/if}
-                                </td>
-								<td class="b">
-									<div class="toggle-in">
-										<span class="acc-toggle" onclick="javascript:accord_miles_late.activate($$('#accordion_miles_late .accordion_toggle')[{$smarty.section.latestone.index}]);toggleAccordeon('done_{$myprojects[project].ID}',this);"></span>
-										<a href="managemilestone.php?action=showmilestone&amp;msid={$latemilestones[latestone].ID}&amp;id={$project.ID}">{$latemilestones[latestone].name|truncate:30:"...":true}</a>
-									</div>
-								</td>
-								<td class="c">{$latemilestones[latestone].fend}</td>
-								<td class="d"> -{$latemilestones[latestone].dayslate}</td>
-								<td class="tools">
-									{if $userpermissions.milestones.edit}
-										<a class="tool_edit" href="managemilestone.php?action=editform&amp;mid={$latemilestones[latestone].ID}&amp;id={$project.ID}" title="{#edit#}"></a>
-									{/if}
-									{if $userpermissions.milestones.del}
-										<a class="tool_del" href="javascript:confirmit('{#confirmdel#}','managemilestone.php?action=del&amp;mid={$latemilestones[latestone].ID}&amp;id={$project.ID}');" title="{#delete#}"></a>
-									{/if}
-								</td>
-							</tr>
-
-							<tr class="acc">
-								<td colspan="5">
-									<div class="accordion_toggle"></div>
-									<div class="accordion_content">
-										<div class="acc-in">
-											<div class="message-in">
-												{$latemilestones[latestone].desc}
-											</div>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-
-						{/section}
-
-						</table>
-					</div> {*toggleblock End*}
-					{/if}
-					{*late Miles End*}
-
-
-
 					{*new Miles*}
-					<table class="second-thead" cellpadding="0" cellspacing="0" border="0" onclick="blindtoggle('togglenew');toggleClass('togglemilesnew','acc-toggle','acc-toggle-active');">
-							<tr>
-								<td class="a"></td>
-								<td class="b"><span id="togglemilesnew" class="acc-toggle-active">{#newmilestones#}</span></td>
-								<td class="c"></td>
-								<td class="d"></td>
-								<td class="tools"></td>
-							</tr>
-					</table>
-
 
 					<div id="togglenew" class="toggleblock">
 						<table id="accordion_miles_new" cellpadding="0" cellspacing="0" border="0" style="clear:both;">
@@ -218,6 +135,77 @@
 					{*new Miles End*}
 
 
+					{*late Miles*}
+					{if $countlate > 0}
+
+					<table class="second-thead" cellpadding="0" cellspacing="0" border="0" onclick="blindtoggle('togglelate');toggleClass('togglemileslate','acc-toggle','acc-toggle-active');">
+
+							<tr>
+								<td class="a"></td>
+								<td class="b"><span id="togglemileslate" class="acc-toggle-active">{#latestones#}</span></td>
+								<td class="c"></td>
+								<td class="d"></td>
+								<td class="tools"></td>
+							</tr>
+
+					</table>
+
+					<div id="togglelate" class="toggleblock">
+						<table id="accordion_miles_late" cellpadding="0" cellspacing="0" border="0">
+
+						{section name=latestone loop=$latemilestones}
+
+						{if $smarty.section.latestone.index % 2 == 0}
+						<tbody class="color-a" id="miles_late_{$latemilestones[latestone].ID}">
+						{else}
+						<tbody class="color-b" id="miles_late_{$latemilestones[latestone].ID}">
+						{/if}
+
+							<tr class="marker-late">
+								<td class="a">
+                                    {if $userpermissions.milestones.close}
+                                        <a class="butn_check" href="managemilestone.php?action=close&amp;mid={$latemilestones[latestone].ID}&amp;id={$project.ID}" title="{#close#}"></a>
+                                    {/if}
+                                </td>
+								<td class="b">
+									<div class="toggle-in">
+										<span class="acc-toggle" onclick="javascript:accord_miles_late.activate($$('#accordion_miles_late .accordion_toggle')[{$smarty.section.latestone.index}]);toggleAccordeon('done_{$myprojects[project].ID}',this);"></span>
+										<a href="managemilestone.php?action=showmilestone&amp;msid={$latemilestones[latestone].ID}&amp;id={$project.ID}">{$latemilestones[latestone].name|truncate:30:"...":true}</a>
+									</div>
+								</td>
+								<td class="c">{$latemilestones[latestone].fend}</td>
+								<td class="d">-{$latemilestones[latestone].dayslate}</td>
+								<td class="tools">
+									{if $userpermissions.milestones.edit}
+										<a class="tool_edit" href="managemilestone.php?action=editform&amp;mid={$latemilestones[latestone].ID}&amp;id={$project.ID}" title="{#edit#}"></a>
+									{/if}
+									{if $userpermissions.milestones.del}
+										<a class="tool_del" href="javascript:confirmit('{#confirmdel#}','managemilestone.php?action=del&amp;mid={$latemilestones[latestone].ID}&amp;id={$project.ID}');" title="{#delete#}"></a>
+									{/if}
+								</td>
+							</tr>
+
+							<tr class="acc">
+								<td colspan="5">
+									<div class="accordion_toggle"></div>
+									<div class="accordion_content">
+										<div class="acc-in">
+											<div class="message-in">
+												{$latemilestones[latestone].desc}
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+
+						{/section}
+
+						</table>
+					</div> {*toggleblock End*}
+					{/if}
+					{*late Miles End*}
+
 
 					{*finished Miles*}
 					<div id="doneblock" class="doneblock" style="display: none;">
@@ -243,8 +231,11 @@
 						<tbody class="color-b" id="miles_{$donemilestones[stone].ID}">
 						{/if}
 
-
+						{if $smarty.now gt $donemilestones[stone].end}
+							<tr class="marker-late">
+						{else}
 							<tr>
+						{/if}
 								<td class="a">{if $userpermissions.milestones.close}<a class="butn_checked" href="managemilestone.php?action=open&amp;mid={$donemilestones[stone].ID}&amp;id={$project.ID}" title="{#open#}"></a>{/if}</td>
 								<td class="b">
 									<div class="toggle-in">
@@ -253,7 +244,13 @@
 									</div>
 								</td>
 								<td class="c">{$donemilestones[stone].fend}</td>
-								<td class="d">{$donemilestones[stone].dayslate}</td>
+
+								{if $smarty.now gt $donemilestones[stone].end}
+									<td class="d">-{$donemilestones[stone].dayslate}</td>
+								{else}
+									<td class="d">{$donemilestones[stone].dayslate}</td>
+								{/if}
+
 								<td class="tools">
 									{if $userpermissions.milestones.edit}
 										<a class="tool_edit" href="managemilestone.php?action=editform&amp;mid={$donemilestones[stone].ID}&amp;id={$project.ID}"  title="{#edit#}"></a>

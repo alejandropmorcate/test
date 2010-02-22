@@ -13,19 +13,42 @@ class tags
         $this->cloudlimit = 0;
     }
 
-    /**
-     * Formats the an input string to be stored as tags.
-     * Expects a string in the format: word1,word2,word OR word1, word2, word3
-     * Extracts the words from the string, makes the first character uppercase, and reassembles the tagstring
-     *
-     * @param string $ tags Tagstring to be formatted
-     * @return string worktags Formatted tags
-     */
-    public function formatInputTags($tags)
-    {
-        $tags = str_replace(" ", "" , $tags);
-        $tags = strtolower($tags);
+	/**
+	* Formats the an input string to be stored as tags.
+	* Possible format: word1,word2,word / word1, word2, word3 / word1 word2 word3
+	* OR a mix of the preceding
+	* 
+	* Extracts the words from the string, makes the first character uppercase, and reassembles the tagstring
+	*
+	* @param string $ tags Tagstring to be formatted
+	* @return string worktags Formatted tags
+	*/
+	public function formatInputTags($tags)
+	{
+		// Trim string
+		$tags = trim($tags);
 
+		// Compress string internal spaces:
+		$count = 1;
+		while($count) {
+    		$tags = str_replace("  ", " ", $tags, $count);
+		}
+	
+		// String liegt jetzt als "txt1, txt2, txt3" / "txt1,txt2,txt3" / "txt1 txt2 txt3" vor,
+		// bei entsprechender Usereingabe auch als "txt1 txt2,txt3, txt4"
+
+		$tags = str_replace(" ", "," , $tags);
+	
+		// String liegt jetzt als "txt1,,txt2,,txt3" /txt1,txt2,txt3" / "txt1,txt2,txt3" vor,
+		// bei entsprechender Usereingabe auch als "txt1,txt2,txt3,,txt4
+
+   		$tags = str_replace(",,", "," , $tags);
+
+		// String liegt jetzt als "txt1,txt2,txt3" /txt1,txt2,txt3" / "txt1,txt2,txt3" vor,
+		// bei entsprechender Usereingabe auch als "txt1,txt2,txt3,txt4"
+
+        $tags = strtolower($tags);
+        
         if (!empty($tags))
         {
             $tags = explode(",", $tags);

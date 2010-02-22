@@ -14,7 +14,7 @@
 	<div class="row"><label for = "foldertitle">{#title#}:</label><input type = "text" class="text" name = "foldertitle" id="foldertitle" /></div>
 	<div class="row"><label for = "folderdesc">{#description#}:</label><input type = "text" class="text" name = "folderdesc" id="folderdesc" /></div>
     <div class = "row">
-	   <label>Visibility:</label>
+		<label>{#visibility#}:</label>:
 
 	   <select name = "visible[]" multiple style = "height:80px;">
 	   {section name=role loop=$roles}

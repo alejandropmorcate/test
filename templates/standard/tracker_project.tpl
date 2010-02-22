@@ -23,7 +23,6 @@
 
 
 <h1>{$projectname}<span>/ {#timetracker#}</span></h1>
-{paginate_prev} {paginate_middle} {paginate_next}
 
 <div class="timetrack">
 			<div class="headline">
@@ -141,6 +140,17 @@
 							<td></td>
 							<td colspan="4"><strong>{#totalhours#}:</strong></td>
 							<td><strong>{$totaltime}</strong></td>
+							<td class="tools"></td>
+						</tr>
+					</tbody>
+					<tbody class="paging">
+						<tr>
+							<td></td>
+							<td colspan="5">
+								<div id="paging">
+									{paginate_prev} {paginate_middle} {paginate_next}
+								</div>
+							</td>
 							<td class="tools"></td>
 						</tr>
 					</tbody>

@@ -1247,7 +1247,6 @@ body a.butn_link, body a.butn_link_active {
 /* ## AVATARE / MESSAGES ########################### */
 
 .avatar, .avatar-profile {
-	float: left;
 	min-height: 1px;
 }
 
@@ -1282,9 +1281,11 @@ body a.butn_link, body a.butn_link_active {
 }
 
 .message-in {
-	width: 562px;
-	overflow-x: auto;
+	overflow-x:auto;
+	width:562px;
+	padding-left:2%;
 }
+
 
 .message-in img {
 	height: auto;

@@ -5,11 +5,11 @@
 
 		<div class="row">
 			<label for="addtheuser">{#user#}</label>
-			<select name = "user" id="addtheuser">
-				<option value = "">{#chooseone#}</option>
-				{section name = usr loop=$users}
-				<option value = "{$users[usr].ID}">{$users[usr].name}</option>
-				{/section}
+			<select name = "user" id="addtheuser" required = "1" exclude = "-1" realname = "{#user#}">
+				<option value="-1" selected="selected">{#chooseone#}</option>
+					{section name = usr loop=$users}
+						<option value = "{$users[usr].ID}">{$users[usr].name}</option>
+					{/section}	
 			</select>
 		</div>
 

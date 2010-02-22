@@ -87,12 +87,14 @@ if ($action == "upload")
                 {
                     if (is_array($sendto))
                     {
-                        if (in_array($user["ID"], $sendto))
-                        {
-                            // send email
-                            $themail = new emailer($settings);
-                            $themail->send_mail($user["email"], $langfile["filecreatedsubject"], $langfile["filecreatedbody1"] . "<br />$langfile[project]: " . $pname["name"] . "<br />$langfile[folder]: " . $thefolder . "$langfile[file]: <a href = \"$url/$fileprops[datei]\">$url/$fileprops[datei]</a>");
-                        }
+						if (in_array($user["ID"], $sendto))
+						{
+						// Pruefung ob Unterordner existiert, sonst Stammordner
+						$whichfolder = (!empty($thefolder)) ? $thefolder : $langfile["rootdir"];
+						// send email
+						$themail = new emailer($settings);
+						$themail->send_mail($user["email"], $langfile["filecreatedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["filecreatedtext"] . "<br /><br />" . $langfile["project"] . ": " . $pname["name"] . "<br />" . $langfile["folder"]. ": " . $whichfolder . "<br />" . $langfile["file"] . ":  <a href = \"" . $url . $fileprops["datei"] . "\">" . $url . $fileprops["datei"] . "</a>");
+						}
                     }
                     else
                     {
@@ -276,6 +278,7 @@ if ($action == "upload")
     $members = $myproject->getProjectMembers($id, 10000);
     $rolesobj = new roles();
     $allroles = $rolesobj->getAllRoles();
+    $allroles = $rolesobj->getDefaultRoleNamesTranslated($allroles);
     $projectname = $pro["name"];
     $title = $langfile['files'];
 

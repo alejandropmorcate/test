@@ -161,11 +161,11 @@ if ($action == "editform")
         $template->display("error.tpl");
         die();
     }
-    if ($liste->open_liste($tlid))
+	 if ($liste->open_liste($tlid))
     {
-        // $loc = $url . "managetask.php?action=showproject&id=$id&mode=listopened";
-        // header("Location: $loc");
-        echo "ok";
+        $loc = $url . "managetask.php?action=showproject&id=$id&mode=listopened";
+        header("Location: $loc");
+        // echo "ok";
     }
     else
     {

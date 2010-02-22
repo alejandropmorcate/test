@@ -88,7 +88,7 @@ if ($action == "addform")
 				{
 					// send email
 					$themail = new emailer($settings);
-					$themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+					$themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
 				}
 			}
         }
@@ -265,7 +265,7 @@ if ($action == "addform")
             {
                 // send email
                 $themail = new emailer($settings);
-                $themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+				$themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
             }
         }
         $template->assign("assigntask", 1);

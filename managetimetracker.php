@@ -282,7 +282,7 @@ if ($action == "add")
     {
         $track = $tracker->getProjectTrack($id, $usr , $taski, 0, 0, 1000);
     }
-    $thetrack = array();
+
     if (!empty($track))
     {
         $i = 0;
@@ -321,9 +321,13 @@ if ($action == "add")
 
         $htmltable .= "<tr><td colspan=\"5\" align=\"right\">$totaltime</td></tr></table>";
 
-        $pdf->writeHTML($htmltable, true, 0, true, 0);
-        $pdf->Output("project-$id-timetable.pdf", "D");
+    } else {
+    	$htmltable .= "<tr><td colspan=\"5\">$langfile[none] $langfile[timetracker]</td></tr></table>";
     }
+
+    $pdf->writeHTML($htmltable, true, 0, true, 0);
+    $pdf->Output("project-$id-timetable.pdf", "D");
+    
 } elseif ($action == "userxls")
 {
     $excel = new xls(CL_ROOT . "/files/" . CL_CONFIG . "/ics/user-$id-timetrack.xls");
@@ -369,10 +373,7 @@ if ($action == "add")
     {
         $track = $tracker->getUserTrack($id, $fproject, $taski, 0, 0, 1000);
     }
-    $thetrack = array();
 
-    $totaltime = $tracker->getTotalTrackTime($track);
-    $totaltime = str_replace(".", ",", $totaltime);
     $id = mysql_real_escape_string($id);
     $sel = mysql_query("SELECT name FROM user WHERE ID = $id");
     $uname = mysql_fetch_array($sel);
@@ -432,9 +433,13 @@ if ($action == "add")
 
         $htmltable .= "<tr><td colspan=\"5\" align=\"right\">$totaltime</td></tr></table>";
 
-        $pdf->writeHTML($htmltable, true, 0, true, 0);
-        $pdf->Output("user-$uname-timetable.pdf", "D");
+    } else {
+    	$htmltable .= "<tr><td colspan=\"5\">$langfile[none] $langfile[timetracker]</td></tr></table>";
     }
+
+   $pdf->writeHTML($htmltable, true, 0, true, 0);
+   $pdf->Output("user-$uname-timetable.pdf", "D");
+
 } elseif ($action == "showproject")
 {
     if (!chkproject($userid, $id))
