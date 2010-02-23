@@ -36,16 +36,15 @@ class user
     {
         $name = mysql_real_escape_string($name);
         $email = mysql_real_escape_string($email);
-        $pass = mysql_real_escape_string($pass);
+		$company = (int) $company;
+		$pass = mysql_real_escape_string($pass); 
         $locale = mysql_real_escape_string($locale);
-        $pass = mysql_real_escape_string($pass);
         $tags = mysql_real_escape_string($tags);
         $rate = (float) $rate;
-        $company = (int) $company;
 
         $pass = sha1($pass);
 
-        $ins1 = mysql_query("INSERT INTO user (name,email,pass,company,tags,locale,rate) VALUES ('$name','$email','$pass',$company,'$tags','$locale','$rate')");
+        $ins1 = mysql_query("INSERT INTO user (name,email,company,pass,locale,tags,rate) VALUES ('$name','$email',$company,'$pass','$locale','$tags','$rate')");
 
         if ($ins1)
         {
