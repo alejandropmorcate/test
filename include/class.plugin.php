@@ -3,6 +3,7 @@
 class plugin
 {
     private $pluginFuncs;
+	
     /**
      * Constructor
      *
@@ -148,9 +149,7 @@ class plugin
                 }
             }
         }
-
-            return true;
-
+		return true;
     }
 
     public function addPluginEvent($plugin, $signal, $action, $name, $params)
@@ -214,6 +213,11 @@ class plugin
     public function getFunclist()
     {
         return $this->pluginFuncs;
+    }
+	
+	public function addHookData(Smarty $template, $hook, array $data)
+    {
+        $template->append($hook, $data);
     }
 
     public function callSignalFuncs($signal, $action = "", $objid = 0)
