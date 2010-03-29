@@ -1,3 +1,43 @@
+Additional patches:
+@eva
++ Complete translation to English
++ Fixed bug when asignee would not be set correctly upon adding a task
++ Added comments
++ Added readme in Italian
++ Fixed bug in email notification for task assignment
++ Added permission check for closing tasklist
++ Fixed upload paths
++ Code cleanup
++ Added english manual
++ Added complete Romanian translation
++ Fixed blank page when trying to install from SVN
+
+@descartes
++ Fixed standard template
++ Fixed version number in the footer
++ Updated language files to match fixes
++ Fixed bug in user management
++ Fixed typo when viewing tasklists
+
+@whisperwind
++ Complete translation to Bulgarian
++ Fixed minor security issue when deleting user
++ Fixed an autocompletition issue when editing users
++ Fixed truncating problem when using multibyte characters
++ Added login by email in addition to login by username
++ Remove some more calls to session_is_registred in favour of isset($_SESSION)
+
+Collabtive 0.6.2
++ Downgraded prototype to 1.6.0.3 to avoid problems with IE.
++ Fixed bug when filtering timetracker
++ Fixed "milestones tab unvisible for non-admins"
++ Removed property required = "0" from non-required form fields. This should improve Opera compatibiltiy.
++ Fixed some wrong image paths.
++ Fixed bug when editing a task.
++ Properly implemented assign task to some/all users of a project
++ Added complete russian translation
++ Fixed small display bug in single tasklist view
+
 Collabtive 0.6.1
 + Fixed some bugs in the frost theme
 + Fixed a UTF-8 entity bug in the mailer component

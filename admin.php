@@ -312,6 +312,7 @@ if ($action == "index")
     }
 } elseif ($action == "deleteuser")
 {
+    
     $id = getArrayVal($_POST, "id");
     $uprojects = getArrayVal($_POST, "uprojects");
 
@@ -355,6 +356,15 @@ if ($action == "index")
             }
         }
     }
+
+    $roles = new roles();
+
+    $roles->deassign(-1, $id);
+
+    $project = new project();
+
+    $project->deassign($id, -1);
+
     if ($user->del($id))
     {
         header("Location: admin.php?action=users&mode=deleted");

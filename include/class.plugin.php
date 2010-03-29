@@ -198,6 +198,7 @@ class plugin
 
     public function getPlugins($state = 1)
     {
+        return array();
         $state = (int) $state;
         $sel = mysql_query("SELECT ID FROM plugins WHERE state = $state");
 

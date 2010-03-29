@@ -1,5 +1,6 @@
 <?php
 require("./init.php");
+
 if (!isset($_SESSION["userid"]))
 {
     $template->assign("loginerror", 0);

@@ -101,12 +101,18 @@ class task
         $text = mysql_real_escape_string($text);
         $id = (int) $id;
         $liste = (int) $liste;
-        $assigned = (int) $assigned;
 
         $end = strtotime($end);
 
         $upd = mysql_query("UPDATE tasks SET `end`='$end',`title`='$title', `text`='$text', `liste`=$liste WHERE ID = $id");
-        $upd2 = mysql_query("UPDATE tasks_assigned SET `user`='$assigned' WHERE `task` = $id");
+        
+        mysql_query("DELETE FROM tasks_assigned WHERE `task` = $id");
+        
+        $upd2 = false;
+        foreach ($assigned as $value) {
+            $upd2 = mysql_query("INSERT INTO tasks_assigned (`user`, `task`) VALUES ('$value', '$id')");
+        }
+
         if ($upd && $upd2)
         {
             $nameproject = $this->getNameProject($id);
@@ -265,7 +271,12 @@ class task
         if (!empty($task))
         {
             // format datestring according to dateformat option
-            $endstring = date(CL_DATEFORMAT, $task["end"]);
+            
+            if (is_numeric($task['end'])) {
+            	$endstring = date(CL_DATEFORMAT, $task["end"]);
+            } else {
+            	$endstring = date(CL_DATEFORMAT, strtotime($task["end"]));
+            }
             // get list and projectname of the task
             $details = $this->getTaskDetails($task);
             $list = $details["list"];
@@ -608,6 +619,38 @@ class task
             $user[1] = stripslashes($uname);
 
             return $user;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Return the owner of a given task
+     *
+     * @param int $id Task ID
+     * @return array $user ID of the users who has to complete the task
+     */
+    function getUsers($id)
+    {
+        $id = (int) $id;
+
+        $sql = mysql_query("SELECT user FROM tasks_assigned WHERE task = $id");
+        if (mysql_num_rows($sql) > 0)
+        {
+            $result = array();
+            while ($user = mysql_fetch_row($sql)) {
+
+
+                $sel2 = mysql_query("SELECT name FROM user WHERE ID = $user[0]");
+                $uname = mysql_fetch_row($sel2);
+                $uname = $uname[0];
+                $user[1] = stripslashes($uname);
+
+                $result[] = $user;
+            }
+            return $result;
         }
         else
         {

@@ -121,6 +121,13 @@ if ($action == "addform")
     $thistask['username'] = $user[1];
     $thistask['userid'] = $user[0];
 
+    $tmp = $task->getUsers($thistask['ID']);
+    if ($tmp) {
+        foreach ($tmp as $value) {
+            $thistask['users'][] = $value[0];
+        }
+    }
+    
     $title = $langfile["edittask"];
 
     array_push($members, array("ID" => 0, "name" => $langfile["all"]));
@@ -143,6 +150,7 @@ if ($action == "addform")
         die();
     }
     // edit the task
+   
     if ($task->edit($tid, $end, $title, $text, $tasklist, $assigned))
     {
         $redir = urldecode($redir);
@@ -343,6 +351,13 @@ if ($action == "addform")
     $tl = $tasklist->getTasklist($task['liste']);
     $task['listid'] = $tl['ID'];
     $task['listname'] = $tl['name'];
+    
+ 	$tmp = $mytask->getUsers($task['ID']);
+    if ($tmp) {
+        foreach ($tmp as $value) {
+            $task['users'][] = $value[0];
+        }
+    }
 
     $user = $mytask->getUser($task['ID']);
     $task['username'] = $user[1];

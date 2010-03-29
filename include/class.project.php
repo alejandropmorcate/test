@@ -395,7 +395,11 @@ class project
         $user = (int) $user;
         $id = (int) $id;
 
-        $sql = "DELETE FROM projekte_assigned WHERE user = $user AND projekt = $id";
+        if ($id == -1) {
+            $sql = "DELETE FROM projekte_assigned WHERE user = $user";
+        } else {
+            $sql = "DELETE FROM projekte_assigned WHERE user = $user AND projekt = $id";
+        }
 
         $milestone = new milestone();
         $donemiles = $milestone->getDoneProjectMilestones($id);

@@ -1,4 +1,5 @@
 <?php
+
 ini_set("arg_separator.output", "&amp;");
 ini_set('default_charset', 'utf-8');
 // Start output buffering with gzip compression and start the session
@@ -11,7 +12,8 @@ define("CL_CONFIG", "standard");
 // collabtive version
 define("CL_VERSION", "0.6.2");
 // uncomment for debugging
-//error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL | E_STRICT);
+ini_set('display_errors', 1);
 
 
 // include config file , pagination and global functions
@@ -29,9 +31,9 @@ if (!empty($db_name) and !empty($db_user))
 // Start template engine
 $template = new Smarty();
 // Start Plugin system
-$plugin = new plugin();
+//$plugin = new plugin();
 // Load the active Plugins and their events
-$plugins = $plugin->getPlugins();
+//$plugins = $plugin->getPlugins();
 
 // get the available languages
 $languages = getAvailableLanguages();
@@ -120,7 +122,7 @@ $template->assign("locale", $locale);
 $hookMainmenue = array();
 $template->assign("mainmenue",$hookMainmenue);
 
-$plugin->addHookData($template,"mainmenue",array("class"=>"desktop","href"=>"index.php","text"=>"huhu"));
+//$plugin->addHookData($template,"mainmenue",array("class"=>"desktop","href"=>"index.php","text"=>"huhu"));
 
 
 $hookAdminsubmenue = array();

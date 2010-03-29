@@ -317,7 +317,7 @@ class user
         $pass = mysql_real_escape_string($pass);
         $pass = sha1($pass);
 
-        $sel1 = mysql_query("SELECT ID,name,locale,lastlogin,gender FROM user WHERE name = '$user' AND pass = '$pass'");
+        $sel1 = mysql_query("SELECT ID,name,locale,lastlogin,gender FROM user WHERE (name = '$user' OR email = '$user') AND pass = '$pass'");
         $chk = mysql_fetch_array($sel1);
         if ($chk["ID"] != "")
         {
@@ -336,7 +336,7 @@ class user
             session_register('usergender');
             session_register('userlocale');
             */
-			$userid = $_SESSION['userid'];
+            $userid = $_SESSION['userid'];
             $seid = session_id();
             $staylogged = getArrayVal($_POST, 'staylogged');
 

@@ -1,6 +1,6 @@
 <?php
 include("init.php");
-if (!session_is_registered("userid"))
+if (!isset($_SESSION["userid"]))
 {
     $template->assign("loginerror", 0);
     $template->display("login.tpl");

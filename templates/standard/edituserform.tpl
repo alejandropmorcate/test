@@ -227,21 +227,21 @@
 				<tbody class="color-a">
 					<tr>
 						<td><label for="oldpass">{#oldpass#}:</label></td>
-						<td class="right"><input type = "password" class="text" name = "oldpass" id = "oldpass" /></td>
+						<td class="right"><input type = "password" class="text" name = "oldpass" id = "oldpass" autocomplete="off" /></td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-b">
 					<tr>
 						<td><label for="newpass">{#newpass#}:</label></td>
-						<td class="right"><input type = "password" name = "newpass" id = "newpass" /></td>
+						<td class="right"><input type = "password" name = "newpass" id = "newpass" autocomplete="off" /></td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-a">
 					<tr>
 						<td><label for="repeatpass">{#repeatpass#}:</label></td>
-						<td class="right"><input type = "password" name = "repeatpass" id = "repeatpass" /></td>
+						<td class="right"><input type = "password" name = "repeatpass" id = "repeatpass" autocomplete="off" /></td>
 					</tr>
 				</tbody>
 

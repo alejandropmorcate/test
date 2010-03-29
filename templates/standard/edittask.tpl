@@ -49,16 +49,17 @@
 						<option value="{$tasklists[tasklist].ID}" {if $task.listid == $tasklists[tasklist].ID}selected = "selected"{/if}>{$tasklists[tasklist].name}</option>
 						{/section}</select>
 					</div>
-
-					<div class="row"><label for="assigned">{#assignto#}:</label>
-						<select name="assigned" class="select" id="assigned" required="1" realname="{#assignto#}">
-
-						{section name=member loop=$members}
-						<option value="{$members[member].ID}" {if $task.userid == $members[member].ID}selected = "selected"{/if}>{$members[member].name}</option>
-						{/section}</select>
-					</div>
-
-
+                                        
+                                        <div class="row">
+                                                <label for="assigned" >{#assignto#}:</label>
+                                                <select name = "assigned[]" multiple="multiple" style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}">
+                                                        <option value="-1">{#chooseone#}</option>
+                                                        {section name=member loop=$members}  
+                                                                <option value="{$members[member].ID}" {if in_array($members[member].ID, $task.users)}selected = "selected"{/if}>{$members[member].name}</option>
+                                                        {/section}
+                                                </select>
+                                        </div>
+            
 					<div class="row-butn-bottom">
 						<label>&nbsp;</label>
 						<button type="submit" onfocus="this.blur();">{#send#}</button>
