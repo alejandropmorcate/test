@@ -31,11 +31,13 @@ if (!$action)
     $filesdir = is_writable(CL_ROOT . "/files/");
     $templatesdir = is_writable(CL_ROOT . "/templates_c/");
     $phpver = phpversion();
+    $is_mbstring_enabled = extension_loaded('mbstring');
 
     $template->assign("phpver", $phpver);
     $template->assign("configfile", $configfilechk);
     $template->assign("filesdir", $filesdir);
     $template->assign("templatesdir", $templatesdir);
+    $template->assign("is_mbstring_enabled", $is_mbstring_enabled);
 
     $template->display("install1.tpl");
 } elseif ($action == "step2")

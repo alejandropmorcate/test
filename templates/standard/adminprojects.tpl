@@ -55,7 +55,7 @@
 							<th class="a"></th>
 							<th class="b">{#project#}</th>
 							<th class="c">{#done#}</th>
-							<th class="d">{#daysleft#}</th>
+							<th class="days">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -223,7 +223,7 @@
 							<td class="a"></td>
 							<td class="b"><span id="toggle-done" class="acc-toggle">{#closedprojects#}</span></td>
 							<td class="c"></td>
-							<td class="d"></td>
+							<td class="days"></td>
 							<td class="tools"></td>
 						</tr>
 
@@ -255,7 +255,7 @@
 								</div>
 							</td>
 							<td class="c"><div class="statusbar_b"><div class="complete" id = "completed" style="width:{$myprojects[project].done}%;"></div></div><span>{$myprojects[project].done}%</span></td>
-							<td class="d">{$clopros[clopro].daysleft}</td>
+							<td class="days">{$clopros[clopro].daysleft}</td>
 							<td class="tools">
 								{if $userpermissions.projects.edit}
 								<a class="tool_edit" href="manageproject.php?action=editform&amp;id={$clopros[clopro].ID}" title="{#edit#}"></a>

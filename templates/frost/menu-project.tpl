@@ -9,7 +9,7 @@
 				<tr>
 				<td class="a"></td>
 				<td class="b">{#description#}</td>
-				<td class="c">{#daysleft#}</td>
+				<td class="days">{#daysleft#}</td>
 				<td class="d">{#status#}</td>
 				<td class="e"></td>
 					</tr>

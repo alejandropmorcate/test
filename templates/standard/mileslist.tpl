@@ -6,7 +6,7 @@
 				<td class="a"></td>
 				<td class="b">{#milestone#}</td>
 				<td class="c">{#due#}</td>
-				<td class="d">{#daysleft#}</td>
+				<td class="days">{#daysleft#}</td>
 				<td class="e"></td>
 				</tr>
 				</table>
@@ -33,7 +33,7 @@
 						<td class="a"><a class="butn_check" href="managemilestone.php?action=close&amp;mid={$milestones[stone].ID}&amp;id={$project.ID}" title="{#close#}"></a></td>
 						<td class="b"></td>
 						<td class="c">{$milestones[stone].fend}</td>
-						<td class="d">{$milestones[stone].daysleft}</td>
+						<td class="days">{$milestones[stone].daysleft}</td>
 						<td class="tools"><a class="tool_edit" href="managemilestone.php?action=editform&amp;mid={$milestones[stone].ID}&amp;id={$project.ID}"></a><a class="tool_del" href="managemilestone.php?action=del&amp;mid={$milestones[stone].ID}&amp;id={$project.ID}" title="{#delete#}"></a></td>
 						</tr></table>
 

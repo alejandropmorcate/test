@@ -2101,6 +2101,10 @@ th.tools, td.tools {
 	width: 42px;
 }
 
+th.days, td.days {
+	width: 62px;
+}
+
 .user .message col.a {
 	width: 180px;
 }

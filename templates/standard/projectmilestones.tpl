@@ -67,7 +67,7 @@
 								<th class="a"></th>
 								<th class="b">{#milestone#}</th>
 								<th class="c">{#due#}</th>
-								<th class="d">{#daysleft#}</th>
+								<th class="days">{#daysleft#}</th>
 								<th class="tools"></th>
 							</tr>
 						</thead>
@@ -103,7 +103,7 @@
 									</div>
 								</td>
 								<td class="c">{$milestones[stone].fend}</td>
-								<td class="d">{$milestones[stone].dayslate}</td>
+								<td class="days">{$milestones[stone].dayslate}</td>
 								<td class="tools">
 									{if $userpermissions.milestones.edit}
 										<a class="tool_edit" href="managemilestone.php?action=editform&amp;mid={$milestones[stone].ID}&amp;id={$project.ID}" title="{#edit#}"></a>
@@ -144,7 +144,7 @@
 								<td class="a"></td>
 								<td class="b"><span id="togglemileslate" class="acc-toggle-active">{#latestones#}</span></td>
 								<td class="c"></td>
-								<td class="d"></td>
+								<td class="days"></td>
 								<td class="tools"></td>
 							</tr>
 
@@ -174,7 +174,7 @@
 									</div>
 								</td>
 								<td class="c">{$latemilestones[latestone].fend}</td>
-								<td class="d">-{$latemilestones[latestone].dayslate}</td>
+								<td class="days">-{$latemilestones[latestone].dayslate}</td>
 								<td class="tools">
 									{if $userpermissions.milestones.edit}
 										<a class="tool_edit" href="managemilestone.php?action=editform&amp;mid={$latemilestones[latestone].ID}&amp;id={$project.ID}" title="{#edit#}"></a>
@@ -215,7 +215,7 @@
 								<td class="a"></td>
 								<td class="b"><span id="togglemilesdone" class="acc-toggle">{#donemilestones#}</span></td>
 								<td class="c"></td>
-								<td class="d"></td>
+								<td class="days"></td>
 								<td class="tools"></td>
 							</tr>
 
@@ -246,9 +246,9 @@
 								<td class="c">{$donemilestones[stone].fend}</td>
 
 								{if $smarty.now gt $donemilestones[stone].end}
-									<td class="d">-{$donemilestones[stone].dayslate}</td>
+									<td class="days">-{$donemilestones[stone].dayslate}</td>
 								{else}
-									<td class="d">{$donemilestones[stone].dayslate}</td>
+									<td class="days">{$donemilestones[stone].dayslate}</td>
 								{/if}
 
 								<td class="tools">

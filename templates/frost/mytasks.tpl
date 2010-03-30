@@ -95,7 +95,7 @@
 							<th class="a"></th>
 							<th class="b"><a href = "managetask.php?action=showproject&amp;id={$myprojects[project].ID}">{#tasks#}</a></th>
 							<th class="c">{#tasklist#}</th>
-							<th class="d">{#daysleft#}</th>
+							<th class="days">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>

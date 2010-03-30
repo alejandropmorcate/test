@@ -112,7 +112,7 @@
 							<th class="a"></th>
 							<th class="b">{#tasks#}</th>
 							<th class="c">{#user#}</th>
-							<th class="d">{#daysleft#}</th>
+							<th class="days">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -199,7 +199,7 @@
 							<td class="a"></td>
 							<td class="b"><span id="toggle-done-{$project.ID}" class="acc-toggle-active">{#donetasks#}</span></td>
 							<td class="c"></td>
-							<td class="d"></td>
+							<td class="days"></td>
 							<td class="tools"></td>
 						</tr>
 
@@ -231,7 +231,7 @@
 									</div>
 								</td>
 								<td class="c"><a href="manageuser.php?action=profile&amp;tlid={$donetasks[donetask].user_id}&amp;id={$project.ID}">{$donetasks[donetask].user|truncate:23:"...":true}</a></td>
-								<td class="d">{$donetasks[donetask].daysleft}</td>
+								<td class="days">{$donetasks[donetask].daysleft}</td>
 								<td class="tools">
 									{if $userpermissions.tasks.edit}
 									<a class="tool_edit" href="managetask.php?action=editform&amp;tid={$donetasks[donetask].ID}&amp;id={$project.ID}" title="{#edit#}"></a>{/if}

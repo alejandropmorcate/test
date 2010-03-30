@@ -4,7 +4,7 @@
 /*##  Frost Theme for Collabtive 5.1
 ##  Kemie Guaida
 ##  URL: http://www.monolinea.com
-## Based on the CSS by Marcus Fröhner
+## Based on the CSS by Marcus Frï¿½hner
 .
 ## Basic-XHTML-Elements ################################*/
 html, body
@@ -1245,6 +1245,10 @@ th.e, td.e
 
 th.tools, td.tools
 { width: 42px;}
+
+th.days, td.days {
+	width: 62px;
+}
 
 .user .message col.a
 { width: 180px;}

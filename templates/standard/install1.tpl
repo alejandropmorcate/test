@@ -74,12 +74,20 @@
 				<td><span style = "color:red;font-weight:bold;">Not OK <br />({#makedirwritable#})</span></td>
 				{/if}
 				</tr>
+				<tr valign="top">
+				<td>{#mb_string_enabled#}</td>
+				{if $is_mbstring_enabled}
+				<td><span style = "color:green;font-weight:bold;">OK </span></td>
+				{else}
+				<td><span style = "color:red;font-weight:bold;">Not OK <br />({#enable_mb_string#})</span></td>
+				{/if}
+				</tr>
 
 				</table>
 			</div>
 
 
-			{if $configfile >= 666 and $phpver >= 5 and $templatesdir == 1 and $filesdir == 1}
+			{if $configfile >= 666 and $phpver >= 5.1 and $templatesdir == 1 and $filesdir == 1 and $is_mbstring_enabled}
 			<div style="padding:16px 0 12px 0;">
 
 				<h2>2. {#db#}</h2>

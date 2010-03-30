@@ -9,7 +9,7 @@
 				<tr>
 				<td class="a"></td>
 				<td class="b">{#description#}</td>
-				<td class="c">{#daysleft#}</td>
+				<td class="days">{#daysleft#}</td>
 				<td class="d">{#status#}</td>
 				<td class="e"></td>
 					</tr>
@@ -36,7 +36,7 @@
 							{/if}
 							</td>
 							<td class="b"></td>
-							<td class="c">{$project.daysleft}</td>
+							<td class="days">{$project.daysleft}</td>
 							<td class="d">
 								{if $project.status == 1}
 								<span class="status_active">{#active#}</span>

@@ -38,7 +38,7 @@
 							<th class="a"></th>
 							<th class="b" onclick = "sortBlock('desktopprojects','');">{#project#}</th>
 							<th class="c">{#done#}</th>
-							<th class="d" onclick = "sortBlock('desktopprojects','daysleft');">{#daysleft#}</th>
+							<th class="days" onclick = "sortBlock('desktopprojects','daysleft');">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -152,7 +152,7 @@
 							<th class="a"></th>
 							<th class="b" onclick = "sortBlock('desktoptasks','');">{#task#}</th>
 							<th class="c" onclick = "sortBlock('desktoptasks','project');">{#project#}</th>
-							<th class="d" onclick = "sortBlock('desktoptasks','daysleft');">{#daysleft#}</th>
+							<th class="days" onclick = "sortBlock('desktoptasks','daysleft');">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>

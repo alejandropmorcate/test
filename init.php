@@ -31,9 +31,9 @@ if (!empty($db_name) and !empty($db_user))
 // Start template engine
 $template = new Smarty();
 // Start Plugin system
-//$plugin = new plugin();
+$plugin = new plugin();
 // Load the active Plugins and their events
-//$plugins = $plugin->getPlugins();
+$plugins = $plugin->getPlugins();
 
 // get the available languages
 $languages = getAvailableLanguages();
