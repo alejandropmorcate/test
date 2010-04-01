@@ -26,6 +26,11 @@ Additional patches:
 + Fixed truncating problem when using multibyte characters
 + Added login by email in addition to login by username
 + Remove some more calls to session_is_registred in favour of isset($_SESSION)
++ Made mb_string extension mandatory during installation
++ Fixed a problem with long project/task names
+
+@avychodil
++ Fixed wrong image path in message replies
 
 Collabtive 0.6.2
 + Downgraded prototype to 1.6.0.3 to avoid problems with IE.
