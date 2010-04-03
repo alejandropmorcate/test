@@ -437,14 +437,18 @@ class milestone
      * @param int $lim Number of milestones to return
      * @return array $milestones Details of the milestones
      */
-    function getProjectMilestones($project, $lim = 10)
+    function getProjectMilestones($project, $lim = -1)
     {
         $project = (int) $project;
         $lim = (int) $lim;
 
         $now = time();
         $milestones = array();
-        $sql = "SELECT * FROM milestones WHERE project = $project AND end > $now AND status = 1 ORDER BY end ASC LIMIT $lim";
+        $sql = "SELECT * FROM milestones WHERE project = $project AND end > $now AND status = 1 ORDER BY end ASC";
+        
+        if ($lim > 0) {
+        	$sql .= " LIMIT $lim";
+        }
 
         $sel1 = mysql_query($sql);
         while ($milestone = mysql_fetch_array($sel1))
