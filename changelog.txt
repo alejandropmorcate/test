@@ -1,15 +1,15 @@
 Additional patches:
 @eva
-+ Complete translation to English
++ Complete translation to English, Italian (thanks to Marco Tomazzoni), and Greek (thanks to Moschovakis Yioryos)
++ Added readme in Italian
++ Added english manual
++ Added complete Romanian translation
 + Fixed bug when asignee would not be set correctly upon adding a task
 + Added comments
-+ Added readme in Italian
 + Fixed bug in email notification for task assignment
 + Added permission check for closing tasklist
 + Fixed upload paths
 + Code cleanup
-+ Added english manual
-+ Added complete Romanian translation
 + Fixed blank page when trying to install from SVN
 
 @descartes
