@@ -11,7 +11,6 @@ Collabtive 0.6.3
 + Renamed language file folders for Chinese, Greek, Ukranian, Galician, Japanese, and Czech so they
 match those used in TinyMCE
 + Complete translation to English, German, Romanian, and Bulgarian
-+ Added readme in Italian
 + Added English manual
 + Added comments
 + Replaced chat icon in frost theme with a slightly darker one
