@@ -221,8 +221,9 @@ class timetracker
         if ($start > 0 and $end > 0)
         {
             $start = strtotime($start);
-            $end = strtotime($end);
-            $sql .= " AND ended >=$start AND ended<=$end ";
+            $end = strtotime($end . " +1 day");
+            $end = $end - 1;
+			$sql .= " AND ended >=$start AND ended<=$end ";
             $num .= " AND ended >=$start AND ended<=$end ";
         }
         if ($num)

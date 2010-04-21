@@ -10,15 +10,16 @@
 		<span class="info_in_yellow"><img src="templates/standard/images/symbols/system-settings.png" alt=""/>{#settingsedited#}</span>
         {elseif $mode == "deassigned"}
         <span class="info_in_red"><img src="templates/standard/images/symbols/user-icon-male.png" alt=""/>{#userwasdeassigned#}</span>
+		{elseif $mode == "added"}
+        <span class="info_in_green"><img src="templates/standard/images/symbols/projects.png" alt=""/>{#projectwasadded#}</span>
 
 		{/if}
-
-	   </div>
+	</div>
 
 	{literal}
 	<script type = "text/javascript">
 	systemMsg('systemmsg');
-	 </script>
+	</script>
 	{/literal}
 
 <h1>{#administration#}<span>/ {#projectadministration#}</span></h1>

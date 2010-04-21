@@ -203,10 +203,10 @@ class plugin
         $sel = mysql_query("SELECT ID FROM plugins WHERE state = $state");
 
         $plugins = array();
-        while ($plugin = mysql_fetch_array($sel, MYSQL_ASSOC))
-        {
-            array_push($plugins, $this->getPlugin($plugin["ID"]));
-        }
+        //while ($plugin = mysql_fetch_array($sel, MYSQL_ASSOC))
+        //{
+        //    array_push($plugins, $this->getPlugin($plugin["ID"]));
+        //}
 
         return $plugins;
     }

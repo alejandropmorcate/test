@@ -1,9 +1,27 @@
-{include file="header.tpl" jsload2="calendar" jsload = "ajax" jsload1 = "tinymce" jsload3 = "lightbox" stage = "index"}
+{include file="header.tpl" jsload = "ajax" jsload1 = "tinymce" jsload3 = "lightbox" stage = "index"}
 
 {include file="tabsmenue-desk.tpl" desktab = "active"}
 
 <div id="content-left">
 <div id="content-left-in">
+	
+	{* Display System messages *}
+	<div class="infowin_left" style = "display:none;" id = "systemmsg">
+		{if $mode == "projectadded"}
+        <span class="info_in_green"><img src="templates/standard/images/symbols/projects.png" alt=""/>{#projectwasadded#}</span>
+		{/if}
+		
+		{*for async display*}
+		<span id = "closed" style = "display:none;" class="info_in_green"><img src="templates/standard/images/symbols/projects.png" alt=""/>{#projectwasclosed#}</span>
+		<span id = "deleted" style = "display:none;" class="info_in_red"><img src="templates/standard/images/symbols/projects.png" alt=""/>{#projectwasdeleted#}</span>
+
+   </div>
+	   
+	{literal}
+	<script type = "text/javascript">
+	systemMsg('systemmsg');
+	 </script>
+	{/literal}
 
 <h1>{#desktop#}</h1>
 
@@ -38,7 +56,7 @@
 							<th class="a"></th>
 							<th class="b" onclick = "sortBlock('desktopprojects','');">{#project#}</th>
 							<th class="c">{#done#}</th>
-							<th class="days" onclick = "sortBlock('desktopprojects','daysleft');">{#daysleft#}</th>
+							<th class="d" onclick = "sortBlock('desktopprojects','daysleft');">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -129,11 +147,11 @@
 					<div class="export-main">
 						<a class="export"><span>{#export#}</span></a>
 						<div class="export-in"  style="width:46px;left: -46px;"> {*at two items*}
+							<a class="rss" href="managerss.php?action=rss-tasks&user={$userid}"><span>{#rssfeed#}</span></a>
 							<!--
 							<a class="pdf" href="#"><span>{#pdfexport#}</span></a>
 							-->
 							<a class="ical" href="managetask.php?action=ical"><span>{#icalexport#}</span></a>
-							<a class="rss" href="managerss.php?action=rss-tasks&user={$userid}"><span>{#rssfeed#}</span></a>
 						</div>
 					</div>
 				</div>
@@ -152,7 +170,7 @@
 							<th class="a"></th>
 							<th class="b" onclick = "sortBlock('desktoptasks','');">{#task#}</th>
 							<th class="c" onclick = "sortBlock('desktoptasks','project');">{#project#}</th>
-							<th class="days" onclick = "sortBlock('desktoptasks','daysleft');">{#daysleft#}</th>
+							<th class="d" onclick = "sortBlock('desktoptasks','daysleft');">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -274,10 +292,10 @@
 					<div class="export-main">
 						<a class="export"><span>{#export#}</span></a>
 						<div class="export-in"  style="width:46px;left: -46px;"> {*at one item*}
-							<a class="pdf" href="managemessage.php?action=mymsgs-pdf&amp;id={$userid}"><span>{#pdfexport#}</span></a>
 							<a class="rss" href="managerss.php?action=mymsgs-rss&amp;user={$userid}"><span>{#rssfeed#}</span></a>
+							<a class="pdf" href="managemessage.php?action=mymsgs-pdf&amp;id={$userid}"><span>{#pdfexport#}</span></a>
 							<!--
-							<a class="ical" href="managetask.php?action=ical"><span>{#icalexport#}</span></a>
+                             <a class="ical" href="managetask.php?action=ical"><span>{#icalexport#}</span></a>
 							-->
 						</div>
 					</div>

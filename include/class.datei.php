@@ -5,7 +5,7 @@
  * @author Open Dynamics / Philipp Kiszka <info@o-dyn.de>
  * @name datei
  * @version 0.5.5
- * @package Collabtive
+ * @package Cffollabtive
  * @link http://www.o-dyn.de
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
  */
@@ -288,7 +288,7 @@ class datei
         {
             if (move_uploaded_file($tmp_name, $datei_final))
             {
-                $filesize = filesize($datei_final);
+               // $filesize = filesize($datei_final);
 
                 if ($project > 0)
                 {
@@ -298,8 +298,15 @@ class datei
                      */
                     chmod($datei_final, 0755);
                     $fid = $this->add_file($name, $desc, $project, 0, "$tags", $datei_final2, "$typ", $title, $folder, $visstr);
-                    $this->mylog->add($title, 'datei', 1, $project);
-                    return $fid;
+					if(!empty($title))
+					{
+						$this->mylog->add($title, 'datei', 1, $project);
+                    }
+					else
+					{
+						$this->mylog->add($name, 'datei', 1, $project);
+					}
+					return $fid;
                 }
                 else
                 {
@@ -521,48 +528,17 @@ class datei
 
         if ($folder > 0)
         {
-            $sql = "SELECT * FROM files WHERE project = $id AND folder = $folder ORDER BY  ID DESC LIMIT $start,$lim";
+            $sql = "SELECT ID FROM files WHERE project = $id AND folder = $folder ORDER BY  ID DESC LIMIT $start,$lim";
             $sel2 = mysql_query($sql);
         }
         else
         {
-            $sel2 = mysql_query("SELECT * FROM files WHERE project = $id AND folder = 0 ORDER BY  ID DESC LIMIT $start,$lim");
+            $sel2 = mysql_query("SELECT ID FROM files WHERE project = $id AND folder = 0 ORDER BY  ID DESC LIMIT $start,$lim");
         }
-        $tagobj = new tags();
         while ($file = mysql_fetch_array($sel2))
         {
             if (!empty($file))
             {
-                /*
-                $file['type'] = str_replace("/", "-", $file['type']);
-                $set = new settings();
-                $settings = $set->getSettings();
-                $myfile = "./templates/" . $settings['template'] . "/images/files/" . $file['type'] . ".png";
-
-                if (stristr($file['type'], "image"))
-                {
-                    $file['imgfile'] = 1;
-                } elseif (stristr($file['type'], "text"))
-                {
-                    $file['imgfile'] = 2;
-                }
-                else
-                {
-                    $file['imgfile'] = 0;
-                }
-
-                if (!file_exists($myfile))
-                {
-                    $file['type'] = "none";
-                }
-                $thetags = $tagobj->splitTagStr($file["tags"]);;
-                $file["tagsarr"] = $thetags;
-                $file["tagnum"] = count($file["tagsarr"]);
-                $file["title"] = stripslashes($file["title"]);
-                $file["desc"] = stripslashes($file["desc"]);
-                $file["tags"] = stripslashes($file["tags"]);
-                array_push($files, $file);
-                */
                 array_push($files, $this->GetFile($file["ID"]));
             }
         }
@@ -593,43 +569,12 @@ class datei
 
         $files = array();
 
-        $sel2 = mysql_query("SELECT * FROM files WHERE project = $id  ORDER BY  ID DESC");
+        $sel2 = mysql_query("SELECT ID FROM files WHERE project = $id  ORDER BY  ID DESC");
 
-        $tagobj = new tags();
         while ($file = mysql_fetch_array($sel2))
         {
             if (!empty($file))
             {
-                /*
-                $file['type'] = str_replace("/", "-", $file['type']);
-                $set = new settings();
-                $settings = $set->getSettings();
-                $myfile = "./templates/" . $settings['template'] . "/images/files/" . $file['type'] . ".png";
-
-                if (stristr($file['type'], "image"))
-                {
-                    $file['imgfile'] = 1;
-                } elseif (stristr($file['type'], "text"))
-                {
-                    $file['imgfile'] = 2;
-                }
-                else
-                {
-                    $file['imgfile'] = 0;
-                }
-
-                if (!file_exists($myfile))
-                {
-                    $file['type'] = "none";
-                }
-                $thetags = $tagobj->splitTagStr($file["tags"]);;
-                $file["tagsarr"] = $thetags;
-                $file["tagnum"] = count($file["tagsarr"]);
-                $file["title"] = stripslashes($file["title"]);
-                $file["desc"] = stripslashes($file["desc"]);
-                $file["tags"] = stripslashes($file["tags"]);
-                array_push($files, $file);
-                */
                 array_push($files, $this->getFile($file["ID"]));
             }
         }
@@ -683,6 +628,7 @@ class datei
         $type = mysql_real_escape_string($type);
         $title = mysql_real_escape_string($title);
         $now = time();
+	
         $ins = mysql_query("INSERT INTO files (`name`,`desc`,`project`,`milestone`,`user`,`tags`,`added`,`datei`,`type`,`title`,`folder`,`visible`) VALUES ('$name','$desc',$project,$milestone,$userid,'$tags','$now','$datei','$type','$title','$folder','$visstr')");
 
         if ($ins)

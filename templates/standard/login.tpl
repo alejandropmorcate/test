@@ -4,7 +4,7 @@
 <div class="login">
 	<div class="login-in">
 		<div class="logo-name">
-			<h1><a href = "http://collabtive.o-dyn.de/" title = "Open Source project management"><img src="./templates/standard/images/logo-a.png" alt="{$settings.name}"  /></a></h1>
+			<h1><a href = "http://collabtive.o-dyn.de/" title = "{$settings.name} Open Source project management"><img src="./templates/standard/images/logo-a.png" alt="{$settings.name}"  /></a></h1>
 			<h2>{$settings.subtitle}</h2>
 		</div>
 

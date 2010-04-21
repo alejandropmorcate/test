@@ -44,15 +44,9 @@ Please see license.txt for full licensing terms and conditions.
 - Artwork by Marcus Fröhner
 - Icons are partially taken from the Oxygen iconset.
 - Many locales maintained by various contributors:
-    - French maintained by Jean-Christophe Breboin (www.fairytree.fr) and Nilo (www.nilostudio.fr)
-	- Hungarian maintained by Ferenc Forgács
-	- Italian maintained by Lephio (www.lephio.org) and Edoardo Stefani
-	- Japanese maintained by Yamamoto Shoot
-	- Spanish maintained by Efrain Barcena
+    - French maintained by Jean-Christophe Breboin (www.fairytree.fr)
 	- Bulgarian maintained by Jordan Hlebarov
 	- Chinese maintained by Hu Yanggang
-	- Czech maintained by Jan Hanzelka
 	- Polish maintained by Hubert Miazek, Jakub Dyda and Maciej Smolinski
-	- Russian maintained by Danil Pridvorov
 	- Serbian maintained by Vladimir Mincev
 	- Turkish maintained by Mustafa Sarac

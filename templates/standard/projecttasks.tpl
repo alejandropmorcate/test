@@ -39,7 +39,6 @@
 		<span id = "opened" style = "display:none;" class="info_in_green"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasopened#}</span>
 		<span id = "closed" style = "display:none;" class="info_in_green"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasclosed#}</span>
 		<span id = "assigned" style = "display:none;" class="info_in_yellow"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasassigned#}</span>
-
 		<span id = "deassigned" style = "display:none;" class="info_in_yellow"><img src="templates/standard/images/symbols/task.png" alt=""/>{#taskwasdeassigned#}</span>
 		<span id = "listadded" style = "display:none;" class="info_in_green"><img src="templates/standard/images/symbols/tasklist.png" alt=""/>{#tasklistwasadded#}</span>
         <span id = "listclosed" style = "display:none;" class="info_in_red"><img src="templates/standard/images/symbols/tasklist-done.png" alt=""/>{#tasklistwasclosed#}</span>

@@ -1,44 +1,62 @@
-Additional patches:
-@eva
-+ Complete translation to English, Italian (thanks to Marco Tomazzoni), and Greek (thanks to Moschovakis Yioryos)
+Collabtive 0.6.3
++ Cleaned up user profile: company only displayed if available
++ Added option "all" to visibility selection of a new folder
++ Fixed bug where display of members in project members area and user administration was restricted to 10 users
++ Removed mini calendar from sidebar since it served no real purpose
++ Fixed a bug in tasklist editing where not all active milestones were available to assign the list to.
++ Added Favicon to standard theme
++ Added TinyMCE editor options to message edit form, reply form, milestone add form, and milestone edit form
++ Dropped update support for updating from versions earlier than 0.5
++ Removed calls to deprecated function set_magic_quotes_runtime() in class tcpdf (PDF export)
++ Renamed language file folders for Chinese, Greek, Ukranian, Galician, Japanese, and Czech so they
+match those used in TinyMCE
++ Complete translation to English, German, Romanian, and Bulgarian
 + Added readme in Italian
-+ Added english manual
-+ Added complete Romanian translation
-+ Fixed bug when asignee would not be set correctly upon adding a task
++ Added English manual
 + Added comments
-+ Fixed bug in email notification for task assignment
-+ Added permission check for closing tasklist
++ Replaced chat icon in frost theme with a slightly darker one
++ Fixed file upload bug where file would be uploaded to the server but not to the database
++ Fixed a bug where asignee would not be set correctly upon adding a task
++ Fixed a bug where editing of a task could result in the task being assigned to no user
++ Fixed a bug where editing of a tasklist enforced assigning the list to a milestone
++ Fixed a bug where project budget would automatically be reset to 0 upon editing the project
++ Cleaned up project view: budget only displayed if > 0; description only displayed if available.
++ Cleaned up tasklist view: description only displayed if available.
++ Cleaned up message view: replies only displayed if available; removed delete icon, which did not work properly anyway.
++ Fixed a bug in email notification for task assignment
++ Fixed a bug in user timetracking filter (last day of selection not discarded any more)
 + Fixed upload paths
-+ Code cleanup
 + Fixed blank page when trying to install from SVN
-
++ Fixed problem where user with project-add-permission but without admin-permission added a project would get an error message
++ Added permission check for closing tasklist
++ Added page title for tasklist edit form, message edit form, and reply form
++ Added system message on desktop when creating, deleting, or closing a project
++ Added optimization queries for database tables 'roles' and 'roles_assigned' in update script
++ Code cleanup
 @descartes
 + Fixed standard template
 + Fixed version number in the footer
 + Updated language files to match fixes
-+ Fixed bug in user management
++ Fixed a bug in user management
 + Fixed typo when viewing tasklists
-
 @whisperwind
-+ Complete translation to Bulgarian
-+ Fixed minor security issue when deleting user
-+ Fixed an autocompletition issue when editing users
-+ Fixed truncating problem when using multibyte characters
++ Fixed minor issue where deleting user
++ Fixed an autocompletition issue where editing users
++ Fixed truncating problem where using multibyte characters
 + Added login by email in addition to login by username
 + Remove some more calls to session_is_registred in favour of isset($_SESSION)
 + Made mb_string extension mandatory during installation
 + Fixed a problem with long project/task names
-
 @avychodil
 + Fixed wrong image path in message replies
 
 Collabtive 0.6.2
-+ Downgraded prototype to 1.6.0.3 to avoid problems with IE.
-+ Fixed bug when filtering timetracker
++ Downgraded Prototype to 1.6.0.3 to avoid problems with IE.
++ Fixed a bug when filtering timetracker
 + Fixed "milestones tab unvisible for non-admins"
-+ Removed property required = "0" from non-required form fields. This should improve Opera compatibiltiy.
++ Removed property required = "0" from non-required form fields. This should improve Opera compatibility.
 + Fixed some wrong image paths.
-+ Fixed bug when editing a task.
++ Fixed a bug when editing a task.
 + Properly implemented assign task to some/all users of a project
 + Added complete russian translation
 + Fixed small display bug in single tasklist view
@@ -60,13 +78,13 @@ field
 + Improved Catalan translation
 + Fixed a security bug where any user could delete any file or folder in projects he belonged to.
 + Fixed editing timetracker data did not show the tinyMCE editor (mloeffen)
-+ Fixed bug in TinyMCE textfields where newlines were inserted after editing
++ Fixed a bug in TinyMCE textfields where newlines were inserted after editing
 + File manager now stores who uploaded a file in the database. Uploader is displayed in the file list view.
 + First version of a plugin implementation
 + Fixed wrong version number in frost theme
 
 Collabtive 0.6
-+ Fixed bug where file description of files in subfolders could not be edited.
++ Fixed a bug where file description of files in subfolders could not be edited.
 + Added "add project" functionality to the projects block on the desktop.
 + Fixed a bug preventing the attaching of existing files to messages.
 + Refactoring of class project. Removed a lot of unneeded code.
@@ -77,10 +95,10 @@ Collabtive 0.6
 + Fixed a bug in class milestone, preventing milestones with end date "today" from showing up when there where no other milestones.
 + Fixed a bug in the calculation of days left of milestones.
 + When closing or deleting stuff (tasks, milestones, messages, etc) asynchronously, the alternating background color of the table rows is properly restored.
-+ Date format can now be configured to be d.m.Y  or m/d/Y
-+ Updated Prototype library to 1.6, Scriptaculous to 1.8. Finally.
++ Date format can now be configured to be d.m.Y or m/d/Y
++ Updated Prototype library to 1.6, Scriptaculous to 1.8., finally.
 + Fixed a bug where the filetype icon of a file would not be displayed (instead "?" icon).
-+ Fixed bug when deleting folders.
++ Fixed a bug when deleting folders.
 + Fixed display of filecount when 0 files are present.
 + Implemented unlimited subfolders for files.
 + Implemented moving files between folders via drag and drop.
@@ -106,7 +124,7 @@ Collabtive 0.5.5
 + PDF exports of messages now show the postdate of each message
 + Implemented PDF export of the "my messages" view.
 + Implemented PDF export for single messages
-+ Fixed bug where PDF export would insert empty pages between pages with content
++ Fixed a bug where PDF export would insert empty pages between pages with content
 + More TinyMCE cleanups (unneeded packages removed)
 + Fixed some small UI glitches
 + Removed Basecamp import from the installer to reduce confusion
@@ -132,7 +150,7 @@ Collabtive 0.5
 + Improved PDF Export (full UTF8 support for PDF reports)
 + Implemented PDF export for project->messages
 + When creating a new user, the user is notified via email
-+ Fixed bug in admin->users and project->users (missing pagination)
++ Fixed a bug in admin->users and project->users (missing pagination)
 + Fixed some UI glitches
 + Fixed Imagelist in tinyMCE editor not displaying files without a title
 + Fixed short PHP tags in style_main.php (standard theme)
@@ -145,7 +163,7 @@ Collabtive 0.5
 + Basecamp import now imports replies to messages, as well as the messages themselves.
 + Basecamp import now properly imports task-titles , not only the textbody
 + Fixed Basecamp import in standard template (admin->system and installer)
-+ Fixed bug where userprofiles would get mangled up when changing system settings in admin->system
++ Fixed a bug where userprofiles would get mangled up when changing system settings in admin->system
 + Edit project on project view now correctly shows wyswyg editor
 + Show more tasks on "my tasks" view on the desktop
 + Removed many unneeded TinyMCE Plugins from the package
@@ -156,14 +174,14 @@ Collabtive 0.5
 
 Collabtive 0.4.9.1
 + Fixed display bug in mac/safari (admin->user)
-+ Fixed bug when changing the picture of users, as admin
++ Fixed a bug when changing the picture of users, as admin
 + Cleaned up problems in the userprofile
 + fixed bug preventing avatar pictures from being uploaded in Internet Explorer
 + Improved folder handling
 + Improved timetracker reporting (normal users can now see their own hours)
 + Folderexport now possible in the file explorer
-+ Fixed bug in timetracker report pagination (project view)
-+ Fixed bug in the JS calender on the desktop in IE
++ Fixed a bug in timetracker report pagination (project view)
++ Fixed a bug in the JS calender on the desktop in IE
 + Fixed some wrong links in the new
 
 
@@ -172,7 +190,7 @@ Collabtive 0.4.9
 + Added option Mail from name
 + Implemented ajaxified close element and delete element
 + Updated to TinyMCE 3.2
-+ Fixed bug when changing the avatar of other users, as admin
++ Fixed a bug when changing the avatar of other users, as admin
 + Implemented hourly rate setting for Users
 + Implemented Budget setting for Projects
 + Pagination now themeable
@@ -220,9 +238,9 @@ Collabtive 0.4.8
 
 Collabtive 0.4.7
 + Implemented tagcloud on the projectview
-+ Fixed bug in timetracker:add on windows
++ Fixed a bug in timetracker:add on windows
 + Cleaned up pathing in init.php (pointed out by jcorreia)
-+ Fixed bug in the updater, preventing messages to be posted
++ Fixed a bug in the updater, preventing messages to be posted
 + Improved installer to check for PHP 5.1 instead of only PHP5
 + Implemented OpenID login
 + Users can now be tagged
@@ -240,7 +258,7 @@ Collabtive 0.4.7
 
 
 Collabtive 0.4.6
-+ Fixed bug preventing user from logging in
++ Fixed a bug preventing user from logging in
 + Added dutch locale
 + Added lituanian locale
 + Added measuring of localizing completeness for each locale (translated vs untranslated ratio)
@@ -266,7 +284,7 @@ Collabtive 0.4.6
 
 Collabtive 0.4.5
 + Vcard export of userprofiles
-+ Fixed bug in the milestones timeline
++ Fixed a bug in the milestones timeline
 + Added profile fields URL, Gender, ZIP
 + Improved Formvalidator to support regular expressions
 + Timetracker form now checks for correct time format (hh:mm)

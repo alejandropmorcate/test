@@ -170,11 +170,7 @@ class roles
         $role = (int) $role;
         $user = (int) $user;
 
-        if ($role == -1) {
-            $del = mysql_query("DELETE FROM roles_assigned WHERE user = $user");
-        } else {
-            $del = mysql_query("DELETE FROM roles_assigned WHERE user = $user AND role = $role LIMIT 1");
-        }
+        $del = mysql_query("DELETE FROM roles_assigned WHERE user = $user AND role = $role LIMIT 1");
 
         if ($del)
         {

@@ -39,9 +39,4 @@ Collabtive ist freie Software unter den Bedingungen der GNU General Public licen
 - Artwork: Marcus Fröhner
 - Icons stammen zum Teil aus dem Oxygen Iconset
 - Viele Übersetzungen von Community Mitgliedern betreut:
-    - Französisch von Jean-Christophe Breboin (www.fairytree.fr) und Nilo (www.nilostudio.fr)
-    - Italienisch von Lephio (www.lephio.org)
-    - Japanisch von Yamamoto Shoot
-    - Spanisch von Efrain Barcena
-    - Tschechisch von Jan Hanzelka
-	- Ungarisch von Ferenc Forgács
+    - Französisch: Jean-Christophe Breboin (www.fairytree.fr)

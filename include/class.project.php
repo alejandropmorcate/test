@@ -116,10 +116,16 @@ class project
         $end = mysql_real_escape_string($end);
         $end = strtotime($end);
         $id = (int) $id;
-        $budget = (float) $budget;
-
-        $upd = mysql_query("UPDATE projekte SET name='$name',`desc`='$desc',`end`='$end',budget=$budget WHERE ID = $id");
-
+		if ($budget)
+		{
+			$budget = (float) $budget;
+			$upd = mysql_query("UPDATE projekte SET `name`='$name',`desc`='$desc',`end`='$end',`budget`='$budget' WHERE ID = $id");
+		}
+		else
+		{
+			$upd = mysql_query("UPDATE projekte SET `name`='$name',`desc`='$desc',`end`='$end' WHERE ID = $id");
+		}
+		
         if ($upd)
         {
             $this->mylog->add($name, 'projekt' , 2, $id);
@@ -395,11 +401,7 @@ class project
         $user = (int) $user;
         $id = (int) $id;
 
-        if ($id == -1) {
-            $sql = "DELETE FROM projekte_assigned WHERE user = $user";
-        } else {
-            $sql = "DELETE FROM projekte_assigned WHERE user = $user AND projekt = $id";
-        }
+        $sql = "DELETE FROM projekte_assigned WHERE user = $user AND projekt = $id";
 
         $milestone = new milestone();
         $donemiles = $milestone->getDoneProjectMilestones($id);
@@ -597,8 +599,7 @@ class project
      */
     function getProjectMembers($project, $lim = 10, $paginate = true)
     {
-        $project = mysql_real_escape_string($project);
-        $lim = mysql_real_escape_string($lim);
+  
         $project = (int) $project;
         $lim = (int) $lim;
 
@@ -608,14 +609,16 @@ class project
         {
             $num = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM projekte_assigned WHERE projekt = $project"));
             $num = $num[0];
-            $lim = (int)$lim;
+
             SmartyPaginate::connect();
             // set items per page
             SmartyPaginate::setLimit($lim);
             SmartyPaginate::setTotal($num);
 
             $start = SmartyPaginate::getCurrentIndex();
+
             $lim = SmartyPaginate::getLimit();
+		
         }
         else
         {

@@ -214,6 +214,7 @@ class user
         $del4 = mysql_query("DELETE FROM tasks_assigned WHERE user = $id");
         $del5 = mysql_query("DELETE FROM log WHERE user = $id");
         $del6 = mysql_query("DELETE FROM timetracker WHERE user = $id");
+		$del7 = mysql_query("DELETE FROM roles_assigned WHERE user = $id");
         if ($del)
         {
             $this->mylog->add($name, 'user', 3, 0);

@@ -1,4 +1,4 @@
-﻿### Requerimientos ###
+### Requerimientos ###
 Servidor:
 - PHP 5.1 o superior (Última versión estable recomendada)
 - MySQL 4 o superior
@@ -43,15 +43,9 @@ de esta licencia y sus condiciones.
 - Diseño por Marcus Fröhner
 - Los iconos han sido parcialmente extraídos del pack de iconos de Oxygen.
 - Las traducciones son mantenidas por varios colaboradores:
-    - Francés mantenido por Jean-Christophe Breboin (www.fairytree.fr) y Nilo (www.nilostudio.fr) 
-	- Húngaro mantenido por Ferenc Forgács
-	- Italiano mantenido por Lephio (www.lephio.org) y Edoardo Stefani
-	- Japonés mantenido por Yamamoto Shoot
-	- Español mantenido por Efrain Barcena y Cristian Deluxe (www.cristiandeluxe.com)
+    - Francés mantenido por Jean-Christophe Breboin (www.fairytree.fr)
 	- Búlgaro mantenido por Jordan Hlebarov
 	- Chino mantenido por Hu Yanggang
-	- Checoslovaco mantenido por Jan Hanzelka
 	- Polaco mantenido por Hubert Miazek, Jakub Dyda y Maciej Smolinski
-	- Ruso mantenido por Danil Pridvorov
 	- Serbio mantenido por Vladimir Mincev
 	- Turco mantenido por Mustafa Sarac

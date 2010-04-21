@@ -33,10 +33,13 @@
 				{if $userpermissions.projects.edit}
 				<li class="link"><a class="edit" href="javascript:void(0);"  id="edit_butn" onclick="blindtoggle('form_edit');toggleClass(this,'edit-active','edit');toggleClass('sm_project','smooth','nosmooth');toggleClass('sm_project_desc','smooth','nosmooth');" title="{#edit#}"></a></li>
 				{/if}
+				{if $project.desc}
 				<li class="link" onclick="blindtoggle('descript');toggleClass('desctoggle','desc_active','desc');"><a class="desc" id="desctoggle" href="#" title="{#open#}">{#description#}</a></li>
-				{if $userpermissions.projects.del}
-				<li><a>Budget: {$project.budget}</a></li>
 				{/if}
+				{if $userpermissions.projects.del}
+				{if $project.budget}
+				<li><a>Budget: {$project.budget}</a></li>
+				{/if}{/if}
 
 				<li {if $project.daysleft < 0}class="red"{else}class="green"{/if}><a>{$project.daysleft} {#daysleft#}</a></li>
 			</ul>
@@ -106,37 +109,37 @@
 {*Timetracker*}
 {if $userpermissions.timetracker.add}
 <div class="timetrack">
-			<div class="headline">
-				<a href="javascript:void(0);" id="trackerhead_toggle" class="win_block" onclick = "toggleBlock('trackerhead');"></a>
+	<div class="headline">
+		<a href="javascript:void(0);" id="trackerhead_toggle" class="win_block" onclick = "toggleBlock('trackerhead');"></a>
 
-<!-- Export-block
-				<div class="wintools">
-					<div class="export-main">
-						<a class="export"><span>{#export#}</span></a>
-						<div class="export-in"  style="width:23px;left: -23px;"> {*at one item*}
-							<a class="ical" href="managetask.php?action=ical"><span>{#icalexport#}</span></a>
-						</div>
-					</div>
+		<!-- Export-block
+		<div class="wintools">
+			<div class="export-main">
+				<a class="export"><span>{#export#}</span></a>
+				<div class="export-in"  style="width:23px;left: -23px;"> {*at one item*}
+					<a class="ical" href="managetask.php?action=ical"><span>{#icalexport#}</span></a>
 				</div>
--->
-
-				<h2>
-					<a href="managetimetracker.php?action=showproject&amp;id={$project.ID}" title="{#timetracker#}"><img src="./templates/standard/images/symbols/timetracker.png" alt="" />{#timetracker#}</a>
-				</h2>
-
 			</div>
+		</div>
+		-->
 
-			<div class="block" id="trackerhead" style = "{$trackerstyle}">
-				<div id = "trackerform" class="addmenue">
-				{include file="addtimetracker.tpl" }
-				</div>
-				<div class="tablemenue"></div>
-			</div> {*block end*}
+		<h2>
+			<a href="managetimetracker.php?action=showproject&amp;id={$project.ID}" title="{#timetracker#}"><img src="./templates/standard/images/symbols/timetracker.png" alt="" />{#timetracker#}</a>
+		</h2>
+	</div>
 
+	<div class="block" id="trackerhead" style = "{$trackerstyle}">
+		<div id = "trackerform" class="addmenue">
+			{include file="addtimetracker.tpl" }
+		</div>
+		<div class="tablemenue"></div>
+	</div> {*block end*}
 </div> {*timetrack end*}
+
 <div class="content-spacer"></div>
 {/if}
 {*Timetracker End*}
+
 
 {*Activity Log*}
 <div class="neutral">
@@ -145,16 +148,14 @@
 {*Activity Log End*}
 
 
-
 </div> {*nosmooth End*}
 
 
-
-	{literal}
-		<script type = "text/javascript">
-		changeshow('manageproject.php?action=cal&id={/literal}{$project.ID}{literal}','thecal','progress');
-		</script>
-	{/literal}
+{literal}
+	<script type = "text/javascript">
+	changeshow('manageproject.php?action=cal&id={/literal}{$project.ID}{literal}','thecal','progress');
+	</script>
+{/literal}
 
 </div> {*content-left-in END*}
 </div> {*content-left END*}
@@ -162,17 +163,15 @@
 {include file="sidebar-a.tpl" showcloud="1"}
 
 {literal}
-<script type = "text/javascript">
-Event.observe(window,"load",function()
-{
-
-	new Effect.Morph('completed', {
-	  style: 'width:{/literal}{$done}{literal}%',
-	  duration: 4.0
-	});
-}
-);
-</script>
+	<script type = "text/javascript">
+		Event.observe(window,"load",function()
+		{
+			new Effect.Morph('completed', {
+				style: 'width:{/literal}{$done}{literal}%',
+				duration: 4.0
+			});
+		});
+	</script>
 {/literal}
 
 {include file="footer.tpl"}

@@ -169,7 +169,7 @@
 				<tbody class="color-b">
 					<tr>
 						<td><label for="state">{#state#}:</label></td>
-						<td class="right"><input type = "text" class="text" value = "{$user.state}" name = "state" id="state"  /></td>
+						<td class="right"><input type = "text" class="text" value = "{$user.state}" name = "state" id="state"  autocomplete="off" /></td>
 					</tr>
 				</tbody>
 
@@ -214,14 +214,14 @@
 				<tbody class="color-b">
 					<tr>
 						<td><label for="newpass">{#newpass#}:</label></td>
-						<td class="right"><input type = "password" name = "newpass" id = "newpass" /></td>
+						<td class="right"><input type = "password" name = "newpass" id = "newpass" autocomplete="off" /></td>
 					</tr>
 				</tbody>
 
 				<tbody class="color-a">
 					<tr>
 						<td><label for="repeatpass">{#repeatpass#}:</label></td>
-						<td class="right"><input type = "password" name = "repeatpass" id = "repeatpass" /></td>
+						<td class="right"><input type = "password" name = "repeatpass" id = "repeatpass" autocomplete="off" /></td>
 					</tr>
 				</tbody>
 

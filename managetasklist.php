@@ -43,7 +43,7 @@ $template->assign("mode", $mode);
 
 if ($action == "addform")
 {
-    $milestones = $objmilestone->getProjectMilestones($id, 10000);
+    $milestones = $objmilestone->getAllProjectMilestones($id, 10000);
 
     $title = $langfile['addtasklist'];
     $template->assign("title", $title);
@@ -77,7 +77,7 @@ if ($action == "editform")
     $mile_id = $tasklist["milestone"];
     $m = $objmilestone->getMilestone($mile_id);
     $tasklist["milestonename"] = $m["name"];
-    $milestones = $objmilestone->getAllProjectMilestones($id);
+    $milestones = $objmilestone->getAllProjectMilestones($id, 10000);
     $project = array();
     $project['ID'] = $id;
 
@@ -85,7 +85,10 @@ if ($action == "editform")
 
     $pro = $myproject->getProject($id);
     $projectname = $pro["name"];
+	
+    $title = $langfile["edittasklist"];
 
+    $template->assign("title", $title);
     $template->assign("projectname", $projectname);
     $template->assign("showhead", 1);
     $template->assign("milestones", $milestones);
@@ -186,7 +189,7 @@ if ($action == "editform")
     $donetasks = $liste->getTasksFromList($tlid, 0);
     $tasklist["donetasknum"] = count($donetasks);
 
-    $milestones = $objmilestone->getAllProjectMilestones($id);
+    $milestones = $objmilestone->getAllProjectMilestones($id, 10000);
     $template->assign("milestones", $milestones);
 
     $title = $langfile['tasklist'];

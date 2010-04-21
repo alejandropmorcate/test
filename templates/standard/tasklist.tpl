@@ -42,7 +42,9 @@
 				{if $userpermissions.tasks.del}
 				<li class="link"><a class="del" href="javascript:void(0);" onclick="confirmit('{#confirmdel#}','managetasklist.php?action=del&amp;tlid={$tasklist.ID}&amp;id={$project.ID}');" title="{#delete#}"></a></li>
 				{/if}
+				{if $tasklist.desc}
 				<li class="link" onclick="blindtoggle('descript');toggleClass('desctoggle','desc_active','desc');"><a class="desc" id="desctoggle" href="#" title="{#open#}">{#description#}</a></li>
+				{/if}
 
 				<li><a>{#start#}: {$tasklist.startstring}</a></li>
 			</ul>

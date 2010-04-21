@@ -1,5 +1,6 @@
 <?php
 require("init.php");
+/*
 if (!isset($_SESSION["userid"]))
 {
     $template->assign("loginerror", 0);
@@ -8,6 +9,7 @@ if (!isset($_SESSION["userid"]))
     $template->display("login.tpl");
     die();
 }
+*/
 
 $milestone = new milestone();
 
@@ -285,6 +287,8 @@ if ($action == "timeline1next")
     if ($folder == 0)
     {
         $folders = $myfile->getProjectFolders($id);
+		$foldername = "";
+		$thefolder = array("parent"=>0);
     }
     else
     {
@@ -517,3 +521,4 @@ elseif ($action == "folderview")
     $template->assign("weeks", $weeks);
     $template->display("calbody.tpl");
 }
+

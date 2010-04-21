@@ -15,8 +15,6 @@
 
 <h1 class="second"><img src="./templates/standard/images/symbols/tasklist.png" alt="" />{$tasklist.name|truncate:30:"...":true}</h1>
 
-					
-
 {/if}
 
 			<div class="block_in_wrapper">
@@ -33,6 +31,7 @@
 						<div class="row">
 						<label for="milestone">{#milestone#}:</label>
 						<select name="milestone" id="milestone" >
+							<option value="0">{#chooseone#}</option>
 							{section name=stone loop=$milestones}
 							<option value="{$milestones[stone].ID}" {if $tasklist.milestone == $milestones[stone].ID}selected = "selected"{/if}>{$milestones[stone].name}</option>
 							{/section}

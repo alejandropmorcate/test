@@ -133,10 +133,12 @@ if ($action == "addform")
         $template->display("error.tpl");
         die();
     }
-    // get the page title from the language file
-    $title = $langfile['editmessage'];
-    $template->assign("title", $title);
-    // get the message to edit
+	
+    // get page title from language file
+    $title = $langfile["editmessage"];
+	$template->assign("title", $title);
+    
+	// get the message to edit
     $message = $msg->getMessage($mid);
     $template->assign("message", $message);
     $template->display("editmessageform.tpl");
@@ -191,8 +193,6 @@ if ($action == "addform")
         }
         else
         {
-            // $loc = $url . "managemessage.php?action=showproject&id=$id&mode=deleted";
-            // header("Location: $loc");
             echo "ok";
         }
     }
@@ -207,8 +207,11 @@ if ($action == "addform")
         $template->display("error.tpl");
         die();
     }
-    $title = $langfile['reply'];
+	
+	// get page title from language file
+    $title = $langfile["reply"];
     $template->assign("title", $title);
+	
     $myfile = new datei();
     $ordner = $myfile->getProjectFiles($id, 1000);
     $message = $msg->getMessage($mid);

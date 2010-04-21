@@ -77,7 +77,7 @@ if ($action == "index")
         "users" => "users_active"
         );
     $template->assign("classes", $classes);
-    $users = $user->getAllUsers(10);
+    $users = $user->getAllUsers(14);
     $projects = $project->getProjects(1, 10000);
     $roleobj = (object) new roles();
     $roles = $roleobj->getAllRoles();
@@ -357,14 +357,6 @@ if ($action == "index")
         }
     }
 
-    $roles = new roles();
-
-    $roles->deassign(-1, $id);
-
-    $project = new project();
-
-    $project->deassign($id, -1);
-
     if ($user->del($id))
     {
         header("Location: admin.php?action=users&mode=deleted");
@@ -440,7 +432,8 @@ if ($action == "index")
     }
 
     header("Location: admin.php?action=users&mode=de-assigned");
-} elseif ($action == "projects")
+}
+elseif ($action == "projects")
 {
     $classes = array("overview" => "overview_active",
         "system" => "system",
@@ -452,6 +445,7 @@ if ($action == "index")
     $opros = $project->getProjects(1, 10000);
     $clopros = $project->getProjects(0, 10000);
     $i = 0;
+    $users = $user->getAllUsers(1000000);
     if (!empty($opros))
     {
         foreach($opros as $opro)
@@ -463,11 +457,11 @@ if ($action == "index")
         $template->assign("opros", $opros);
     }
 
-    $users = $user->getAllUsers(1000000);
     $template->assign("users", $users);
     $template->assign("clopros", $clopros);
     $template->display("adminprojects.tpl");
-} elseif ($action == "addpro")
+}
+elseif ($action == "addpro")
 {
     if (!$userpermissions["projects"]["add"])
     {
@@ -485,8 +479,15 @@ if ($action == "index")
         {
             $project->assign($member, $add);
         }
-        header("Location: admin.php?action=projects&mode=added");
-    }
+		if($userpermissions["admin"]["add"])
+		{
+			header("Location: admin.php?action=projects&mode=added");
+		}
+		else
+		{
+			header("Location: index.php?mode=projectadded");
+		}
+	}
 } elseif ($action == "closepro")
 {
     if ($project->close($id))

@@ -356,7 +356,7 @@ class milestone
     }
 
     /**
-     * Return all milestones of a given project
+     * Return all late milestones of a given project
      *
      * @param int $project Project ID
      * @param int $lim Number of milestones to return

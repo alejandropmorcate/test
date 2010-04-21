@@ -89,7 +89,7 @@ if ($action == "upload")
                     {
 						if (in_array($user["ID"], $sendto))
 						{
-						// Pruefung ob Unterordner existiert, sonst Stammordner
+						// check if subfolder exists, else root folder
 						$whichfolder = (!empty($thefolder)) ? $thefolder : $langfile["rootdir"];
 						// send email
 						$themail = new emailer($settings);

@@ -346,7 +346,6 @@ if ($action == "login")
         );
     $template->assign("mainclasses", $mainclasses);
     $proj = (object) new project();
-    $members = $proj->getProjectMembers($id);
     $alluser = $user->getAllUsers(100);
     $users = array();
 
@@ -357,7 +356,9 @@ if ($action == "login")
             array_push($users, $all);
         }
     }
+	SmartyPaginate::disconnect();
 
+    $members = $proj->getProjectMembers($id, 14);
     $pro = $proj->getProject($id);
 
     $projectname = $pro['name'];

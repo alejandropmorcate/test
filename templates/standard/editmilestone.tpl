@@ -1,6 +1,5 @@
 {if $showhtml != "no"}
-{include file="header.tpl" jsload = "ajax" }
-
+{include file="header.tpl" jsload="ajax" jsload1="tinymce"}
 
 {include file="tabsmenue-project.tpl" milestab = "active"}
 <div id="content-left">
@@ -28,9 +27,17 @@
 					<form class="main" method="post" action="managemilestone.php?action=edit&amp;id={$milestone.project}" {literal}onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
 					<fieldset>
 
-					<div class="row"><label for="name">{#name#}:</label><input type="text" value="{$milestone.name}" name="name" id="name" required="1" realname="{#name#}" /></div>
-					<div class="row"><label for="desc">{#description#}:</label><textarea name="desc" id="desc"  rows="3" cols="1">{$milestone.desc}</textarea></div>
-					<div class="row"><label for="end">{#end#}:</label><input type="text" value="{$milestone.endstring}" name="end"  id="end" required="1" realname="{#end#}" /></div>
+					<div class="row">
+						<label for="name">{#name#}:</label><input type="text" value="{$milestone.name}" name="name" id="name" required="1" realname="{#name#}" />
+					</div>
+					
+					<div class = "row">
+						<label for="desc">{#description#}:</label><textarea name="desc" id="desc" realname="{#description#}" rows="3" cols="1" >{$milestone.desc}</textarea>
+					</div>
+					
+					<div class="row">
+						<label for="end">{#end#}:</label><input type="text" value="{$milestone.endstring}" name="end"  id="end" required="1" realname="{#end#}" />
+					</div>
 
 					<div class="datepick">
 						<div id = "datepicker_mile" class="picker" style = "display:none;"></div>

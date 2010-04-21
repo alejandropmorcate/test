@@ -130,7 +130,6 @@ if ($action == "addform")
     
     $title = $langfile["edittask"];
 
-    array_push($members, array("ID" => 0, "name" => $langfile["all"]));
     $template->assign("members", $members);
     $template->assign("title", $title);
     $template->assign("tasklists", $tasklists);
@@ -191,8 +190,6 @@ if ($action == "addform")
         else
         {
             echo "ok";
-            // $loc = $url . "managetask.php?action=showproject&id=$id&mode=deleted";
-            // header("Location: $loc");
         }
     }
     else

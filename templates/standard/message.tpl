@@ -39,18 +39,9 @@
 				{if $userpermissions.messages.edit}
 				<li class="link"><a class="edit" href="javascript:void(0);"  id="edit_butn" onclick="blindtoggle('form_edit');toggleClass(this,'edit-active','edit');toggleClass('sm_replies_a','smooth','nosmooth');" title="{#edit#}"></a></li>
 				{/if}
-				{if $userpermissions.messages.del}
-				<li class="link"><a class="del" href="javascript:confirmit('{#confirmdel#}','managemessage.php?action=del&amp;mid={$message.ID}&amp;id={$project.ID}');" title="{#delete#}"></a></li>
-				{/if}
-
-				<!--
-				<li class="link" onclick="blindtoggle('descript');toggleClass('desctoggle','desc_active','desc');"><a class="desc_active" id="desctoggle" href="javascript:void(0);" title="{#open#}">{#description#}</a></li>
-				-->
-				<!--
-				<li><a>{#by#}: {$message.username|truncate:20:"...":true} / {$message.endstring}</a></li>
-				-->
-
+				{if $message.replies}
 				<li><a>{#replies#}: {$message.replies}</a></li>
+				{/if}
 
 			</ul>
 	</div>

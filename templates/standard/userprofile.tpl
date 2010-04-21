@@ -62,7 +62,7 @@
                 <tbody class="color-b">
 				    <tr>
 					   <td><strong>{#company#}:</strong></td>
-					   <td class="right">{$user.company}</td>
+					   <td class="right">{if $user.company}{$user.company}{/if}</td>
 				    </tr>
 				</tbody>
 
@@ -104,7 +104,7 @@
 				<tbody class="color-b">
 					<tr>
 						<td><strong>{#zip#} / {#city#}:</strong></td>
-						<td class="right">{$user.zip} {$user.adress2} </td>
+						<td class="right">{$user.zip}{if $user.zip && $user.adress2} {/if}{$user.adress2} </td>
 					</tr>
 				</tbody>
 
