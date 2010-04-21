@@ -10,7 +10,7 @@
 					<div class="logo">
 						<h1>
 							<a href="index.php" title="{#desktop#}"><img src="./templates/standard/images/logo-b.png" alt="" /></a>
-							<span class="title">{$settings.name}<span class="subtitle">/ {$settings.subtitle}</span></span>
+							<span class="title">{$settings.name}<span class="subtitle">{if $settings.subtitle}/ {/if}{$settings.subtitle}</span></span>
 						</h1>
 					</div>
 
