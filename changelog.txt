@@ -1,3 +1,6 @@
+Collabtive 0.6.4
++ Added readme in Italian
+
 Collabtive 0.6.3
 + Cleaned up user profile: company only displayed if available
 + Added option "all" to visibility selection of a new folder
