@@ -34,12 +34,12 @@
 
 			<div class="row">
 				<label for="dateformat">{#rssuser#}:</label>
-				<input type = "text" name = "rssuser" id = "rssuser" value = "{$settings.rssuser}" />
+				<input type = "text" name = "rssuser" id = "rssuser" value = "{$settings.rssuser}" autocomplete = "off"/>
 			</div>
 
 			<div class="row">
 				<label for="dateformat">{#rsspass#}:</label>
-				<input type = "password" name = "rsspass" id = "rsspass" value = "{$settings.rsspass}" />
+				<input type = "password" name = "rsspass" id = "rsspass" value = "{$settings.rsspass}" autocomplete = "off" />
 			</div>
 
 			<div class="row">
