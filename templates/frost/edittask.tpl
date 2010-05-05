@@ -28,8 +28,8 @@
 					<fieldset>
 
 					<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" value="{$task.title}" name="title" id="title" realname="{#title#}" required="1" /></div>
-					<div class="row"><label for="text">{#text#}:</label><div class="editor"><textarea name="text" id="text" required="0"  rows="3" cols="0" >{$task.text}</textarea></div></div>
-					<div class="row"><label for="end">{#end#}:</label><input type="text" class="text" value="{$task.endstring}" name="end"  id="end" required="0" /></div>
+					<div class="row"><label for="text">{#text#}:</label><div class="editor"><textarea name="text" id="text"   rows="3" cols="0" >{$task.text}</textarea></div></div>
+					<div class="row"><label for="end">{#end#}:</label><input type="text" class="text" value="{$task.endstring}" name="end"  id="end"  /></div>
 
 					<div class="datepick">
 						<div id = "datepicker_task" class="picker" style = "display:none;"></div>
@@ -49,16 +49,17 @@
 						<option value="{$tasklists[tasklist].ID}" {if $task.listid == $tasklists[tasklist].ID}selected = "selected"{/if}>{$tasklists[tasklist].name}</option>
 						{/section}</select>
 					</div>
-
-					<div class="row"><label for="assigned">{#assignto#}:</label>
-						<select name="assigned" class="select" id="assigned" required="1" realname="{#assignto#}">
-
-						{section name=member loop=$members}
-						<option value="{$members[member].ID}" {if $task.userid == $members[member].ID}selected = "selected"{/if}>{$members[member].name}</option>
-						{/section}</select>
-					</div>
-
-
+                                        
+                                        <div class="row">
+                                                <label for="assigned" >{#assignto#}:</label>
+                                                <select name = "assigned[]" multiple="multiple" style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}">
+                                                        <option value="-1">{#chooseone#}</option>
+                                                        {section name=member loop=$members}  
+                                                                <option value="{$members[member].ID}" {if in_array($members[member].ID, $task.users)}selected = "selected"{/if}>{$members[member].name}</option>
+                                                        {/section}
+                                                </select>
+                                        </div>
+            
 					<div class="row-butn-bottom">
 						<label>&nbsp;</label>
 						<button type="submit" onfocus="this.blur();">{#send#}</button>
