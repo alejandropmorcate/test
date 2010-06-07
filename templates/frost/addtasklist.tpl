@@ -7,7 +7,7 @@
 	
 	
 			<div class="row">
-				<label for="milestone">Milestone: </label>
+				<label for="milestone">{#milestone#}: </label>
 				<select name="milestone" id="milestone" required="0">
 				<option value="0" selected="selected">{#chooseone#}</option>
 				{section name=stone loop=$milestones}
