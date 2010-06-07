@@ -8,7 +8,7 @@
 			<div class="row"><label for="desc">{#description#}: </label><textarea style="width:155px" name="desc" id="desc" required="0" rows="3" cols="1" ></textarea></div>
 	
 	
-			<div class="row"><label for="milestone">Milestone: </label>
+			<div class="row"><label for="milestone">{#milestone#}: </label>
 			<select style="width:163px" name="milestone" id="milestone" required="0">
 			<option value="0" selected="selected">{#chooseone#}</option>
 			{section name=stone loop=$milestones}
