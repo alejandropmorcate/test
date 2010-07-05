@@ -10,8 +10,10 @@ if (!isset($_SESSION["userid"]))
 $action = getArrayVal($_GET, "action");
 $userto = getArrayVal($_GET, "userto");
 $userto_id = getArrayVal($_GET, "uid");
+$userto_id = (int) $userto_id;
 if (!$action)
 {
+
     $now = time();
     $now = $now - 35;
     $cook = "chatstart" . $userto_id;
@@ -47,7 +49,7 @@ if ($action == "post")
     $userto = $_POST['userto'];
     $userto_id = $_POST['userto_id'];
     $userto = mysql_real_escape_string($userto);
-    $userto_id = mysql_real_escape_string($userto_id);
+    $userto_id = (int) $userto_id;
     // $content = utf8_decode($content);
     $now = time();
 
