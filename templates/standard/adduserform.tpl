@@ -23,12 +23,16 @@
 	    <div class="clear_both_b"></div>
 
 		<div class="row"><label>{#role#}:</label>
-		{section name = role loop=$roles}
-				<div class = "row"><label></label><input type="radio" class="checkbox" value="{$roles[role].ID}" name="role" id="role{$roles[role].ID}" realname = "{#role#}" required="1"        /><label for="role{$roles[role].ID}">{$roles[role].name}</label></div>
-		{/section}
+
+					<select name = "role" realname = "{#role#}" required="1" exclude = "-1" id = "roleselect">
+					<option value="-1" selected="selected">{#chooseone#}</option>
+					{section name = role loop=$roles}<option value = "{$roles[role].ID}" id="role{$roles[role].ID}">{$roles[role].name}</option>{/section}
+					</select>
+					<!--<input type="radio" class="checkbox" value="{$roles[role].ID}" name="role" id="role{$roles[role].ID}" realname = "{#role#}" required="1"        /><label for="role{$roles[role].ID}">{$roles[role].name}</label>-->
+
 </div>
 	    <div class="clear_both_b"></div>
-		
+
 
 
 		<div class="row">
