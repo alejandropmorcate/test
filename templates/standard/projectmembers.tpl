@@ -38,7 +38,7 @@
 				</div>
 
 				<h2>
-					<img src="./templates/standard/images/symbols/userlist.png" alt="" />{#members#}</a>
+					<img src="./templates/standard/images/symbols/userlist.png" alt="" />{#members#}
 				</h2>
 
 			</div>

@@ -83,7 +83,7 @@ if ($action == "addform")
 			{
 				$usr = (object) new user();
 				$user = $usr->getProfile($member);
-				
+
 				if (!empty($user["email"]))
 				{
 					// send email
@@ -127,7 +127,6 @@ if ($action == "addform")
             $thistask['users'][] = $value[0];
         }
     }
-    
     $title = $langfile["edittask"];
 
     $template->assign("members", $members);
@@ -149,7 +148,7 @@ if ($action == "addform")
         die();
     }
     // edit the task
-   
+
     if ($task->edit($tid, $end, $title, $text, $tasklist, $assigned))
     {
         $redir = urldecode($redir);
@@ -348,7 +347,7 @@ if ($action == "addform")
     $tl = $tasklist->getTasklist($task['liste']);
     $task['listid'] = $tl['ID'];
     $task['listname'] = $tl['name'];
-    
+
  	$tmp = $mytask->getUsers($task['ID']);
     if ($tmp) {
         foreach ($tmp as $value) {

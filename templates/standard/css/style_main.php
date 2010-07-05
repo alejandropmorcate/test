@@ -374,6 +374,8 @@ td.message ul {
 	-moz-border-radius-bottomright: 4px;
 	-webkit-border-bottom-left-radius: 4px;
 	-webkit-border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
 }
 
 #mainmenue .submen li {
@@ -396,7 +398,7 @@ td.message ul {
 	background: url(../images/main-admin-c.png) no-repeat 0 0;
 }
 
-#mainmenue li:hover a, #mainmenue li a.active, #mainmenue .submen li:hover a {
+#mainmenue li:hover a, #mainmenue li a.active, #mainmenue .submen li:hover a, #mainmenue .submen li a.active {
 	background-position: 0 -32px;
 }
 
@@ -592,6 +594,7 @@ td.message ul {
 	color: #6d7f93;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
+	border-radius: 6px;
 }
 
 /* ## WINTOOLS ######################################## */
@@ -673,6 +676,7 @@ td.message ul {
 	text-align: center;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
+	border-radius: 4px;
 }
 
 .inwrapper img {
@@ -782,6 +786,7 @@ td.message ul {
 	padding: 5px 5px 0 5px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
+	border-radius: 4px;
 	width: 82px;
 	z-index: 11;
 }
@@ -944,6 +949,7 @@ td.message ul {
 	padding: 6px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
+	border-radius: 4px;
 }
 
 .calinmenue ul li a {
@@ -994,6 +1000,7 @@ td.message ul {
 	padding: 6px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 .datepick .picker a {
@@ -1227,6 +1234,7 @@ a.butn_link, a.butn_link_active {
 	padding: 0px 8px 0 8px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
+	border-radius: 3px;
 	font-size: 11px;
 	font-weight: bold;
 	margin: 0 1px 0 0;
@@ -1237,6 +1245,8 @@ a.butn_link, a.butn_link_active {
 	-moz-border-radius-topright: 0px;
 	-webkit-border-top-left-radius: 0px;
 	-webkit-border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
 }
 
 body a.butn_link, body a.butn_link_active {
@@ -1247,6 +1257,7 @@ body a.butn_link, body a.butn_link_active {
 /* ## AVATARE / MESSAGES ########################### */
 
 .avatar, .avatar-profile {
+	float: left;
 	min-height: 1px;
 }
 
@@ -1281,11 +1292,18 @@ body a.butn_link, body a.butn_link_active {
 }
 
 .message-in {
-	overflow-x:auto;
-	width:562px;
-	padding-left:2%;
+	width: 562px;
+	overflow-x: auto;
 }
-
+.message-in ul
+{
+padding-left;
+}
+message-in li
+{
+list-style-type: disc;
+padding: 0;
+}
 
 .message-in img {
 	height: auto;
@@ -1520,6 +1538,7 @@ ul.tabs li.system-settings a {
 	padding: 6px 12px 12px 12px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
+	border-radius: 6px;
 	margin: -50px 0 0 -126px;
 }
 
@@ -1567,6 +1586,7 @@ ul.tabs li.system-settings a {
 ?>;
 	-moz-border-radius: 1px;
 	-webkit-border-radius: 1px;
+	border-radius: 1px;
 	padding: 8px;
 	min-height: 100px;
 	max-height: 450px;
@@ -2099,10 +2119,6 @@ th.e, td.e {
 
 th.tools, td.tools {
 	width: 42px;
-}
-
-th.days, td.days {
-	width: 62px;
 }
 
 .user .message col.a {
@@ -2821,6 +2837,7 @@ span.info {
 	line-height: 22px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
+	border-radius: 6px;
 }
 .info_in_green {
 	background: url(../images/infowin_green.png) repeat;

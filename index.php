@@ -15,9 +15,9 @@ if (empty($db_name) or empty($db_user))
     $loc = $url . "install.php";
     header("Location: " . $loc);
 }
-$mainclasses = array("desktop" => "desktop_active",
-    "profil" => "profil",
-    "admin" => "admin"
+$mainclasses = array("desktop" => "active",
+    "profil" => "",
+    "admin" => ""
     );
 $template->assign("mainclasses", $mainclasses);
 

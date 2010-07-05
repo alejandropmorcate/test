@@ -46,9 +46,9 @@ $template->assign("languages", $languages);
 $user = new user();
 $project = new project();
 $theset = new settings();
-$mainclasses = array("desktop" => "desktop",
-    "profil" => "profil",
-    "admin" => "admin_active"
+$mainclasses = array("desktop" => "",
+    "profil" => "",
+    "admin" => "active"
     );
 $template->assign("mainclasses", $mainclasses);
 
@@ -74,14 +74,13 @@ if ($action == "index")
 {
     $classes = array("overview" => "overview",
         "system" => "system",
-        "users" => "users_active"
+        "users" => "active"
         );
     $template->assign("classes", $classes);
     $users = $user->getAllUsers(14);
     $projects = $project->getProjects(1, 10000);
     $roleobj = (object) new roles();
     $roles = $roleobj->getAllRoles();
-    $roles = $roleobj->getDefaultRoleNamesTranslated($roles);
     $i2 = 0;
     if (!empty($users))
     {
@@ -312,7 +311,7 @@ if ($action == "index")
     }
 } elseif ($action == "deleteuser")
 {
-    
+
     $id = getArrayVal($_POST, "id");
     $uprojects = getArrayVal($_POST, "uprojects");
 
@@ -435,7 +434,7 @@ if ($action == "index")
 }
 elseif ($action == "projects")
 {
-    $classes = array("overview" => "overview_active",
+    $classes = array("overview" => "active",
         "system" => "system",
         "users" => "users"
         );
@@ -511,7 +510,7 @@ elseif ($action == "addpro")
 } elseif ($action == "system")
 {
     $classes = array("overview" => "overview",
-        "system" => "system_active",
+        "system" => "active",
         "users" => "users"
         );
 

@@ -23,7 +23,7 @@
 
 				<h2>{#edittask#}</h2>
 
-					
+
 					<form class="main" method="post" action="managetask.php?action=edit&amp;tid={$task.ID}&amp;id={$pid}" {literal}onsubmit="return validateCompleteForm(this);"{/literal}>
 					<fieldset>
 
@@ -34,7 +34,7 @@
 					<div class="datepick">
 						<div id = "datepicker_task" class="picker" style = "display:none;"></div>
 					</div>
-				
+
 					<script type="text/javascript">
 					  	theCal{$lists[list].ID} = new calendar({$theM},{$theY});
 						theCal{$lists[list].ID}.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
@@ -49,17 +49,18 @@
 						<option value="{$tasklists[tasklist].ID}" {if $task.listid == $tasklists[tasklist].ID}selected = "selected"{/if}>{$tasklists[tasklist].name}</option>
 						{/section}</select>
 					</div>
-                                        
+
                                         <div class="row">
                                                 <label for="assigned" >{#assignto#}:</label>
                                                 <select name = "assigned[]" multiple="multiple" style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}">
                                                         <option value="-1">{#chooseone#}</option>
-                                                        {section name=member loop=$members}  
+                                                        {section name=member loop=$members}
+                                                        {$task.users}
                                                                 <option value="{$members[member].ID}" {if in_array($members[member].ID, $task.users)}selected = "selected"{/if}>{$members[member].name}</option>
                                                         {/section}
                                                 </select>
                                         </div>
-            
+
 					<div class="row-butn-bottom">
 						<label>&nbsp;</label>
 						<button type="submit" onfocus="this.blur();">{#send#}</button>

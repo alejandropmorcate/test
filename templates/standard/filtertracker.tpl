@@ -19,7 +19,7 @@
 
 		<div class="row">
 			<label for="usr">{#user#}:</label>
-			<select name="usr" id="usr"  realname="{#user#}" />
+			<select name="usr" id="usr"  realname="{#user#}">
 				<option value = "">{#chooseone#}</option>
 				{section name = usi loop=$users}
 				<option value = "{$users[usi].ID}" {if $users[usi].ID == $usr}selected="selected"{/if}>{$users[usi].name}</option>

@@ -1,7 +1,7 @@
 <div class="block_in_wrapper">
 
 	<h2>{#addtask#}</h2>
-	<form class="main" method="post" action="managetask.php?action=add&amp;id={$project.ID}"  {literal}onsubmit="return validateCompleteForm(this,'input_error');{/literal}">
+	<form name = "addtaskform{$lists[list].ID}" id = "addtaskform{$lists[list].ID}" class="main" method="post" action="managetask.php?action=add&amp;id={$project.ID}"  {literal}onsubmit="return validateCompleteForm(this,'input_error');{/literal}">
 	<fieldset>
 
 	<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" name="title" id="title"  realname = "{#title#}" required = "1"  /></div>
@@ -40,7 +40,7 @@
 
 	<div class="row-butn-bottom">
 		<label>&nbsp;</label>
-		<button type="submit" onfocus="this.blur();">{#addbutton#}</button>
+		<button type = "submit" onfocus="this.blur();">{#addbutton#}</button>
 		<button onclick="blindtoggle('form_{$lists[list].ID}');toggleClass('add_{$lists[list].ID}','add-active','add');toggleClass('add_butn_{$lists[list].ID}','butn_link_active','butn_link');toggleClass('sm_{$lists[list].ID}','smooth','nosmooth');return false;" onfocus="this.blur();">{#cancel#}</button>
 	</div>
 

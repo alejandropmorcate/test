@@ -51,9 +51,9 @@ $template->assign("project", $project);
 // set css classes for menue buttons
 $classes = array("overview" => "overview", "msgs" => "msgs", "tasks" => "tasks", "miles" => "miles", "files" => "files", "users" => "users_active", "tracker" => "tracking");
 
-$mainclasses = array("desktop" => "desktop",
-    "profil" => "profil_active",
-    "admin" => "admin"
+$mainclasses = array("desktop" => "",
+    "profil" => "active",
+    "admin" => ""
     );
 $template->assign("mainclasses", $mainclasses);
 $template->assign("classes", $classes);

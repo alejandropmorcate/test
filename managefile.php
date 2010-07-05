@@ -278,7 +278,7 @@ if ($action == "upload")
     $members = $myproject->getProjectMembers($id, 10000);
     $rolesobj = new roles();
     $allroles = $rolesobj->getAllRoles();
-    $allroles = $rolesobj->getDefaultRoleNamesTranslated($allroles);
+
     $projectname = $pro["name"];
     $title = $langfile['files'];
 

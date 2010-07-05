@@ -2,7 +2,7 @@
 
 	<h2>{#addmessage#}</h2>
 
-	<form class="main" method="post" enctype="multipart/form-data" action="managemessage.php?action=add&amp;id={$project.ID}" {literal} onsubmit="return validateCompleteForm(this,'input_error');"{/literal} >
+	<form name = "addmessageform" id = "addmessageform" class="main" method="post" enctype="multipart/form-data" action="managemessage.php?action=add&amp;id={$project.ID}" {literal} onsubmit="return validateCompleteForm(this,'input_error');"{/literal} >
 	<fieldset>
 
 	<div class="row">
