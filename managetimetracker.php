@@ -79,8 +79,11 @@ $template->assign("classes", $classes);
 
 if ($action == "add")
 {
+	$worked = $_POST["worked"];
     $ajaxreq = $_GET["ajaxreq"];
-    if ($tracker->add($userid, $tproject, $task, $comment , $started, $ended, $logdate))
+    $started = strtotime(date("d.m.y"));
+    $ended = strtotime("+ $worked hours",$started);
+	if ($tracker->add($userid, $tproject, $task, $comment , $started, $ended))
     {
         $redir = urldecode($redir);
         if ($redir)
@@ -270,9 +273,13 @@ if ($action == "add")
     $pdf->AliasNbPages();
     $pdf->AddPage();
 
-    $htmltable = "<table border=\"1\" bordercolor = \"#d9dee8\" >
+    $htmltable = "<table border=\"1\" bordercolor = \"#d9dee8\" width=\"500\">
 	<tr bgcolor=\"#d9dee8\" style=\"font-weight:bold;\">
-	<th align=\"center\">$langfile[user]</th><th align=\"center\">$langfile[task]</th><th align=\"center\">$langfile[comment]</th><th align=\"center\">$langfile[started] - $langfile[ended]</th><th align=\"center\">$langfile[hours]</th>
+	<th align=\"center\" width=\"80\">$langfile[user]</th>
+    <th align=\"center\" width=\"125\">$langfile[task]</th>
+    <th align=\"center\" width=\"125\">$langfile[comment]</th>
+    <th align=\"center\" width=\"130\">$langfile[started] - $langfile[ended]</th>
+    <th align=\"center\" width=\"40\">$langfile[hours]</th>
 	</tr>";
     if (!empty($start) and !empty($end))
     {
@@ -282,7 +289,7 @@ if ($action == "add")
     {
         $track = $tracker->getProjectTrack($id, $usr , $taski, 0, 0, 1000);
     }
-
+    $thetrack = array();
     if (!empty($track))
     {
         $i = 0;
@@ -308,26 +315,22 @@ if ($action == "add")
             $i = $i + 1;
 
             $htmltable .= "<tr bgcolor=\"$fill\">
-			<td>$tra[uname]</td>
-			<td>$tra[tname]</td>
-			<td>$tra[comment]</td>
-			<td align=\"center\">$tra[startstring] - $tra[endstring]</td>
-			<td align=\"right\">$hrs</td>
+			<td width=\"80\">$tra[uname]</td>
+			<td width=\"125\">$tra[tname]</td>
+			<td width=\"125\">$tra[comment]</td>
+			<td width=\"130\" align=\"center\">$tra[daystring] / $tra[startstring] - $tra[endstring]</td>
+			<td width=\"40\" align=\"right\">$hrs</td>
 			</tr>";
         }
 
         $totaltime = $tracker->getTotalTrackTime($track);
         $totaltime = str_replace(".", ",", $totaltime);
 
-        $htmltable .= "<tr><td colspan=\"5\" align=\"right\">$totaltime</td></tr></table>";
+        $htmltable .= "<tr style=\"font-weight:bold;\"><td colspan=\"5\" align=\"right\">$totaltime</td></tr></table>";
 
-    } else {
-    	$htmltable .= "<tr><td colspan=\"5\">$langfile[none] $langfile[timetracker]</td></tr></table>";
+        $pdf->writeHTML($htmltable, true, 0, true, 0);
+        $pdf->Output("project-$id-timetable.pdf", "D");
     }
-
-    $pdf->writeHTML($htmltable, true, 0, true, 0);
-    $pdf->Output("project-$id-timetable.pdf", "D");
-    
 } elseif ($action == "userxls")
 {
     $excel = new xls(CL_ROOT . "/files/" . CL_CONFIG . "/ics/user-$id-timetrack.xls");
@@ -373,7 +376,10 @@ if ($action == "add")
     {
         $track = $tracker->getUserTrack($id, $fproject, $taski, 0, 0, 1000);
     }
+    $thetrack = array();
 
+    $totaltime = $tracker->getTotalTrackTime($track);
+    $totaltime = str_replace(".", ",", $totaltime);
     $id = mysql_real_escape_string($id);
     $sel = mysql_query("SELECT name FROM user WHERE ID = $id");
     $uname = mysql_fetch_array($sel);
@@ -394,7 +400,7 @@ if ($action == "add")
 
     $htmltable = "<table border=\"1\" bordercolor = \"#d9dee8\" >
 	<tr bgcolor=\"#d9dee8\" style=\"font-weight:bold;\">
-	<th align=\"center\">$langfile[project]</th><th align=\"center\">$langfile[task]</th><th align=\"center\">$langfile[comment]</th><th align=\"center\">$langfile[started] - $langfile[ended]</th><th align=\"center\">$langfile[hours]</th>
+	<th  width=\"80\" align=\"center\">$langfile[project]</th><th width=\"125\" align=\"center\">$langfile[task]</th><th width=\"125\" align=\"center\">$langfile[comment]</th><th width=\"140\" align=\"center\">$langfile[started] - $langfile[ended]</th><th width=\"40\" align=\"center\">$langfile[hours]</th>
 	</tr>";
 
     if (!empty($track))
@@ -419,12 +425,13 @@ if ($action == "add")
                 $fill = "#d9dee8";
             }
             $i = $i + 1;
+
             $htmltable .= "<tr bgcolor=\"$fill\">
-			<td>$tra[pname]</td>
-			<td>$tra[tname]</td>
-			<td>$tra[comment]</td>
-			<td align=\"center\">$tra[startstring] - $tra[endstring]</td>
-			<td align=\"right\">$hrs</td>
+			<td width=\"80\">$tra[pname]</td>
+			<td width=\"125\">$tra[tname]</td>
+			<td width=\"125\">$tra[comment]</td>
+			<td width=\"140\" align=\"center\">$tra[daystring] / $tra[startstring] - $tra[endstring]</td>
+			<td width=\"40\" align=\"right\">$hrs</td>
 			</tr>";
         }
 
@@ -433,13 +440,9 @@ if ($action == "add")
 
         $htmltable .= "<tr><td colspan=\"5\" align=\"right\">$totaltime</td></tr></table>";
 
-    } else {
-    	$htmltable .= "<tr><td colspan=\"5\">$langfile[none] $langfile[timetracker]</td></tr></table>";
+        $pdf->writeHTML($htmltable, true, 0, true, 0);
+        $pdf->Output("user-$uname-timetable.pdf", "D");
     }
-
-   $pdf->writeHTML($htmltable, true, 0, true, 0);
-   $pdf->Output("user-$uname-timetable.pdf", "D");
-
 } elseif ($action == "showproject")
 {
     if (!chkproject($userid, $id))

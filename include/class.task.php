@@ -37,7 +37,7 @@ class task
      * @param int $project ID of the project the task is associated with
      * @return int $insid New task's ID
      */
-    function add($end, $title, $text, $liste, $assigned, $project)
+    function add($end, $title, $text, $liste, $project)
     {
         $end = mysql_real_escape_string($end);
         $title = mysql_real_escape_string($title);
@@ -58,23 +58,9 @@ class task
         if ($ins)
         {
             $insid = mysql_insert_id();
-			
-            // if assginee is set, assign the task to this user
-            if (count($assigned) == 1)
-            {
-                $this->assign($insid, $assigned[0]);
-            } elseif (count($assigned) > 1)
-            {
-                foreach ($assigned as $member)
-                {
-                    $member = (int) $member;
-                    $this->assign($insid, $member);
-                }
-            }
             // logentry
             $nameproject = $this->getNameProject($insid);
             $this->mylog->add($nameproject[0], 'task', 1, $nameproject[1]);
-            $this->plugins->callSignalFuncs("task", "add", $insid);
             return $insid;
         }
         else
@@ -94,7 +80,7 @@ class task
      * @param int $assigned ID of the user who has to complete the task
      * @return bool
      */
-    function edit($id, $end, $title, $text, $liste, $assigned)
+    function edit($id, $end, $title, $text, $liste)
     {
         $end = mysql_real_escape_string($end);
         $title = mysql_real_escape_string($title);
@@ -105,15 +91,10 @@ class task
         $end = strtotime($end);
 
         $upd = mysql_query("UPDATE tasks SET `end`='$end',`title`='$title', `text`='$text', `liste`=$liste WHERE ID = $id");
-        
-        mysql_query("DELETE FROM tasks_assigned WHERE `task` = $id");
-        
-        $upd2 = false;
-        foreach ($assigned as $value) {
-            $upd2 = mysql_query("INSERT INTO tasks_assigned (`user`, `task`) VALUES ('$value', '$id')");
-        }
+		mysql_query("DELETE FROM tasks_assigned WHERE `task` = $id");
 
-        if ($upd && $upd2)
+
+        if ($upd)
         {
             $nameproject = $this->getNameProject($id);
             $this->mylog->add($nameproject[0], 'task', 2, $nameproject[1]);
@@ -271,7 +252,7 @@ class task
         if (!empty($task))
         {
             // format datestring according to dateformat option
-            
+
             if (is_numeric($task['end'])) {
             	$endstring = date(CL_DATEFORMAT, $task["end"]);
             } else {
@@ -294,22 +275,27 @@ class task
             }
             if (count($users) == 1)
             {
+            	$usrobj = new user();
                 $usr = $users[0];
-                $usel = mysql_query("SELECT name,id from user WHERE ID = $usr");
-                $user = mysql_fetch_row($usel);
-                $task["user"] = stripslashes($user[0]);
-                $task["user_id"] = $user[1];
+                $user = $usrobj->getProfile($usr);
+                $task["user"] = stripslashes($user["name"]);
+                $task["users"] = array($user);
+                $task["user_id"] = $user["ID"];
+
             }
             elseif(count($users) > 1)
             {
+
                 $usrobj = new user();
+                $task["users"] = array();
                 $task["user"] = "";
                 $task["user_id"] = 0;
                 foreach($users as $user)
                 {
                     $usr = $usrobj->getProfile($user);
                     $task["user"] .=  $usr["name"] . " ";
-                }
+                	array_push($task["users"],$usr);
+				}
             }
 
             $task["endstring"] = $endstring;
@@ -544,7 +530,7 @@ class task
             return false;
         }
     }
-	
+
 	/**
      * Return all tasks (from a project) due on the specified date
      *

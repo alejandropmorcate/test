@@ -1,6 +1,6 @@
 <?php
 require("init.php");
-if (!isset($_SESSION['userid']))
+if (!session_is_registered("userid"))
 {
     $template->assign("loginerror", 0);
     $template->display("login.tpl");
@@ -79,6 +79,12 @@ if ($action == "editform")
         $template->display("error.tpl");
         die();
     }
+    
+    if(!$end)
+	{
+		$end = 0;
+	}
+	
     if ($project->edit($id, $name, $desc, $end, $budget))
     {
         header("Location: manageproject.php?action=showproject&id=$id&mode=edited");
@@ -176,7 +182,7 @@ if ($action == "editform")
             {
                 // send email
                 $themail = new emailer($settings);
-				$themail->send_mail($user["email"], $langfile["projectassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["projectassignedtext"] . " <a href = \"" . $url . "manageproject.php?action=showproject&id=$id\">" . $url . "manageproject.php?action=showproject&id=$id</a>");
+                $themail->send_mail($user["email"], $langfile["projectassignedsubject"] , $langfile["projectassignedtext"] . " <a href = \"" . $url . "manageproject.php?action=showproject&id=$id\">" . $url . "manageproject.php?action=showproject&id=$id</a>");
             }
         }
         if ($redir)

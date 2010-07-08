@@ -4,19 +4,19 @@
 
 <div id="content-left">
 <div id="content-left-in">
-	
+
 	{* Display System messages *}
 	<div class="infowin_left" style = "display:none;" id = "systemmsg">
 		{if $mode == "projectadded"}
         <span class="info_in_green"><img src="templates/standard/images/symbols/projects.png" alt=""/>{#projectwasadded#}</span>
 		{/if}
-		
+
 		{*for async display*}
 		<span id = "closed" style = "display:none;" class="info_in_green"><img src="templates/standard/images/symbols/projects.png" alt=""/>{#projectwasclosed#}</span>
 		<span id = "deleted" style = "display:none;" class="info_in_red"><img src="templates/standard/images/symbols/projects.png" alt=""/>{#projectwasdeleted#}</span>
 
    </div>
-	   
+
 	{literal}
 	<script type = "text/javascript">
 	systemMsg('systemmsg');
@@ -206,7 +206,7 @@
 									</a>
 								</div>
 							</td>
-							<td><a href = "managetask.php?action=showproject&amp;id={$tasks[task].project}" >{$tasks[task].pname}</a></td>
+							<td><a href = "managetask.php?action=showproject&amp;id={$tasks[task].project}" >{$tasks[task].pname|truncate:25:"...":true}</a></td>
 							<td>{$tasks[task].daysleft}</td>
 							<td class="tools">
 

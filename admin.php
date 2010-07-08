@@ -471,6 +471,11 @@ elseif ($action == "addpro")
         die();
     }
 
+	if (!$end)
+	{
+		$end = 0;
+	}
+
     $add = $project->add($name, $desc, $end, $budget, 0);
     if ($add)
     {

@@ -17,51 +17,55 @@
 
 {/if}
 
-					<div class="block_in_wrapper">
-					
-						<h2>{#editproject#}</h2>
-	
-						<form class="main" method="post" action="manageproject.php?action=edit&amp;id={$project.ID}" {literal}onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
-						<fieldset>
-	
-						<div class="row"><label for="name">{#name#}:</label><input type="text" class="text" name="name" id="name" required="1" realname="{#name#}" value = "{$project.name}" /></div>
-						<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc"  rows="3" cols="1">{$project.desc}</textarea></div></div>
-	
-						<div class="row"><label for="end">{#due#}:</label><input type="text" class="text" value="{$project.endstring}" name="end"  id="end"  realname="{#due#}" /></div>
+<div class="block_in_wrapper">
+
+	<h2>{#editproject#}</h2>
+
+	<form class="main" method="post" action="manageproject.php?action=edit&amp;id={$project.ID}" {literal}onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
+	<fieldset>
+
+	<div class="row"><label for="name">{#name#}:</label><input type="text" class="text" name="name" id="name" required="1" realname="{#name#}" value = "{$project.name}" /></div>
+	<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc"  rows="3" cols="1">{$project.desc}</textarea></div></div>
+
+	<div class="row">
+		<label for="end">{#due#}:</label><input type="text" class="text" value="{$project.endstring}" name="end"  id="end"  realname="{#due#}" />
+		<br /><br />
+		<input type = "checkbox" class = "checkbox" value = "neverdue" name = "neverdue" id = "neverdue" {if $end == 0}checked = "checked"{/if}><label for = "neverdue">{#neverdue#}</label>
+	</div>
 
 
-						<div class="datepick">
-							<div id = "datepicker_project" class="picker" style = "display:none;"></div>
-						</div>
-					
-						<script type="text/javascript">
-						  	theCal{$lists[list].ID} = new calendar({$theM},{$theY});
-							theCal{$lists[list].ID}.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
-							theCal{$lists[list].ID}.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
-							theCal{$lists[list].ID}.relateTo = "end";
-							theCal{$lists[list].ID}.getDatepicker("datepicker_project");
-						</script>
+	<div class="datepick">
+		<div id = "datepicker_project" class="picker" style = "display:none;"></div>
+	</div>
 
-						
-						<div class="row-butn-bottom">
-							<label>&nbsp;</label>
-							<button type="submit" onfocus="this.blur();">{#send#}</button>
-							<button onclick="blindtoggle('form_edit');toggleClass('edit_butn','edit-active','edit');toggleClass('sm_project','smooth','nosmooth');toggleClass('sm_project_desc','smooth','nosmooth');return false;" onfocus="this.blur();" {if $showhtml != "no"} style="display:none;"{/if}>{#cancel#}</button>
-						</div>
+	<script type="text/javascript">
+		theCal{$lists[list].ID} = new calendar({$theM},{$theY});
+		theCal{$lists[list].ID}.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+		theCal{$lists[list].ID}.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+		theCal{$lists[list].ID}.relateTo = "end";
+		theCal{$lists[list].ID}.getDatepicker("datepicker_project");
+	</script>
+
 	
-						</fieldset>
-						</form>
+	<div class="row-butn-bottom">
+		<label>&nbsp;</label>
+		<button type="submit" onfocus="this.blur();">{#send#}</button>
+		<button onclick="blindtoggle('form_edit');toggleClass('edit_butn','edit-active','edit');toggleClass('sm_project','smooth','nosmooth');toggleClass('sm_project_desc','smooth','nosmooth');return false;" onfocus="this.blur();" {if $showhtml != "no"} style="display:none;"{/if}>{#cancel#}</button>
+	</div>
 
-					</div> {*block_in_wrapper end*}
+	</fieldset>
+	</form>
+
+</div> {*block_in_wrapper end*}
 
 
 
 {if $showhtml != "no"}
-<div class="content-spacer"></div>
-</div> {*Projects END*}
-</div> {*content-left-in END*}
-</div> {*content-left END*}
+	<div class="content-spacer"></div>
+	</div> {*Projects END*}
+	</div> {*content-left-in END*}
+	</div> {*content-left END*}
 
-{include file="sidebar-a.tpl"}
-{include file="footer.tpl"}
+	{include file="sidebar-a.tpl"}
+	{include file="footer.tpl"}
 {/if}

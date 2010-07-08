@@ -1,7 +1,6 @@
 <?php
 require("./init.php");
-if (!isset($_SESSION["userid"]))
-{
+if (!isset($_SESSION["userid"])) {
     $template->assign("loginerror", 0);
     $template->display("login.tpl");
     die();
@@ -32,11 +31,9 @@ $template->assign("project", $project);
 $classes = array("overview" => "overview", "msgs" => "msgs", "tasks" => "tasks_active", "miles" => "miles", "files" => "files", "users" => "users", "tracker" => "tracking");
 $template->assign("classes", $classes);
 
-if ($action == "addform")
-{
+if ($action == "addform") {
     // check if user has appropriate permissions
-    if (!$userpermissions["tasks"]["add"])
-    {
+    if (!$userpermissions["tasks"]["add"]) {
         $errtxt = $langfile["nopermission"];
         $noperm = $langfile["accessdenied"];
         $template->assign("errortext", "<h2>$errtxt</h2><br>$noperm");
@@ -61,11 +58,9 @@ if ($action == "addform")
     $template->assign("tasklists", $lists);
     $template->assign("tasklist_id", $tasklist);
     $template->display("addtaskform.tpl");
-} elseif ($action == "add")
-{
+} elseif ($action == "add") {
     // check if user has appropriate permissions
-    if (!$userpermissions["tasks"]["add"])
-    {
+    if (!$userpermissions["tasks"]["add"]) {
         $errtxt = $langfile["nopermission"];
         $noperm = $langfile["accessdenied"];
         $template->assign("errortext", "<h2>$errtxt</h2><br>$noperm");
@@ -73,33 +68,28 @@ if ($action == "addform")
         die();
     }
     // add the task
-    $tid = $task->add($end, $title, $text, $tasklist, $assigned, $id);
+    $tid = $task->add($end, $title, $text, $tasklist, $id);
     // if tasks was added and mailnotify is activated, send an email
-    if ($tid)
-    {
-        if ($settings["mailnotify"])
-		{
-			foreach($assigned as $member)
-			{
-				$usr = (object) new user();
-				$user = $usr->getProfile($member);
+    if ($tid) {
+        if ($settings["mailnotify"]) {
+            foreach($assigned as $member) {
+            	$task->assign($tid,$member);
+                $usr = (object) new user();
+                $user = $usr->getProfile($member);
 
-				if (!empty($user["email"]))
-				{
-					// send email
-					$themail = new emailer($settings);
-					$themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
-				}
-			}
+                if (!empty($user["email"])) {
+                    // send email
+                    $themail = new emailer($settings);
+                    $themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+                }
+            }
         }
         $loc = $url . "managetask.php?action=showproject&id=$id&mode=added";
         header("Location: $loc");
     }
-} elseif ($action == "editform")
-{
+} elseif ($action == "editform") {
     // check if user has appropriate permissions
-    if (!$userpermissions["tasks"]["edit"])
-    {
+    if (!$userpermissions["tasks"]["edit"]) {
         $errtxt = $langfile["nopermission"];
         $noperm = $langfile["accessdenied"];
         $template->assign("errortext", "<h2>$errtxt</h2><br>$noperm");
@@ -136,11 +126,9 @@ if ($action == "addform")
     $template->assign("task", $thistask);
     $template->assign("pid", $id);
     $template->display("edittask.tpl");
-} elseif ($action == "edit")
-{
+} elseif ($action == "edit") {
     // check if user has appropriate permissions
-    if (!$userpermissions["tasks"]["edit"])
-    {
+    if (!$userpermissions["tasks"]["edit"]) {
         $errtxt = $langfile["nopermission"];
         $noperm = $langfile["accessdenied"];
         $template->assign("errortext", "<h2>$errtxt</h2><br>$noperm");
@@ -148,58 +136,58 @@ if ($action == "addform")
         die();
     }
     // edit the task
-
-    if ($task->edit($tid, $end, $title, $text, $tasklist, $assigned))
-    {
+    if ($task->edit($tid, $end, $title, $text, $tasklist)) {
         $redir = urldecode($redir);
-        if ($redir)
-        {
+        if (!empty($assigned)) {
+            foreach($assigned as $assignee) {
+                $assignChk = $task->assign($tid, $assignee);
+                if ($assignChk) {
+                    if ($settings["mailnotify"]) {
+                        $usr = (object) new user();
+                        $user = $usr->getProfile($assignee);
+
+                        if (!empty($user["email"])) {
+                            // send email
+                            $themail = new emailer($settings);
+                            $themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+                        }
+                    }
+                }
+            }
+        }
+        if ($redir) {
             $redir = $url . $redir;
             header("Location: $redir");
-        }
-        else
-        {
+        } else {
             $loc = $url . "managetask.php?action=showproject&id=$id&mode=edited";
             header("Location: $loc");
         }
-    }
-    else
-    {
+    } else {
         $template->assign("edittask", 0);
     }
-} elseif ($action == "del")
-{
+} elseif ($action == "del") {
     // check if user has appropriate permissions
-    if (!$userpermissions["tasks"]["del"])
-    {
+    if (!$userpermissions["tasks"]["del"]) {
         $errtxt = $langfile["nopermission"];
         $noperm = $langfile["accessdenied"];
         $template->assign("errortext", "<h2>$errtxt</h2><br>$noperm");
         $template->display("error.tpl");
         die();
     }
-    if ($task->del($tid))
-    {
+    if ($task->del($tid)) {
         // $redir = urldecode($redir);
-        if ($redir)
-        {
+        if ($redir) {
             $redir = $url . $redir;
             header("Location: $redir");
-        }
-        else
-        {
+        } else {
             echo "ok";
         }
-    }
-    else
-    {
+    } else {
         $template->assign("deltask", 0);
     }
-} elseif ($action == "open")
-{
+} elseif ($action == "open") {
     // check if user has appropriate permissions
-    if (!$userpermissions["tasks"]["close"])
-    {
+    if (!$userpermissions["tasks"]["close"]) {
         $errtxt = $langfile["nopermission"];
         $noperm = $langfile["accessdenied"];
         $template->assign("errortext", "<h2>$errtxt</h2><br>$noperm");
@@ -207,93 +195,67 @@ if ($action == "addform")
         die();
     }
 
-    if ($task->open($tid))
-    {
+    if ($task->open($tid)) {
         $redir = urldecode($redir);
-        if ($redir)
-        {
+        if ($redir) {
             $redir = $url . $redir;
             header("Location: $redir");
-        }
-        else
-        {
+        } else {
             // $loc = $url . "managetask.php?action=showproject&id=$id&mode=opened";
             // header("Location: $loc");
             echo "ok";
         }
-    }
-    else
-    {
+    } else {
         $template->assign("opentask", 0);
     }
-} elseif ($action == "close")
-{
+} elseif ($action == "close") {
     // check if user has appropriate permissions
-    if (!$userpermissions["tasks"]["close"])
-    {
+    if (!$userpermissions["tasks"]["close"]) {
         $errtxt = $langfile["nopermission"];
         $noperm = $langfile["accessdenied"];
         $template->assign("errortext", "<h2>$errtxt</h2><br>$noperm");
         $template->display("error.tpl");
         die();
     }
-    if ($task->close($tid))
-    {
+    if ($task->close($tid)) {
         $redir = urldecode($redir);
-        if ($redir)
-        {
+        if ($redir) {
             $redir = $url . $redir;
             header("Location: $redir");
-        }
-        else
-        {
+        } else {
             // $loc = $url . "managetask.php?action=showproject&id=$id&mode=closed";
             // header("Location: $loc");
             echo "ok";
         }
-    }
-    else
-    {
+    } else {
         $template->assign("closetask", 0);
     }
-} elseif ($action == "assign")
-{
-    if ($task->assign($id, $user))
-    {
-        if ($settings["mailnotify"])
-        {
+} elseif ($action == "assign") {
+    if ($task->assign($id, $user)) {
+        if ($settings["mailnotify"]) {
             $usr = (object) new user();
             $user = $usr->getProfile($user);
 
-            if (!empty($user["email"]))
-            {
+            if (!empty($user["email"])) {
                 // send email
                 $themail = new emailer($settings);
-				$themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+                $themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
             }
         }
         $template->assign("assigntask", 1);
         $template->display("mytasks.tpl");
-    }
-    else
-    {
+    } else {
         $template->assign("assigntask", 0);
     }
-} elseif ($action == "deassign")
-{
-    if ($task->deassign($id, $user))
-    {
+} elseif ($action == "deassign") {
+    if ($task->deassign($id, $user)) {
         $template->assign("deassigntask", 1);
         $template->display("mytasks.tpl");
-    }
-    else
-    {
+    } else {
         $template->assign("deassigntask", 0);
     }
-} elseif ($action == "showproject")
-{
-    if (!chkproject($userid, $id))
-    {
+} elseif ($action == "showproject") {
+    if (!chkproject($userid, $id)) {
         $errtxt = $langfile["notyourproject"];
         $noperm = $langfile["accessdenied"];
         $template->assign("errortext", "$errtxt<br>$noperm");
@@ -322,10 +284,8 @@ if ($action == "addform")
     $template->assign("lists", $lists);
     $template->assign("oldlists", $oldlists);
     $template->display("projecttasks.tpl");
-} elseif ($action == "showtask")
-{
-    if (!chkproject($userid, $id))
-    {
+} elseif ($action == "showtask") {
+    if (!chkproject($userid, $id)) {
         $errtxt = $langfile["notyourproject"];
         $noperm = $langfile["accessdenied"];
         $template->assign("errortext", "$errtxt<br>$noperm");
@@ -348,7 +308,7 @@ if ($action == "addform")
     $task['listid'] = $tl['ID'];
     $task['listname'] = $tl['name'];
 
- 	$tmp = $mytask->getUsers($task['ID']);
+    $tmp = $mytask->getUsers($task['ID']);
     if ($tmp) {
         foreach ($tmp as $value) {
             $task['users'][] = $value[0];
@@ -369,8 +329,7 @@ if ($action == "addform")
     $template->assign("title", $title);
     $template->assign("task", $task);
     $template->display("task.tpl");
-} elseif ($action == "ical")
-{
+} elseif ($action == "ical") {
     $mytask = new task();
     $task = $mytask->getIcal($userid);
 }

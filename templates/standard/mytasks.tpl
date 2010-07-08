@@ -71,7 +71,7 @@
 
 
 				<h2>
-					<a href="managetask.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].name} / {#mytasks#}"><img src="./templates/standard/images/symbols/projects.png" alt="" />{$myprojects[project].name}</a>
+					<a href="managetask.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].name} / {#mytasks#}"><img src="./templates/standard/images/symbols/projects.png" alt="" />{$myprojects[project].name|truncate:30:"...":true}</a>
 				</h2>
 			</div>
 

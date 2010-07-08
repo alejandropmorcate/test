@@ -1,11 +1,11 @@
 <?php
 /**
- * This class provides methods for dealing with projects
+ * Die Klasse stellt Methoden bereit um Projekte zu bearbeiten
  *
  * @author Open Dynamics <info@o-dyn.de>
  * @name project
  * @package Collabtive
- * @version 0.6.2
+ * @version 0.6
  * @link http://www.o-dyn.de
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
  */
@@ -14,8 +14,8 @@ class project
     private $mylog;
 
     /**
-     * Constructor
-     * Initialize event log
+     * Konstruktor
+     * Initialisiert den Eventlog
      */
     function __construct()
     {
@@ -25,11 +25,11 @@ class project
     /**
      * Add a project
      *
-     * @param string $name Project name
-     * @param string $desc Project description
+     * @param string $name Name des Projekts
+     * @param string $desc Projektbeschreibung
      * @param string $end Date on which the project is due
      * @param int $assignme Assign yourself to the project
-     * @return int $insid New project's ID
+     * @return int $insid ID des neu angelegten Projekts
      */
     function add($name, $desc, $end, $budget, $assignme = 0)
     {
@@ -39,7 +39,10 @@ class project
         $assignme = (int) $assignme;
         $budget = (float) $budget;
 
-        $end = strtotime($end);
+		if ($end > 0)
+		{
+			$end = strtotime($end);
+		}
         $now = time();
 
         $ins1 = mysql_query("INSERT INTO projekte (`name`, `desc`, `end`, `start`, `status`, `budget`) VALUES ('$name','$desc','$end','$now',1,'$budget')");
@@ -69,7 +72,7 @@ class project
      * @param string $desc Description of the project
      * @param string $start Date on which the project was started
      * @param int $status Status of the project
-     * @return int $insid New project's ID
+     * @return int $insid ID des neu angelegten Projekts
      */
     function AddFromBasecamp($name, $desc, $start, $status = 1)
     {
@@ -100,11 +103,11 @@ class project
     }
 
     /**
-     * Edit a project
+     * Bearbeitet ein Projekt
      *
-     * @param int $id Project ID
-     * @param string $name Project name
-     * @param string $desc Project description
+     * @param int $id Eindeutige Projektnummer
+     * @param string $name Name des Projekts
+     * @param string $desc Beschreibungstext
      * @param string $end Date on which the project is due
      * @return bool
      */
@@ -116,16 +119,10 @@ class project
         $end = mysql_real_escape_string($end);
         $end = strtotime($end);
         $id = (int) $id;
-		if ($budget)
-		{
-			$budget = (float) $budget;
-			$upd = mysql_query("UPDATE projekte SET `name`='$name',`desc`='$desc',`end`='$end',`budget`='$budget' WHERE ID = $id");
-		}
-		else
-		{
-			$upd = mysql_query("UPDATE projekte SET `name`='$name',`desc`='$desc',`end`='$end' WHERE ID = $id");
-		}
-		
+        $budget = (float) $budget;
+
+        $upd = mysql_query("UPDATE projekte SET name='$name',`desc`='$desc',`end`='$end',budget=$budget WHERE ID = $id");
+
         if ($upd)
         {
             $this->mylog->add($name, 'projekt' , 2, $id);
@@ -192,98 +189,9 @@ class project
     }
 
     /**
-     * Copy a project
-     * by: Daniel Tlach <danaketh@gmail.com>,
-     * Philipp Kiszka <info@o-dyn.de>
-     *
-     * @param int $id ID of project to copy
-     * @return int $insid New project's ID
-     */
-    function makecopy($id)
-    {
-        // copy project
-        $q = mysql_query("INSERT INTO projekte (`name`, `desc`, `end`, `start`, `status`, `budget`) SELECT `name`, `desc`, `end`, `start`, `status`, `budget` FROM projekte WHERE ID = " . (int)$id);
-
-        $insid = mysql_insert_id();
-        $uid = $_SESSION['userid'];
-        $this->assign($uid, $insid);
-
-        $milesobj = new milestone();
-        $objtasklist = new tasklist();
-        $objtask = new task();
-
-        if ($q)
-        {
-            $pname = $this->getProject($insid);
-            $name = $pname["name"] . " Copy";
-            mysql_query("UPDATE projekte SET `name` = '$name' WHERE ID = " . $insid . " LIMIT 1");
-
-            // now copy the milestones
-            $miles = $milesobj->getAllProjectMilestones($id);
-            if (!empty($miles))
-            {
-                // go through the milestones
-                foreach ($miles as $ms)
-                {
-                    // copy milestone
-                    $msid = $milesobj->add($insid, $ms["name"] , $ms["desc"] , $ms["end"] , 1);
-                    // get all tasklists for milestone
-                    $qb = mysql_query("SELECT * FROM tasklist WHERE project = $id AND milestone = $ms[ID]");
-                    if ($qb)
-                    {
-                        // go through the tasklists
-                        while ($tl = mysql_fetch_array($qb))
-                        {
-                            // copy tasklist
-                            $tlid = $objtasklist->add_liste($insid, $tl["name"] , $tl["desc"], 0, $msid);
-                            // get tasks for the tasklist
-                            $tasks = $objtasklist->getTasksFromList($tl["ID"]);
-                            if (!empty($tasks))
-                            {
-                                foreach ($tasks as $task)
-                                {
-                                    $taskobj->add($task["end"], $task["title"] , $task["text"] , $tlid , $uid , $insid);
-                                } // tasks END
-                            }
-                        } // tasklists END
-                    }
-                } // milestones END
-            }
-            // get all tasklists and tasks that do not belong to a milestone
-            $qb = mysql_query("SELECT * FROM tasklist WHERE project = $id AND milestone = 0");
-            if ($qb)
-            {
-               // go through the tasklists
-                while ($tl = mysql_fetch_array($qb))
-                {
-                    // copy tasklist
-                    $tlid = $objtasklist->add_liste($insid, $tl["name"] , $tl["desc"], 0, $msid);
-                    // get tasks for the tasklist
-                    $tasks = $objtasklist->getTasksFromList($tl["ID"]);
-                    if (!empty($tasks))
-                    {
-                        foreach ($tasks as $task)
-                        {
-                            $taskobj->add($task["end"], $task["title"] , $task["text"] , $tlid , $uid , $insid);
-                        } // tasks END
-                    }
-                } // tasklists END
-            }
-
-            mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/$insid/", 0777);
-            $this->mylog->add($name, 'projekt', 1, $insid);
-            return $insid;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    /**
      * Mark a project as "active / open"
      *
-     * @param int $id Project ID
+     * @param int $id Eindeutige Projektnummer
      * @return bool
      */
     function open($id)
@@ -309,7 +217,7 @@ class project
     /**
      * Marks a project, its tasks, tasklists and milestones as "finished / closed"
      *
-     * @param int $id Project ID
+     * @param int $id Eindeutige Projektnummer
      * @return bool
      */
     function close($id)
@@ -363,10 +271,10 @@ class project
     }
 
     /**
-     * Assign a new member to a project
+     * Weist ein Projekt einem bestimmten Mitglied zu
      *
-     * @param int $user Member's user ID
-     * @param int $id Project ID
+     * @param int $user Eindeutige Mitgliedsnummer
+     * @param int $id Eindeutige Projektnummer
      * @return bool
      */
     function assign($user, $id)
@@ -388,10 +296,10 @@ class project
     }
 
     /**
-     * Delete the assignment of a member to a project
+     * Entfernt ein Projekt aus der Zuweisung an ein bestimmtes Mitglied
      *
-     * @param int $user Member's user ID
-     * @param int $id Project ID
+     * @param int $user Eindeutige Mitgliedsnummer
+     * @param int $id Eindeutige Projektnummer
      * @return bool
      */
     function deassign($user, $id)
@@ -443,11 +351,11 @@ class project
     }
 
     /**
-     * Return a project
+     * Gibt alle Daten eines Projekts aus
      *
-     * @param int $id Project ID
-     * @param int $status Project status
-     * @return array $project Project data
+     * @param int $id Eindeutige Projektnummer
+     * @param int $status
+     * @return array $project Projektdaten
      */
     function getProject($id)
     {
@@ -467,7 +375,7 @@ class project
             }
             else
             {
-                $project["daysleft"] = 0;
+                $project["daysleft"] = "No due date";
             }
 
             $startstring = date(CL_DATEFORMAT, $project["start"]);
@@ -486,11 +394,11 @@ class project
     }
 
     /**
-     * List projects with the indicated status
+     * Listet die aktuellsten Projekte auf
      *
-     * @param int $status Status of the projects (1 = ongoing/open project)
-     * @param int $lim Maximum no. of projects to be returned
-     * @return array $projekte Projects of indicated status
+     * @param int $status Bearbeitungsstatus der Projekte (1 = offenes Projekt)
+     * @param int $lim Anzahl der anzuzeigenden Projekte
+     * @return array $projekte Active projects
      */
     function getProjects($status = 1, $lim = 10)
     {
@@ -519,11 +427,11 @@ class project
     }
 
     /**
-     * List all projects with the indicated status a user is assigned to
+     * Listet alle einem Mitglied zugewiesenen Projekte auf
      *
-     * @param int $user User ID
-     * @param int $status Status of the projects (1 = ongoing/open project)
-     * @return array $myprojekte User's projects
+     * @param int $user Eindeutige Mitgliedsnummer
+     * @param int $status Bearbeitungsstatus von Projekten (1 = offenes Projekt)
+     * @return array $myprojekte Projekte des Mitglieds
      */
     function getMyProjects($user, $status = 1)
     {
@@ -556,10 +464,10 @@ class project
     }
 
     /**
-     * List the IDs of all projects a user is assigned to
+     * Listet alle IDs der Projekte eines Mitglieds auf
      *
-     * @param int $user User ID
-     * @return array $myprojekte Projects' IDs
+     * @param int $user Eindeutige Mitgliedsnummer
+     * @return array $myprojekte Projekt-Nummern
      */
     function getMyProjectIds($user)
     {
@@ -591,15 +499,16 @@ class project
     }
 
     /**
-     * List all members of a project
+     * Listet alle einem bestimmen Projekt zugewiesenen Mitglieder auf
      *
-     * @param int $project Project ID
-     * @param int $lim Maximum no. of users to be returned
-     * @return array $members Project members
+     * @param int $project Eindeutige Projektnummer
+     * @param int $lim Maximum auszugebender Mitglieder
+     * @return array $members Projektmitglieder
      */
     function getProjectMembers($project, $lim = 10, $paginate = true)
     {
-  
+        $project = mysql_real_escape_string($project);
+        $lim = mysql_real_escape_string($lim);
         $project = (int) $project;
         $lim = (int) $lim;
 
@@ -609,16 +518,14 @@ class project
         {
             $num = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM projekte_assigned WHERE projekt = $project"));
             $num = $num[0];
-
+            $lim = (int)$lim;
             SmartyPaginate::connect();
             // set items per page
             SmartyPaginate::setLimit($lim);
             SmartyPaginate::setTotal($num);
 
             $start = SmartyPaginate::getCurrentIndex();
-
             $lim = SmartyPaginate::getLimit();
-		
         }
         else
         {
@@ -643,12 +550,6 @@ class project
         }
     }
 
-    /**
-     * Count the members of a project
-     *
-     * @param int $project Project ID
-     * @return array $members Member count
-     */
     function countMembers($project)
     {
         $project = (int) $project;
@@ -660,7 +561,7 @@ class project
      * Progressmeter
      *
      * @param int $project Project ID
-     * @return array $done Percent finished tasks
+     * @return array $done Percent of finished tasks
      */
     function getProgress($project)
     {
@@ -688,12 +589,6 @@ class project
         return $done;
     }
 
-    /**
-     * List all folders of a project
-     *
-     * @param int $project Project ID
-     * @return array $members Project's folders
-     */
     function getProjectFolders($project)
     {
         $project = (int) $project;
@@ -714,12 +609,11 @@ class project
             return false;
         }
     }
-	
     /**
-     * Return no. of days left from today until the given day
+     * Gibt die verbleibenden Tage von einem gegeben Zeitpunkt bis heute zur?ck
      *
-     * @param int $end Given day
-     * @return int Remaining days
+     * @param int $end Zu vergleichender Zeitpunkt
+     * @return int Verbleibende volle Tage
      */
     private function getDaysLeft($end)
     {

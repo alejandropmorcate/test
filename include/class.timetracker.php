@@ -193,7 +193,7 @@ class timetracker
         }
     }
 
-    function getUserTrack($user, $project = 0, $task = 0, $start = 0, $end = 0 , $lim = 25)
+    function getUserTrack($user, $project = 0, $task = 0, $start = 0, $end = 0 , $lim = 50)
     {
         $start = mysql_real_escape_string($start);
         $end = mysql_real_escape_string($end);
@@ -293,7 +293,7 @@ class timetracker
         }
     }
 
-    function getProjectTrack($project, $user = 0, $task = 0, $start = 0, $end = 0, $lim = 25)
+    function getProjectTrack($project, $user = 0, $task = 0, $start = 0, $end = 0, $lim = 50)
     {
         $start = mysql_real_escape_string($start);
         $end = mysql_real_escape_string($end);
