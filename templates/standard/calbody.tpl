@@ -66,7 +66,8 @@
 						<a href = "#miles{$weeks[week][day].val}" id = "mileslink{$weeks[week][day].val}" ><img src = "templates/standard/images/symbols/miles.png" alt = ""></a>
 						<div id = "miles{$weeks[week][day].val}" style = "display:none;">
 							<div class="modaltitle">
-								<img src="./templates/standard/images/symbols/miles.png" alt="" />{$langfile.milestones} {$m}.{$weeks[week][day].val}.{$y}
+								<img src="./templates/standard/images/symbols/miles.png" alt="" />{$langfile.milestones}
+								{$weeks[week][day].val}.{$m}.{$y}
 								<a class="winclose" href="javascript:Control.Modal.close();"></a>
 							</div>
 							<div class="inmodal">
@@ -145,7 +146,8 @@
 						<a href = "#tasks{$weeks[week][day].val}" id = "tasklink{$weeks[week][day].val}" ><img src = "templates/standard/images/symbols/task.png" alt = ""></a>
 						<div id = "tasks{$weeks[week][day].val}" style = "display:none;">
 							<div class="modaltitle">
-								<img src="./templates/standard/images/symbols/tasklist.png" alt="" />{$langfile.tasklist} {$m}.{$weeks[week][day].val}.{$y}
+								<img src="./templates/standard/images/symbols/tasklist.png" alt="" />{$langfile.tasklist}
+								{$weeks[week][day].val}.{$m}.{$y}
 								<a class="winclose" href="javascript:Control.Modal.close();"></a>
 							</div>						
 							<div class="inmodal">
