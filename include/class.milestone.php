@@ -534,7 +534,10 @@ class milestone
         }
         else
         {
-            $sel1 = mysql_query("SELECT milestones.*,projekte_assigned.user FROM milestones,projekte_assigned WHERE milestones.project = projekte_assigned.projekt HAVING projekte_assigned.user = $user  AND status=1 AND end = '$starttime'");
+			$sel1 = mysql_query("SELECT milestones.*,projekte_assigned.user,projekte.name AS pname FROM
+			milestones,projekte_assigned,projekte WHERE milestones.project = projekte_assigned.projekt AND milestones.project = projekte.ID
+HAVING
+			projekte_assigned.user = $user AND status=1 AND end = '$starttime'");
         }
 
         while ($stone = mysql_fetch_array($sel1))
