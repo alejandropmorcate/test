@@ -564,7 +564,8 @@ class task
         }
         else
         {
-            $sql = "SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND status=1 AND end = '$starttime'";
+			$sql = "SELECT tasks.*,tasks_assigned.user,projekte.name AS pname FROM tasks,tasks_assigned,projekte WHERE tasks.ID =
+			tasks_assigned.task AND tasks.project = projekte.ID HAVING tasks_assigned.user = $user AND status=1 AND end = '$starttime'";
         }
         $sel1 = mysql_query($sql);
 
