@@ -81,7 +81,7 @@
 										</colgroup>
 										<thead>
 											<th></th>
-											<th>{$langfile.milestone}</th>
+											<th>{$langfile.project}: {$langfile.milestone}</th>
 											<th class="tools">{$langfile.daysleft}</th>
 										</thead>
 										{section name = stone loop=$weeks[week][day].milestones}
@@ -96,7 +96,8 @@
 													<div class="toggle-in">
 														<span class="acc-toggle" onclick="javascript:accord_m.activate($$('#acc_m .accordion_toggle')[{$smarty.section.stone.index}]);toggleAccordeon('acc_m',this);"></span>
 														<a href="managemilestone.php?action=showmilestone&amp;msid={$weeks[week][day].milestones[stone].ID}&amp;id={$weeks[week][day].milestones[stone].project}" title="{$weeks[week][day].milestones[stone].title}">
-															{$weeks[week][day].milestones[stone].name|truncate:30:"...":true}
+														{$weeks[week][day].milestones[stone].pname}:
+{$weeks[week][day].milestones[stone].name|truncate:30:"...":true}
 														</a>
 													</div>
 												</td>
@@ -162,7 +163,7 @@
 										</colgroup>
 										<thead>
 											<th></th>
-											<th>{$langfile.task}</th>
+											<th>{$langfile.project}: {$langfile.task}</th>
 											<th class="tools">{$langfile.daysleft}</th>
 										</thead>
 										{section name = task loop=$weeks[week][day].tasks}	
@@ -177,7 +178,8 @@
 													<div class="toggle-in">
 														<span class="acc-toggle" onclick="javascript:accord_mb_{$weeks[week][day].val}.activate($$('#acc_mb_{$weeks[week][day].val} .accordion_toggle')[{$smarty.section.task.index}]);toggleAccordeon('acc_mb_{$weeks[week][day].val}',this);"></span>
 														<a href="managetask.php?action=showtask&amp;tid={$weeks[week][day].tasks[task].ID}&amp;id={$weeks[week][day].tasks[task].project}" title="{$weeks[week][day].tasks[task].title}">
-															{$weeks[week][day].tasks[task].title|truncate:30:"...":true}
+														{$weeks[week][day].tasks[task].pname}:
+{$weeks[week][day].tasks[task].title|truncate:30:"...":true}
 														</a>
 													</div>
 												</td>
