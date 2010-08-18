@@ -12,23 +12,18 @@
 
 				<select name = "locale" id = "language" onchange = "document.forms[0].submit();">
 				<option value = "">{#chooseone#}</option>
-				<option value = "bg">{#bg#}</option>
-				<option value = "cn">{#cn#}</option>
-				<option value = "cz">{#cz#}</option>
+				<option value = "ar">{#ar#}</option>
 				<option value = "da">{#da#}</option>
 				<option value = "de">{#de#}</option>
 				<option value = "en">{#en#}</option>
 				<option value = "es">{#es#}</option>
+				<option value = "fi">{#fi#}</option>
 				<option value = "fr">{#fr#}</option>
-				<option value = "hu">{#hu#}</option>
 				<option value = "it">{#it#}</option>
-				<option value = "jp">{#jp#}</option>
 				<option value = "nl">{#nl#}</option>
 				<option value = "pl">{#pl#}</option>
-				<option value = "pt">{#pt#}</option>
-				<option value = "rs">{#rs#}</option>
-				<option value = "ru">{#ru#}</option>
-				<option value = "tr">{#tr#}</option>
+				<option value = "se">{#se#}</option>
+				<option value = "sr">{#sr#}</option>
 				</select>
 				</div>
 			</fieldset>
