@@ -493,12 +493,7 @@
 		catch(e)
 		{}
 		{/literal}
-		{if $userpermissions.admin.add}
-		{literal}
 		changeshow('manageajax.php?action=newcal','thecal','progress');
-		{/literal}
-		{/if}
-		{literal}
         </script>
 	{/literal}
 
