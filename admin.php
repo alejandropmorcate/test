@@ -188,7 +188,6 @@ if ($action == "index")
     $user = $user->getProfile($id);
     $roleobj = (object) new roles();
     $roles = $roleobj->getAllRoles();
-    $roles = $roleobj->getDefaultRoleNamesTranslated($roles);
 
     $title = $langfile['useradministration'];
     $template->assign("title", $title);
