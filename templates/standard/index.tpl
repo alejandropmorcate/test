@@ -247,7 +247,7 @@
 
 
 {*Milestones*}
-<div class="miles" {if !$userpermissions.admin.add}style="display:none;"{/if}>
+<div>
 			<div class="headline">
 				<a href="javascript:void(0);" id="mileshead_toggle" class="{$milebar}" onclick = "toggleBlock('mileshead');"></a>
 
@@ -492,7 +492,6 @@
 		}
 		catch(e)
 		{}
-		{/literal}
 		changeshow('manageajax.php?action=newcal','thecal','progress');
         </script>
 	{/literal}
