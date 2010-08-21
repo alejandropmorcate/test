@@ -346,7 +346,7 @@ if ($action == "login")
         );
     $template->assign("mainclasses", $mainclasses);
     $proj = (object) new project();
-    $alluser = $user->getAllUsers(100);
+    $alluser = $user->getAllUsers(10000);
     $users = array();
 
     foreach($alluser as $all)
