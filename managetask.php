@@ -71,9 +71,11 @@ if ($action == "addform") {
     $tid = $task->add($end, $title, $text, $tasklist, $id);
     // if tasks was added and mailnotify is activated, send an email
     if ($tid) {
+        foreach($assigned as $member) {
+            $task->assign($tid, $member);
+        }
         if ($settings["mailnotify"]) {
             foreach($assigned as $member) {
-            	$task->assign($tid,$member);
                 $usr = (object) new user();
                 $user = $usr->getProfile($member);
 
