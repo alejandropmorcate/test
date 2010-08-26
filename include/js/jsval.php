@@ -10,7 +10,13 @@ header($ExpStr);
 
 ?>
 function validateCompleteForm (objForm, strErrorClass) {
+    if(typeof objForm != "object")
+    {
+    	objForm = document.getElementById(objForm);
+    }
+
     return _validateInternal(objForm, strErrorClass, 0);
+
 };
 
 function validateStandard (objForm, strErrorClass) {

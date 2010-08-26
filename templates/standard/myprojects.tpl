@@ -64,7 +64,7 @@
 							<th class="a"></th>
 							<th class="b">{#project#}</th>
 							<th class="c">{#done#}</th>
-							<th class="days">{#daysleft#}</th>
+							<th class="d">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -84,7 +84,7 @@
 					<tbody class="color-b" id="proj_{$myprojects[project].ID}">
 					{/if}
 						<tr {if $myprojects[project].daysleft < 0} class="marker-late"{elseif $myprojects[project].daysleft == 0} class="marker-today"{/if}>
-							<td>{if $userpermissions.projects.close}<a class="butn_check" href="javascript:closeElement('proj_{$myprojects[project].ID}','manageproject.php?action=close&amp;id={$myprojects[project].ID}');" title="{#close#}"></a>{/if}</td>
+							<td>{if $userpermissions.projects.add}<a class="butn_check" href="javascript:closeElement('proj_{$myprojects[project].ID}','manageproject.php?action=close&amp;id={$myprojects[project].ID}');" title="{#close#}"></a>{/if}</td>
 							<td>
 								<div class="toggle-in">
 								<span class="acc-toggle" onclick="javascript:accord_projects.activate($$('#acc-projects .accordion_toggle')[{$smarty.section.project.index}]);toggleAccordeon('acc-projects',this);"></span>
@@ -139,7 +139,7 @@
 							<td class="a"></td>
 							<td class="b"><span id="toggle-done" class="acc-toggle">{#closedprojects#}</span></td>
 							<td class="c"></td>
-							<td class="days"></td>
+							<td class="d"></td>
 							<td class="tools"></td>
 						</tr>
 
@@ -157,7 +157,7 @@
 					<tbody class="color-b" id="proj_{$oldprojects[clopro].ID}">
 					{/if}
 						<tr>
-							<td class="a">{if $userpermissions.projects.close}<a class="butn_checked" href="manageproject.php?action=open&amp;id={$oldprojects[clopro].ID}" title="{#open#}"></a>{/if}</td>
+							<td class="a">{if $userpermissions.projects.add}<a class="butn_checked" href="manageproject.php?action=open&amp;id={$oldprojects[clopro].ID}" title="{#open#}"></a>{/if}</td>
 							<td class="b">
 								<div class="toggle-in">
 								<span class="acc-toggle" onclick="javascript:accord_oldprojects.activate($$('#acc-oldprojects .accordion_toggle')[{$smarty.section.clopro.index}]);toggleAccordeon('acc-oldprojects',this);"></span>

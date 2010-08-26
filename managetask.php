@@ -321,7 +321,6 @@ if ($action == "addform") {
     $task['username'] = $user[1];
     $task['userid'] = $user[0];
 
-    array_push($members, array("ID" => 0, "name" => $langfile["all"]));
     $template->assign("members", $members);
     $template->assign("tasklists", $tasklists);
     $template->assign("tl", $tl);

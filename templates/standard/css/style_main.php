@@ -16,7 +16,8 @@ $logoName = "#fff";
 $logoSubname = "#6ab0c5";
 $leftBlockBg = "#fff";
 
-$tabsInfo = "#6d7f93";
+//$tabsInfo = "#6d7f93";
+$tabsInfo = "#839BB5";
 $mainMenueInfo = "#6d7f93"; // Info-Span in Mainmenue
 
 $bigCalToday = "#eaf6e3"; //day in the Big Calendar

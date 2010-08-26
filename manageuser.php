@@ -145,10 +145,6 @@ if ($action == "login")
 } elseif ($action == "editform")
 {
     $companyobj = new company();
-    $mainclasses = array("desktop" => "desktop",
-        "profil" => "profil_active",
-        "admin" => "admin"
-        );
 
     $languages_fin = array();
     foreach($languages as $lang)
@@ -170,7 +166,6 @@ if ($action == "login")
     }
     $template->assign("languages_fin", $languages_fin);
 
-    $template->assign("mainclasses", $mainclasses);
     $title = $langfile['edituser'];
 
     $template->assign("title", $title);

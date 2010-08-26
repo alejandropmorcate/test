@@ -33,6 +33,14 @@ class datei
         $project = (int) $project;
         $folder = mysql_real_escape_string($folder);
         $desc = mysql_real_escape_string($desc);
+        if(!empty($visible))
+        {
+			$visstr = serialize($visible);
+		}
+		else
+		{
+			$visstr = "";
+		}
 
         $folder = str_replace("ä", "ae" , $folder);
         $folder = str_replace("ö", "oe" , $folder);
@@ -451,7 +459,7 @@ class datei
             $file["title"] = stripslashes($file["title"]);
             $file["desc"] = stripslashes($file["desc"]);
             $file["tags"] = stripslashes($file["tags"]);
-            $file["size"] = filesize($file["datei"]) / 1024;
+            $file["size"] = filesize(realpath($file["datei"])) / 1024;
             $file["size"] = round($file["size"]);
             $file["addedstr"] = date("d.m.y",$file["added"]);
             $userobj = new user();
@@ -628,7 +636,7 @@ class datei
         $type = mysql_real_escape_string($type);
         $title = mysql_real_escape_string($title);
         $now = time();
-	
+
         $ins = mysql_query("INSERT INTO files (`name`,`desc`,`project`,`milestone`,`user`,`tags`,`added`,`datei`,`type`,`title`,`folder`,`visible`) VALUES ('$name','$desc',$project,$milestone,$userid,'$tags','$now','$datei','$type','$title','$folder','$visstr')");
 
         if ($ins)

@@ -30,7 +30,7 @@
 							<th class="a"></th>
 							<th class="b">{#project#}</th>
 							<th class="c">{#done#}</th>
-							<th class="days">{#daysleft#}</th>
+							<th class="d">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -137,7 +137,7 @@
 							<th class="a"></th>
 							<th class="b">{#task#}</th>
 							<th class="c">{#project#}</th>
-							<th class="days">{#daysleft#}</th>
+							<th class="d">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>

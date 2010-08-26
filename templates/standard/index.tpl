@@ -247,7 +247,7 @@
 
 
 {*Milestones*}
-<div>
+<div class="miles">
 			<div class="headline">
 				<a href="javascript:void(0);" id="mileshead_toggle" class="{$milebar}" onclick = "toggleBlock('mileshead');"></a>
 

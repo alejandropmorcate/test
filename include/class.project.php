@@ -9,8 +9,7 @@
  * @link http://www.o-dyn.de
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
  */
-class project
-{
+class project {
     private $mylog;
 
     /**
@@ -39,28 +38,23 @@ class project
         $assignme = (int) $assignme;
         $budget = (float) $budget;
 
-		if ($end > 0)
-		{
-			$end = strtotime($end);
-		}
+        if ($end > 0) {
+            $end = strtotime($end);
+        }
         $now = time();
 
         $ins1 = mysql_query("INSERT INTO projekte (`name`, `desc`, `end`, `start`, `status`, `budget`) VALUES ('$name','$desc','$end','$now',1,'$budget')");
 
         $insid = mysql_insert_id();
-        if ($assignme == 1)
-        {
+        if ($assignme == 1) {
             $uid = $_SESSION['userid'];
             $this->assign($uid, $insid);
         }
-        if ($ins1)
-        {
+        if ($ins1) {
             mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/$insid/", 0777);
             $this->mylog->add($name, 'projekt', 1, $insid);
             return $insid;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -90,14 +84,11 @@ class project
 
         $insid = mysql_insert_id();
 
-        if ($ins1)
-        {
+        if ($ins1) {
             mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/$insid/", 0777);
             $this->mylog->add($name, 'projekt', 1, $insid);
             return $insid;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -123,13 +114,10 @@ class project
 
         $upd = mysql_query("UPDATE projekte SET name='$name',`desc`='$desc',`end`='$end',budget=$budget WHERE ID = $id");
 
-        if ($upd)
-        {
+        if ($upd) {
             $this->mylog->add($name, 'projekt' , 2, $id);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -148,20 +136,16 @@ class project
         // Delete assignments of tasks of this project to users
         $task = new task();
         $tasks = $task->getProjectTasks($id);
-        if (!empty($tasks))
-        {
-            foreach ($tasks as $tas)
-            {
+        if (!empty($tasks)) {
+            foreach ($tasks as $tas) {
                 $del_taskassign = mysql_query("DELETE FROM tasks_assigned WHERE task = $tas[ID]");
             }
         }
         // Delete files and the assignments of these files to the messages they were attached to
         $fil = new datei();
         $files = $fil->getProjectFiles($id, 1000000);
-        if (!empty($files))
-        {
-            foreach ($files as $file)
-            {
+        if (!empty($files)) {
+            foreach ($files as $file) {
                 $del_files = $fil->loeschen($file[ID]);
             }
         }
@@ -177,13 +161,10 @@ class project
         $del = mysql_query("DELETE FROM projekte WHERE ID = $id");
 
         delete_directory(CL_ROOT . "/files/" . CL_CONFIG . "/$id");
-        if ($del)
-        {
+        if ($del) {
             $this->mylog->add($userid, 'projekt', 3, $id);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -200,16 +181,13 @@ class project
         $id = (int) $id;
 
         $upd = mysql_query("UPDATE projekte SET status=1 WHERE ID = $id");
-        if ($upd)
-        {
+        if ($upd) {
             $nam = mysql_query("SELECT name FROM projekte WHERE ID = $id");
             $nam = mysql_fetch_row($nam);
             $nam = $nam[0];
             $this->mylog->add($nam, 'projekt', 4, $id);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -227,45 +205,36 @@ class project
 
         $mile = new milestone();
         $milestones = $mile->getAllProjectMilestones($id, 100000);
-        if (!empty($milestones))
-        {
-            foreach ($milestones as $miles)
-            {
+        if (!empty($milestones)) {
+            foreach ($milestones as $miles) {
                 $close_milestones = mysql_query("UPDATE milestones SET status = 0 WHERE ID = $miles[ID]");
             }
         }
 
         $task = new task();
         $tasks = $task->getProjectTasks($id);
-        if (!empty($tasks))
-        {
-            foreach ($tasks as $tas)
-            {
+        if (!empty($tasks)) {
+            foreach ($tasks as $tas) {
                 $close_tasks = mysql_query("UPDATE tasks SET status = 0 WHERE ID = $tas[ID]");
             }
         }
 
         $tasklist = new tasklist();
         $tasklists = $tasklist->getProjectTasklists($id);
-        if (!empty($tasklists))
-        {
-            foreach ($tasklists as $tl)
-            {
+        if (!empty($tasklists)) {
+            foreach ($tasklists as $tl) {
                 $close_tasklists = mysql_query("UPDATE tasklist SET status = 0 WHERE ID = $tl[ID]");
             }
         }
 
         $upd = mysql_query("UPDATE projekte SET status=0 WHERE ID = $id");
-        if ($upd)
-        {
+        if ($upd) {
             $nam = mysql_query("SELECT name FROM projekte WHERE ID = $id");
             $nam = mysql_fetch_row($nam);
             $nam = $nam[0];
             $this->mylog->add($nam, 'projekt', 5, $id);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -285,12 +254,9 @@ class project
         $id = (int) $id;
 
         $ins = mysql_query("INSERT INTO projekte_assigned (user,projekt) VALUES ($user,$id)");
-        if ($ins)
-        {
+        if ($ins) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -313,39 +279,30 @@ class project
 
         $milestone = new milestone();
         $donemiles = $milestone->getDoneProjectMilestones($id);
-        if (!empty($donemiles))
-        {
-            foreach ($donemiles as $dm)
-            {
+        if (!empty($donemiles)) {
+            foreach ($donemiles as $dm) {
                 $sql1 = mysql_query("DELETE FROM milestones_assigned WHERE user = $user AND milestone = $dm[ID]");
             }
         }
         $openmiles = $milestone->getAllProjectMilestones($id, 100000);
-        if (!empty($openmiles))
-        {
-            foreach ($openmiles as $om)
-            {
+        if (!empty($openmiles)) {
+            foreach ($openmiles as $om) {
                 $sql2 = mysql_query("DELETE FROM milestones_assigned WHERE user = $user AND milestone = $om[ID]");
             }
         }
 
         $task = new task();
         $tasks = $task->getProjectTasks($id);
-        if (!empty($tasks))
-        {
-            foreach ($tasks as $t)
-            {
+        if (!empty($tasks)) {
+            foreach ($tasks as $t) {
                 $sql3 = mysql_query("DELETE FROM tasks_assigned WHERE user = $user AND task = $t[ID]");
             }
         }
 
         $del = mysql_query($sql);
-        if ($del)
-        {
+        if ($del) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -364,18 +321,14 @@ class project
         $sel = mysql_query("SELECT * FROM projekte WHERE ID = $id");
         $project = mysql_fetch_array($sel, MYSQL_ASSOC);
 
-        if (!empty($project))
-        {
-            if ($project["end"])
-            {
+        if (!empty($project)) {
+            if ($project["end"]) {
                 $daysleft = $this->getDaysLeft($project["end"]);
                 $project["daysleft"] = $daysleft;
                 $endstring = date("d.m.Y", $project["end"]);
                 $project["endstring"] = $endstring;
-            }
-            else
-            {
-                $project["daysleft"] = "No due date";
+            } else {
+                $project["daysleft"] = "";
             }
 
             $startstring = date(CL_DATEFORMAT, $project["start"]);
@@ -386,9 +339,7 @@ class project
             $project["done"] = $this->getProgress($project["ID"]);
 
             return $project;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -410,18 +361,14 @@ class project
         $projekte = array();
         $sel = mysql_query("SELECT ID FROM projekte WHERE `status`=$status ORDER BY end ASC LIMIT $lim");
 
-        while ($projekt = mysql_fetch_array($sel))
-        {
+        while ($projekt = mysql_fetch_array($sel)) {
             $project = $this->getProject($projekt["ID"]);
             array_push($projekte, $project);
         }
 
-        if (!empty($projekte))
-        {
+        if (!empty($projekte)) {
             return $projekte;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -443,22 +390,17 @@ class project
         $myprojekte = array();
         $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user ORDER BY ID ASC");
 
-        while ($projs = mysql_fetch_row($sel))
-        {
+        while ($projs = mysql_fetch_row($sel)) {
             $projekt = mysql_fetch_array(mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0] AND status=$status"), MYSQL_ASSOC);
-            if ($projekt)
-            {
+            if ($projekt) {
                 $project = $this->getProject($projekt["ID"]);
                 array_push($myprojekte, $project);
             }
         }
 
-        if (!empty($myprojekte))
-        {
+        if (!empty($myprojekte)) {
             return $myprojekte;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -476,24 +418,18 @@ class project
 
         $myprojekte = array();
         $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user ORDER BY end ASC");
-        if ($sel)
-        {
-            while ($projs = mysql_fetch_row($sel))
-            {
+        if ($sel) {
+            while ($projs = mysql_fetch_row($sel)) {
                 $sel2 = mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0]");
                 $projekt = mysql_fetch_array($sel2);
-                if ($projekt)
-                {
+                if ($projekt) {
                     array_push($myprojekte, $projekt);
                 }
             }
         }
-        if (!empty($myprojekte))
-        {
+        if (!empty($myprojekte)) {
             return $myprojekte;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -507,15 +443,14 @@ class project
      */
     function getProjectMembers($project, $lim = 10, $paginate = true)
     {
-        $project = mysql_real_escape_string($project);
-        $lim = mysql_real_escape_string($lim);
+        $project = (int) $project;
+        $lim = (int) $lim;
         $project = (int) $project;
         $lim = (int) $lim;
 
         $members = array();
 
-        if ($paginate)
-        {
+        if ($paginate) {
             $num = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM projekte_assigned WHERE projekt = $project"));
             $num = $num[0];
             $lim = (int)$lim;
@@ -526,26 +461,20 @@ class project
 
             $start = SmartyPaginate::getCurrentIndex();
             $lim = SmartyPaginate::getLimit();
-        }
-        else
-        {
+        } else {
             $start = 0;
         }
         $sel1 = mysql_query("SELECT user FROM projekte_assigned WHERE projekt = $project LIMIT $start,$lim");
 
         $usr = new user();
-        while ($user = mysql_fetch_array($sel1))
-        {
+        while ($user = mysql_fetch_array($sel1)) {
             $theuser = $usr->getProfile($user[0]);
             array_push($members, $theuser);
         }
 
-        if (!empty($members))
-        {
+        if (!empty($members)) {
             return $members;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -577,13 +506,10 @@ class project
         $clotasks = $clotasks[0];
 
         $totaltasks = $otasks + $clotasks;
-        if ($totaltasks > 0 and $clotasks > 0)
-        {
+        if ($totaltasks > 0 and $clotasks > 0) {
             $done = $clotasks / $totaltasks * 100;
             $done = round($done);
-        }
-        else
-        {
+        } else {
             $done = 0;
         }
         return $done;
@@ -595,17 +521,13 @@ class project
         $sel = mysql_query("SELECT * FROM projectfolders WHERE project = $project");
 
         $folders = array();
-        while ($folder = mysql_fetch_array($sel))
-        {
+        while ($folder = mysql_fetch_array($sel)) {
             array_push($folders, $folder);
         }
 
-        if (!empty($folders))
-        {
+        if (!empty($folders)) {
             return $folders;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -621,6 +543,81 @@ class project
         $start = strtotime($tod);
         $diff = $end - $start;
         return floor($diff / 86400);
+    }
+
+    /**
+     * Copy a project
+     * by: Daniel Tlach <danaketh@gmail.com>,
+     * Philipp Kiszka <info@o-dyn.de>
+     *
+     * @param int $id ID of project to copy
+     * @return int $insid New project's ID
+     */
+    function makecopy($id)
+    {
+        // copy project
+        $q = mysql_query("INSERT INTO projekte (`name`, `desc`, `end`, `start`, `status`, `budget`) SELECT `name`, `desc`, `end`, `start`, `status`, `budget` FROM projekte WHERE ID = " . (int)$id);
+
+        $insid = mysql_insert_id();
+        $uid = $_SESSION['userid'];
+        $this->assign($uid, $insid);
+
+        $milesobj = new milestone();
+        $objtasklist = new tasklist();
+        $objtask = new task();
+
+        if ($q) {
+            $pname = $this->getProject($insid);
+            $name = $pname["name"] . " Copy";
+            mysql_query("UPDATE projekte SET `name` = '$name' WHERE ID = " . $insid . " LIMIT 1");
+            // now copy the milestones
+            $miles = $milesobj->getAllProjectMilestones($id);
+            if (!empty($miles)) {
+                // go through the milestones
+                foreach ($miles as $ms) {
+                    // copy milestone
+                    $msid = $milesobj->add($insid, $ms["name"] , $ms["desc"] , $ms["end"] , 1);
+                    // get all tasklists for milestone
+                    $qb = mysql_query("SELECT * FROM tasklist WHERE project = $id AND milestone = $ms[ID]");
+                    if ($qb) {
+                        // go through the tasklists
+                        while ($tl = mysql_fetch_array($qb)) {
+                            // copy tasklist
+                            $tlid = $objtasklist->add_liste($insid, $tl["name"] , $tl["desc"], 0, $msid);
+                            // get tasks for the tasklist
+                            $tasks = $objtasklist->getTasksFromList($tl["ID"]);
+                            if (!empty($tasks)) {
+                                foreach ($tasks as $task) {
+                                    $taskobj->add($task["end"], $task["title"] , $task["text"] , $tlid , $uid , $insid);
+                                } // tasks END
+                            }
+                        } // tasklists END
+                    }
+                } // milestones END
+            }
+            // get all tasklists and tasks that do not belong to a milestone
+            $qb = mysql_query("SELECT * FROM tasklist WHERE project = $id AND milestone = 0");
+            if ($qb) {
+                // go through the tasklists
+                while ($tl = mysql_fetch_array($qb)) {
+                    // copy tasklist
+                    $tlid = $objtasklist->add_liste($insid, $tl["name"] , $tl["desc"], 0, $msid);
+                    // get tasks for the tasklist
+                    $tasks = $objtasklist->getTasksFromList($tl["ID"]);
+                    if (!empty($tasks)) {
+                        foreach ($tasks as $task) {
+                            $taskobj->add($task["end"], $task["title"] , $task["text"] , $tlid , $uid , $insid);
+                        } // tasks END
+                    }
+                } // tasklists END
+            }
+
+            mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/$insid/", 0777);
+            $this->mylog->add($name, 'projekt', 1, $insid);
+            return $insid;
+        } else {
+            return false;
+        }
     }
 }
 

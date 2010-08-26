@@ -1,5 +1,42 @@
+Collabtive 0.6.5
++ Fixed bug when assigning tasks while email notification is deactivated / off
++ Added name of the project to the desktop calendar overlay
++ Fixed date format in calendar overlay on desktop
++ Improved translations: French, Portuguese, Czech, Brasilian Portuguese, Polished
++ Modified max no. of users to show on projects, now 10000 instead of 100
++ Remove the option "All" from the task edit form on single task view
++ Fixed a bug where a folder wouldnt be visible if visible = all was selected
++ Fixed a bug where every timetracker entry was tracked for "today" regardless of selection
++ Removed some debug output in managefile.php
++ Added check for userpermission of file editing, so the edit icon will not show up
+any longer in case of missing permission
++ Added missing truncation to project title on the mymessages view
++ Corrected file->delete link for attached files in the message view
++ Backported never due for projects to the frost theme
+
 Collabtive 0.6.4
-+ Added readme in Italian
++ Fixed a path problem with the filesize() function
++ Fixed a bug preventing Safari Users from creating tasks
++ Fixed a bug where an empty user could be assigned to a project
++ Corrected HTML Errors in project->people and project->timetracker views
++ Fixed a bug when editing a task
++ Added generic boder-radius to the CSS so all browsers that support it will display rounded borders (previously only Firefox and Webkit)
++ Removed keyboard shortcuts. they caused confusion and were probably rarely used
++ Buttons in the mainmenue now stay highlighted when an area is selected
++ Fixed a bug where users would not get an email notify when a task is assigned
++ Usernames on multiply asssigned tasks are now properly linked to each users profile
++ Fixed a problem preventing Safari and Chrome users from creating users.
++ Fixed a possible security flaw in the chat component
++ Added missing truncation to the project name in the "my tasks" column on the desktop, and the my tasks view
++ Added date of day to the timetracker PDF export per user
++ Fixed bug where no emails would be send when assigning new users to a task. Also refactored code for assigning users.
++ Fixed a possible problem in the mailer class.
++ Removed 2 unneeded tinyMCE plugins. This further reduces the amount of code to load for tiny MCE
++ Show the calendar on the desktop for all users, not just admins.
++ Updated list of languages in which the install-readme.txt is available
++ Added Swedish translation of the install-readme.txt
++ Fixed folder visibility
+
 
 Collabtive 0.6.3
 + Cleaned up user profile: company only displayed if available
@@ -14,6 +51,7 @@ Collabtive 0.6.3
 + Renamed language file folders for Chinese, Greek, Ukranian, Galician, Japanese, and Czech so they
 match those used in TinyMCE
 + Complete translation to English, German, Romanian, and Bulgarian
++ Added readme in Italian
 + Added English manual
 + Added comments
 + Replaced chat icon in frost theme with a slightly darker one

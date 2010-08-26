@@ -1,11 +1,12 @@
 <?php
 require("init.php");
-if (!session_is_registered("userid"))
+if (!isset($_SESSION['userid']))
 {
     $template->assign("loginerror", 0);
     $template->display("login.tpl");
     die();
 }
+
 
 $project = (object) new project();
 
@@ -79,12 +80,12 @@ if ($action == "editform")
         $template->display("error.tpl");
         die();
     }
-    
+
     if(!$end)
 	{
 		$end = 0;
 	}
-	
+
     if ($project->edit($id, $name, $desc, $end, $budget))
     {
         header("Location: manageproject.php?action=showproject&id=$id&mode=edited");

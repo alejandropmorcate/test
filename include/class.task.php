@@ -22,8 +22,7 @@ class task
     function __construct()
     {
         $this->mylog = new mylog;
-        $this->plugins = new plugin();
-        // $this->plugins = $plugin->loadPlugins();
+
     }
 
     /**
@@ -98,7 +97,6 @@ class task
         {
             $nameproject = $this->getNameProject($id);
             $this->mylog->add($nameproject[0], 'task', 2, $nameproject[1]);
-            $this->plugins->callSignalFuncs("task", "edit");
             return true;
         }
         else
@@ -564,8 +562,7 @@ class task
         }
         else
         {
-			$sql = "SELECT tasks.*,tasks_assigned.user,projekte.name AS pname FROM tasks,tasks_assigned,projekte WHERE tasks.ID =
-			tasks_assigned.task AND tasks.project = projekte.ID HAVING tasks_assigned.user = $user AND status=1 AND end = '$starttime'";
+			$sql = "SELECT tasks.*,tasks_assigned.user,projekte.name AS pname FROM tasks,tasks_assigned,projekte WHERE tasks.ID = tasks_assigned.task AND tasks.project = projekte.ID HAVING tasks_assigned.user = $user AND status=1 AND end = '$starttime'";
         }
         $sel1 = mysql_query($sql);
 

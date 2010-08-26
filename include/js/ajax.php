@@ -292,11 +292,13 @@ function systemMsg(ele)
 	makeTimer("new Effect.Fade('"+ele+"', { duration: 2.0 })",4000);
 }
 
+//add search provider
 function addEngine(url)
 {
 	window.external.AddSearchProvider(url);
 }
 
+//timetracker object
 function timetracker(taskId,projectId)
 {
 	this.working = false;
@@ -361,439 +363,136 @@ timetracker.prototype.saveWork = function()
 		});
 
 }
+function sortit()
+{
 
-//keyboard handler
-shortcut = {
-	'all_shortcuts':{},
-	'add': function(shortcut_combination,callback,opt) {
-			var keyEvent = 'keydown';
-			if (navigator.appVersion.indexOf("MSIE")==-1) {
-				keyEvent='keypress';
-			}
-			var default_options = {
-				'type':keyEvent,
-				'propagate':false,
-				'disable_in_input':false,
-				'target':document,
-				'keycode':false
-			}
+}
+function sortBlock(theblock,sortmode)
+{
+    var tbodies = $$("#"+theblock+" tbody");
+    var bodyIds = new Array();
+    theParent = $(theblock).parentNode;
 
-		if(!opt){
-		 opt = default_options;
-		}
-		else {
-			for(var dfo in default_options) {
-				if(typeof opt[dfo] == 'undefined'){
-				 	opt[dfo] = default_options[dfo];
-				}
-			}
-		}
+    for(i=0;i<tbodies.length;i++)
+    {
+        var tdtitle = tbodies[i].getAttribute("rel");
+        titleArr = tdtitle.split(",");
 
-		var ele = opt.target
-		if(typeof opt.target == 'string')
-		{
-			ele = $(opt.target);
-		}
-		var ths = this;
-		shortcut_combination = shortcut_combination.toLowerCase();
+        tbodies[i].setAttribute("theid",Number(titleArr[0]));
+        tbodies[i].setAttribute("title",titleArr[1]);
+        tbodies[i].setAttribute("daysleft",titleArr[2]);
+        tbodies[i].setAttribute("project",titleArr[3]);
+        if(tbodies[i].getAttribute("sortorder") == "asc")
+        {
+            tbodies[i].setAttribute("sortorder","desc");
+        }
+        else
+        {
+            tbodies[i].setAttribute("sortorder","asc");
+        }
 
-		//The function to be called at keypress
-		var func = function(e) {
-			e = e || window.event;
+        $(theblock).removeChild(tbodies[i]);
+        //$('jslog').innerHTML += tbodies[i].id + "<br />";
+    }
 
-			if(opt['disable_in_input']) { //Don't enable shortcut keys in Input, Textarea fields
-				var element;
-				if(e.target) element=e.target;
-				else if(e.srcElement) element=e.srcElement;
-				if(element.nodeType==3) element=element.parentNode;
+    if(sortmode == "daysleft")
+    {
+        tbodies.sort(daysort);
+    }
+    else if(sortmode == "project")
+    {
+        tbodies.sort(sortByProject);
+    }
+    else
+    {
+        tbodies.sort(sortByTitle);
+    }
 
-				if(element.tagName == 'INPUT' || element.tagName == 'TEXTAREA') return;
-			}
+    //$('jslog').innerHTML += " <br /> <br />sorted:<br/>";
+    for(i=0;i<tbodies.length;i++)
+    {
+        var theEl = $(theblock).appendChild(tbodies[i]);
+        if(i % 2 == 0)
+        {
+            theEl.setAttribute("class","color-a");
+        }
+        else
+        {
+            theEl.setAttribute("class","color-b");
+        }
+        $(theblock+"toggle"+tbodies[i].getAttribute("theid")).setAttribute("onclick","javascript:accord_tasks.activate($$('#'+theParent.id+' .accordion_toggle')["+i+"]);toggleAccordeon(theParent.id,this);");
 
-			//Find Which key is pressed
-			if (e.keyCode) code = e.keyCode;
-			else if (e.which) code = e.which;
-			character = String.fromCharCode(code).toLowerCase();
-
-
-			if(code == 188) character=","; //If the user presses , when the type is onkeydown
-			if(code == 190) character="."; //If the user presses , when the type is onkeydown
-
-			var keys = shortcut_combination.split("+");
-			//Key Pressed - counts the number of valid keypresses - if it is same as the number of keys, the shortcut function is invoked
-			var kp = 0;
-
-			//Work around for stupid Shift key bug created by using lowercase - as a result the shift+num combination was broken
-			var shift_nums = {
-				"`":"~",
-				"1":"!",
-				"2":"@",
-				"3":"#",
-				"4":"$",
-				"5":"%",
-				"6":"^",
-				"7":"&",
-				"8":"*",
-				"9":"(",
-				"0":")",
-				"-":"_",
-				"=":"+",
-				";":":",
-				"'":"\"",
-				",":"<",
-				".":">",
-				"/":"?",
-				"\\":"|"
-			}
-			//Special Keys - and their codes
-			var special_keys = {
-				'esc':27,
-				'escape':27,
-				'tab':9,
-				'space':32,
-				'return':13,
-				'enter':13,
-				'backspace':8,
-
-				'scrolllock':145,
-				'scroll_lock':145,
-				'scroll':145,
-				'capslock':20,
-				'caps_lock':20,
-				'caps':20,
-				'numlock':144,
-				'num_lock':144,
-				'num':144,
-
-				'pause':19,
-				'break':19,
-
-				'insert':45,
-				'home':36,
-				'delete':46,
-				'end':35,
-
-				'pageup':33,
-				'page_up':33,
-				'pu':33,
-
-				'pagedown':34,
-				'page_down':34,
-				'pd':34,
-
-				'left':37,
-				'up':38,
-				'right':39,
-				'down':40,
-
-				'num0' :96,
-				'num1' :97,
-				'num2' :98,
-				'num3' :99,
-				'num4' :100,
-				'num5' :101,
-				'num6' :102,
-				'num7' :103,
-				'num8' :104,
-				'num9' :105,
-
-				'f1':112,
-				'f2':113,
-				'f3':114,
-				'f4':115,
-				'f5':116,
-				'f6':117,
-				'f7':118,
-				'f8':119,
-				'f9':120,
-				'f10':121,
-				'f11':122,
-				'f12':123
-
-			}
-
-			var modifiers = {
-				shift: { wanted:false, pressed:false},
-				ctrl : { wanted:false, pressed:false},
-				alt  : { wanted:false, pressed:false},
-				meta : { wanted:false, pressed:false}	//Meta is Mac specific
-			};
-
-			if(e.ctrlKey)	modifiers.ctrl.pressed = true;
-			if(e.shiftKey)	modifiers.shift.pressed = true;
-			if(e.altKey)	modifiers.alt.pressed = true;
-			if(e.metaKey)   modifiers.meta.pressed = true;
-
-			for(var i=0; k=keys[i],i<keys.length; i++) {
-				//Modifiers
-				if(k == 'ctrl' || k == 'control') {
-					kp++;
-					modifiers.ctrl.wanted = true;
-				} else if(k == 'shift') {
-					kp++;
-					modifiers.shift.wanted = true;
-				} else if(k == 'alt') {
-					kp++;
-					modifiers.alt.wanted = true;
-				} else if(k == 'meta') {
-					kp++;
-					modifiers.meta.wanted = true;
-				} else if(k.length > 1) { //If it is a special key
-					if(special_keys[k] == code) kp++;
-				} else if(opt['keycode']) {
-					if(opt['keycode'] == code) kp++;
-				} else { //The special keys did not match
-					//$('logme').innerHTML += "char"+character+" key:"+k+"<br>";
-					if(character == k.toLowerCase()) kp++;
-					else {
-						if(shift_nums[character] && e.shiftKey) { //Stupid Shift key bug created by using lowercase
-							character = shift_nums[character];
-							if(character == k) kp++;
-						}
-					}
-				}
-			}
-
-			if(kp == keys.length &&
-						modifiers.ctrl.pressed == modifiers.ctrl.wanted &&
-						modifiers.shift.pressed == modifiers.shift.wanted &&
-						modifiers.alt.pressed == modifiers.alt.wanted &&
-						modifiers.meta.pressed == modifiers.meta.wanted) {
-				callback(e);
-
-				if(!opt['propagate']) { //Stop the event
-					//e.cancelBubble is supported by IE - this will kill the bubbling process.
-					e.cancelBubble = true;
-					e.returnValue = false;
-
-					//e.stopPropagation works in Firefox.
-					if (e.stopPropagation) {
-						e.stopPropagation();
-						e.preventDefault();
-					}
-					return false;
-				}
-			}
-		}
-		this.all_shortcuts[shortcut_combination] = {
-			'callback':func,
-			'target':ele,
-			'event': opt['type']
-		};
+    //$('jslog').innerHTML += tbodies[i].id + "<br />";
+    }
 
 
-		//Attach the function with the event
-		if(ele.addEventListener){
-			 ele.addEventListener(opt['type'], func, false);
-		}
-		else if(ele.attachEvent) {
-			ele.attachEvent('on'+opt['type'], func);
-		}
-		else{
-			 ele['on'+opt['type']] = func;
-		}
-	},
 
-	//Remove the shortcut - just specify the shortcut and I will remove the binding
-	'remove':function(shortcut_combination) {
-		shortcut_combination = shortcut_combination.toLowerCase();
-		var binding = this.all_shortcuts[shortcut_combination];
-		delete(this.all_shortcuts[shortcut_combination])
-		if(!binding) return;
-		var type = binding['event'];
-		var ele = binding['target'];
-		var callback = binding['callback'];
+}
+function daysort(a,b){
+    var x = a.getAttribute("daysleft");
+    var y = b.getAttribute("daysleft");
+    var sortorder = b.getAttribute("sortorder");
 
-		if(ele.detachEvent) ele.detachEvent('on'+type, callback);
-		else if(ele.removeEventListener) ele.removeEventListener(type, callback, false);
-		else ele['on'+type] = false;
-	}
+    //desc
+    if(sortorder == "asc")
+    {
+        return y - x
+    }
+    else
+    {
+    //asc
+        return x - y
+    }
 }
 
-/*
-var accordion = Class.create();
-accordion.prototype = {
+function sortByTitle(a, b) {
+    var x = a.title.toLowerCase();
+    var y = b.title.toLowerCase();
+    var sortorder = b.getAttribute("sortorder");
 
-	//
-	//  Setup the Variables
-	//
-	showAccordion : null,
-	currentAccordion : null,
-	duration : null,
-	effects : [],
-	animating : false,
-
-	//
-	//  Initialize the accordions
-	//
-	initialize: function(container, options) {
-	  if (!$(container)) {
-	    throw(container+" doesn't exist!");
-	    return false;
-	  }
-
-		this.options = Object.extend({
-			resizeSpeed : 8,
-			classNames : {
-				toggle : 'accordion_toggle',
-				toggleActive : 'accordion_toggle_active',
-				content : 'accordion_content'
-			},
-			defaultSize : {
-				height : null,
-				width : null
-			},
-			direction : 'vertical',
-			onEvent : 'click'
-		}, options || {});
-
-		this.duration = ((11-this.options.resizeSpeed)*0.15);
-
-		var accordions = $$('#'+container+' .'+this.options.classNames.toggle);
-		accordions.each(function(accordion) {
-			Event.observe(accordion, this.options.onEvent, this.activate.bind(this, accordion), false);
-			if (this.options.onEvent == 'click') {
-			  accordion.onclick = function() {return false;};
-			}
-
-			if (this.options.direction == 'horizontal') {
-				var options = $H({width: '0px'});
-			} else {
-				var options = $H({height: '0px'});
-			}
-			options.merge({display: 'none'});
-
-			this.currentAccordion = $(accordion.next(0)).setStyle(options);
-		}.bind(this));
-	},
-
-	//
-	//  Activate an accordion
-	//
-	activate : function(accordion) {
-		if (this.animating) {
-			return false;
-		}
-
-		this.effects = [];
-
-		this.currentAccordion = $(accordion.next(0));
-		this.currentAccordion.setStyle({
-			display: 'block'
-		});
-
-		this.currentAccordion.previous(0).addClassName(this.options.classNames.toggleActive);
-
-		if (this.options.direction == 'horizontal') {
-			this.scaling = $H({
-				scaleX: true,
-				scaleY: false
-			});
-		} else {
-			this.scaling = $H({
-				scaleX: false,
-				scaleY: true
-			});
-		}
-
-		if (this.currentAccordion == this.showAccordion) {
-		  this.deactivate();
-		} else {
-		  this._handleAccordion();
-		}
-	},
-	//
-	// Deactivate an active accordion
-	//
-	deactivate : function() {
-		var options = $H({
-		  duration: this.duration,
-			scaleContent: false,
-			transition: Effect.Transitions.sinoidal,
-			queue: {
-				position: 'end',
-				scope: 'accordionAnimation'
-			},
-			scaleMode: {
-				originalHeight: this.options.defaultSize.height ? this.options.defaultSize.height : this.currentAccordion.scrollHeight,
-				originalWidth: this.options.defaultSize.width ? this.options.defaultSize.width : this.currentAccordion.scrollWidth
-			},
-			afterFinish: function() {
-				this.showAccordion.setStyle({
-          height: 'auto',
-					display: 'none'
-				});
-				this.showAccordion = null;
-				this.animating = false;
-			}.bind(this)
-		});
-    options.merge(this.scaling);
-
-    this.showAccordion.previous(0).removeClassName(this.options.classNames.toggleActive);
-
-		new Effect.Scale(this.showAccordion, 0, options);
-	},
-
-  //
-  // Handle the open/close actions of the accordion
-  //
-	_handleAccordion : function() {
-		var options = $H({
-			sync: true,
-			scaleFrom: 0,
-			scaleContent: false,
-			transition: Effect.Transitions.sinoidal,
-			scaleMode: {
-				originalHeight: this.options.defaultSize.height ? this.options.defaultSize.height : this.currentAccordion.scrollHeight,
-				originalWidth: this.options.defaultSize.width ? this.options.defaultSize.width : this.currentAccordion.scrollWidth
-			}
-		});
-		options.merge(this.scaling);
-
-		this.effects.push(
-			new Effect.Scale(this.currentAccordion, 100, options)
-		);
-
-		if (this.showAccordion) {
-			this.showAccordion.previous(0).removeClassName(this.options.classNames.toggleActive);
-
-			options = $H({
-				sync: true,
-				scaleContent: false,
-				transition: Effect.Transitions.sinoidal
-			});
-			options.merge(this.scaling);
-
-			this.effects.push(
-				new Effect.Scale(this.showAccordion, 0, options)
-			);
-		}
-
-    new Effect.Parallel(this.effects, {
-			duration: this.duration,
-			queue: {
-				position: 'end',
-				scope: 'accordionAnimation'
-			},
-			beforeStart: function() {
-				this.animating = true;
-			}.bind(this),
-			afterFinish: function() {
-				if (this.showAccordion) {
-					this.showAccordion.setStyle({
-						display: 'none'
-					});
-				}
-				$(this.currentAccordion).setStyle({
-				  height: 'auto'
-				});
-				this.showAccordion = this.currentAccordion;
-				this.animating = false;
-			}.bind(this)
-		});
-	}
+    if(sortorder == "asc")
+    {
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    }
+    else
+    {
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+    }
 }
-*/
+function sortByProject(a, b) {
+    var x = a.getAttribute("project");
+    var y = b.getAttribute("project");
+    var sortorder = b.getAttribute("sortorder");
+
+    if(sortorder == "asc")
+    {
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    }
+    else
+    {
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+    }
+}
+
+function sortByDays(a, b) {
+    var x = a.getAttribute("daysleft");
+    var y = b.getAttribute("daysleft");
+
+    var sortorder = b.getAttribute("sortorder");
+
+    if(sortorder == "asc")
+    {
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    }
+    else
+    {
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+    }
+}
+
+
+
+
 // accordion.js v2.0
 //
 // Copyright (c) 2007 stickmanlabs

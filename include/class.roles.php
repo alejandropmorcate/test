@@ -225,48 +225,20 @@ class roles
             return array();
         }
     }
-    
+
    /**
     * Translate name of default roles
     *
     * Intended for viewing translated list of AllRoles.
     * Be sure that rolenames in output
-    * are not used for other things than viewing. 
+    * are not used for other things than viewing.
     *
     * Default Roles are Admin, User, Client
     *
-    * @param array $roles Array with names to translate 
+    * @param array $roles Array with names to translate
     * @return array $roles Array with translated role names
     */
 
-    function getDefaultRoleNamesTranslated($roles)
-    {
-    
-    	global $langfile;
-
-		if (!is_array($roles))
-		{
-		$roles = array();
-		}
-
-		foreach ($roles as $key => $role) {
-			
-			$rolename = strtolower($role['name']);
-			
-			if ($rolename == "admin" || $rolename == "user" || $rolename == "client") {
-				$roles[$key]['name'] = $langfile[ $rolename ];
-			}
-		}
-
-		if (!empty($roles))
-		{
-			return $roles;
-		}
-		else
-		{
-			return array();
-		} 
-	}
 
     /**
      * Get the role of a user

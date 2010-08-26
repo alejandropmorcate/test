@@ -13,7 +13,7 @@
 				<div id="choices_modal"></div>
 				<input type = "hidden" name = "action" value = "search" />
 				
-				<div id="indicator2" style="display:none;"><img src="templates/frost/images/symbols/indicator_arrows.gif" alt="{#searching#}" /></div>
+				<div id="indicator2" style="display:none;"><img src="templates/frost/img/symbols/indicator_arrows.gif" alt="{#searching#}" /></div>
 				
 				<button type="submit" onfocus="this.blur()" title="{#gosearch#}"></button>
 			</fieldset>

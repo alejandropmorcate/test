@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>{$title} @ {$settings.name}</title>
-<link rel="shortcut icon" href="templates/frost/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="templates/frost/img/favicon.ico" type="image/x-icon" />
 {if $stage != "project" and $loggedin}
 <link rel="search" type="application/opensearchdescription+xml" title="{$settings.name} {#search#}" href="manageajax.php?action=addfx-all" />
 {elseif $stage == "project" and $loggedin}

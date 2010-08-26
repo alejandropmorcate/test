@@ -24,7 +24,7 @@
 	{*Search End*}
 	
 	
-	{*Calendar
+	{*Calendar*}	
 	<div class="content-right-in">	
 		<h2><a id="mycaltoggle" class="win-up" href="javascript:blindtoggle('mycal_mini');toggleClass('mycaltoggle','win-up','win-down');">{#calendar#}</a></h2>
 		<div id = "mycal_mini"></div>
@@ -35,7 +35,7 @@
 		theCal.getCal('mycal_mini');
 		</script>
 	</div>		
-	Calendar End*}
+	{*Calendar End*}
 	
 
 	{*Tag Cloud*}	

@@ -64,7 +64,7 @@
 							<th class="a"></th>
 							<th class="b">{#project#}</th>
 							<th class="c">{#done#}</th>
-							<th class="days">{#daysleft#}</th>
+							<th class="d">{#daysleft#}</th>
 							<th class="tools"></th>
 						</tr>
 					</thead>
@@ -139,7 +139,7 @@
 							<td class="a"></td>
 							<td class="b"><span id="toggle-done" class="acc-toggle">{#closedprojects#}</span></td>
 							<td class="c"></td>
-							<td class="days"></td>
+							<td class="d"></td>
 							<td class="tools"></td>
 						</tr>
 

@@ -1,21 +1,21 @@
 <?php
 /**
- * This class provides methods to interact with users
+ * Provides methods to interact with users
  *
  * @author Open Dynamics <info@o-dyn.de>
  * @name user
- * @version 0.6.3
+ * @version 0.4.7
  * @package Collabtive
  * @link http://www.o-dyn.de
- * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
+ * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or laterg
  */
 class user
 {
-    private $mylog;
+    public $mylog;
 
     /**
-     * Constructor
-     * Initialize event log
+     * Konstruktor
+     * Initialisiert den Eventlog
      */
     function __construct()
     {
@@ -23,15 +23,13 @@ class user
     }
 
     /**
-     * Create a user
+     * Creates a user
      *
      * @param string $name Name of the member
-     * @param string $email E-mail address of the member
-     * @param int $company Company ID of the member (not in use)
+     * @param string $email Email Address of the member
+     * @param int $company Company ID of the member (unused)
      * @param string $pass Password
      * @param string $locale Localisation
-     * @param string $tags Tags connected to the user
-     * @param float $rate Rate to pay for the user's working hour
      * @return int $insid ID of the newly created member
      */
     function add($name, $email, $company, $pass, $locale = "", $tags = "", $rate = 0.0)
@@ -39,7 +37,7 @@ class user
         $name = mysql_real_escape_string($name);
         $email = mysql_real_escape_string($email);
 		$company = (int) $company;
-		$pass = mysql_real_escape_string($pass); 
+		$pass = mysql_real_escape_string($pass);
         $locale = mysql_real_escape_string($locale);
         $tags = mysql_real_escape_string($tags);
         $rate = (float) $rate;
@@ -61,27 +59,23 @@ class user
     }
 
     /**
-     * Edit a member
+     * Edits a member
      *
      * @param int $id Member ID
      * @param string $name Member name
-     * @param string $realname Member's realname
-     * @param string $role The member's assigned role
-     * @param string $email The member's e-mail address
-     * @param string $tel1 The member's main telephone number
-     * @param string $tel2 The member's additional telephone number
-     * @param int $company Company ID of the member (not in use)
+     * @param string $realname realname
+     * @param string $role role
+     * @param string $email Email
+     * @param int $company Company ID of the member (unused)
      * @param string $zip ZIP-Code
-     * @param string $gender The member's gender
+     * @param string $gender Gender
      * @param string $url URL
-     * @param string $address1 Addressline 1
-     * @param string $address2 Addressline 2
+     * @param string $address1 Adressline1
+     * @param string $address2 Addressline2
      * @param string $state State
      * @param string $country Country
-     * @param string $tags Tags associated with the member
      * @param string $locale Localisation
      * @param string $avatar Avatar
-     * @param float $rate Rate to pay for the member's working hours
      * @return bool
      */
     function edit($id, $name, $realname, $email, $tel1, $tel2, $company, $zip, $gender, $url, $address1, $address2, $state, $country, $tags, $locale, $avatar = "", $rate = 0.0)
@@ -102,6 +96,7 @@ class user
 
         $rate = (float) $rate;
         $id = (int) $id;
+       // $company = (int) $company;
 
         if ($avatar != "")
         {
@@ -109,6 +104,7 @@ class user
         }
         else
         {
+            // realname='$realname',,role='$role'
             $upd = mysql_query("UPDATE user SET name='$name',email='$email', tel1='$tel1', tel2='$tel2', company='$company',zip='$zip',gender='$gender',url='$url',adress='$address1',adress2='$address2',state='$state',country='$country',tags='$tags',locale='$locale',rate='$rate' WHERE ID = $id");
         }
         if ($upd)
@@ -125,27 +121,27 @@ class user
     /**
      * Change a password
      *
-     * @param int $id ID of the user whose password is going to be changed
-     * @param string $oldpass Old password
-     * @param string $newpass New passwort
+     * @param int $id Eindeutige Mitgliedsnummer
+     * @param string $oldpass Altes Passwort
+     * @param string $newpass Neues Passwort
      * @param string $repeatpass Repetition of the new password
      * @return bool
      */
     function editpass($id, $oldpass, $newpass, $repeatpass)
     {
+        $oldpass = mysql_real_escape_string($oldpass);
         $newpass = mysql_real_escape_string($newpass);
         $repeatpass = mysql_real_escape_string($repeatpass);
+        $id = (int) $id;
 
         if ($newpass != $repeatpass)
         {
             return false;
         }
-        
-        $oldpass = mysql_real_escape_string($oldpass);
-        $id = (int) $id;
+        $id = mysql_real_escape_string($id);
         $newpass = sha1($newpass);
+
         $oldpass = sha1($oldpass);
-        
         $chk = mysql_query("SELECT ID, name FROM user WHERE ID = $id AND pass = '$oldpass'");
         $chk = mysql_fetch_row($chk);
         $chk = $chk[0];
@@ -170,7 +166,7 @@ class user
      * Change a password as admin
      *
      * @param int $id User ID
-     * @param string $newpass New password
+     * @param string $newpass New passwort
      * @param string $repeatpass Repetition of the new password
      * @return bool
      */
@@ -178,12 +174,13 @@ class user
     {
         $newpass = mysql_real_escape_string($newpass);
         $repeatpass = mysql_real_escape_string($repeatpass);
+        $id = (int) $id;
 
         if ($newpass != $repeatpass)
         {
             return false;
         }
-        $id = (int) $id;
+        $id = mysql_real_escape_string($id);
         $newpass = sha1($newpass);
 
         $upd = mysql_query("UPDATE user SET pass='$newpass' WHERE ID = $id");
@@ -267,6 +264,8 @@ class user
             }
             $tagsobj = new tags();
             $profile["tagsarr"] = $tagsobj->splitTagStr($profile["tags"]);
+            //$profile["company"] = $companyobj->getProfile($profile["company"]);
+
             $rolesobj = (object) new roles();
             $profile["role"] = $rolesobj->getUserRole($profile["ID"]);
 
@@ -364,10 +363,10 @@ class user
     }
 
     /**
-     * Return all users
+     * Returns all users
      *
      * @param int $lim Limit
-     * @return array $users All users
+     * @return array $users Registrierte Mitglieder
      */
     function getAllUsers($lim = 10)
     {
@@ -408,12 +407,6 @@ class user
         }
     }
 
-    /**
-     * Get all users who are logged in
-     *
-     * @param int $offset
-     * @return int $users
-     */
     function getOnlinelist($offset = 30)
     {
         $offset = (int) $offset;
@@ -445,13 +438,6 @@ class user
         }
     }
 
-    /**
-     * Get a user's online status
-     *
-     * @param int $user ID
-     * @param int $offset
-     * @return bool
-     */
     function isOnline($user, $offset = 30)
     {
         $user = (int) $user;
@@ -473,12 +459,6 @@ class user
         }
     }
 
-    /**
-     * Get a user's ID by a username
-     *
-     * @param int $user Username
-     * @return int $theid ID
-     */
     function getId($user){
         $user = mysql_real_escape_string($user);
 
@@ -487,6 +467,7 @@ class user
         $id = $id[0];
 
         $theid = array();
+
         $theid["ID"] = $id;
 
         if($id > 0)
@@ -498,5 +479,7 @@ class user
             return array();
         }
     }
+
 }
+
 ?>

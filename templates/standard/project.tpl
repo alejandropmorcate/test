@@ -19,7 +19,7 @@
 	 </script>
 	{/literal}
 
-<h1>{$project.name|truncate:25:"...":true}<span>/ {#overview#}</span></h1>
+<h1>{$project.name|truncate:30:"...":true}<span>/ {#overview#}</span></h1>
 
 	<div class="statuswrapper">
 			<ul>

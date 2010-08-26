@@ -28,9 +28,9 @@
 	<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc"  rows="3" cols="1">{$project.desc}</textarea></div></div>
 
 	<div class="row">
-		<label for="end">{#due#}:</label><input type="text" class="text" value="{$project.endstring}" name="end"  id="end"  realname="{#due#}" />
+		<label for="end">{#due#}:</label><input type="text" class="text" value="{$project.endstring}" name="end"  id="end"  {if $project.end == 0}disabled = "disabled"{/if} realname="{#due#}" />
 		<br /><br />
-		<input type = "checkbox" class = "checkbox" value = "neverdue" name = "neverdue" id = "neverdue" {if $end == 0}checked = "checked"{/if}><label for = "neverdue">{#neverdue#}</label>
+		<label for="neverdue"></label><input type = "checkbox" class = "checkbox" value = "neverdue" name = "neverdue" id = "neverdue" {if $project.end == 0}checked = "checked" onclick = "$('end').enable();"{else}onclick = "$('end').value='';$('end').disabled='disabled';"{/if}><label for = "neverdue">{#neverdue#}</label>
 	</div>
 
 
@@ -46,7 +46,7 @@
 		theCal{$lists[list].ID}.getDatepicker("datepicker_project");
 	</script>
 
-	
+
 	<div class="row-butn-bottom">
 		<label>&nbsp;</label>
 		<button type="submit" onfocus="this.blur();">{#send#}</button>

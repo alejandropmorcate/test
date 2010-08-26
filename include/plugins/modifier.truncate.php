@@ -30,15 +30,15 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     if ($length == 0)
         return '';
 
-    if (mb_strlen($string, 'utf-8') > $length) {
-        $length -= min($length, mb_strlen($etc, 'utf-8'));
+    if (strlen($string) > $length) {
+        $length -= min($length, strlen($etc));
         if (!$break_words && !$middle) {
-            $string = preg_replace('/\s+?(\S+)?$/u', '', mb_substr($string, 0, $length+1, 'utf-8'));
+            $string = preg_replace('/\s+?(\S+)?$/', '', substr($string, 0, $length+1));
         }
         if(!$middle) {
-            return mb_substr($string, 0, $length, 'utf-8') . $etc;
+            return substr($string, 0, $length) . $etc;
         } else {
-            return mb_substr($string, 0, $length/2, 'utf-8') . $etc . mb_substr($string, -$length/2, false, 'utf-8');
+            return substr($string, 0, $length/2) . $etc . substr($string, -$length/2);
         }
     } else {
         return $string;

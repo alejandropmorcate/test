@@ -44,7 +44,7 @@ class company
         $country = mysql_real_escape_string($country);
         $logo = mysql_real_escape_string($logo);
 
-        $ins1 = mysql_query("INSERT INTO company (name, email, phone, address1, address2, state, country, logo) VALUES ('$name', '$email', '$phone', '$address1', '$address2', '$state', '$country', '$logo')");
+        $ins1 = mysql_query("INSERT INTO company (ID, name, email, phone, address1, address2, state, country, logo) VALUES ('', '$name', '$email', '$phone', '$address1', '$address2', '$state', '$country', '$logo')");
 
         if ($ins1)
         {

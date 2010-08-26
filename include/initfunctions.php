@@ -9,6 +9,7 @@ function __autoload($class_name)
     }
     else
     {
+
         die("<b>Fatal Error. Class $class_name could not be located.</b>");
     }
 }

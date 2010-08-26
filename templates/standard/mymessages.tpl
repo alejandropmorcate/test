@@ -53,7 +53,7 @@
 
 
 				<h2>
-					<a href="managemessage.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].name} / {#mymessages#}"><img src="./templates/standard/images/symbols/projects.png" alt="" />{$myprojects[project].name}</a>
+					<a href="managemessage.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].name|truncate:30:"...":true} / {#mymessages#}"><img src="./templates/standard/images/symbols/projects.png" alt="" />{$myprojects[project].name|truncate:30:"...":true}</a>
 				</h2>
 			</div>
 

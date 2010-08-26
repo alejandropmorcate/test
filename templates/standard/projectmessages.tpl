@@ -198,7 +198,8 @@
 																				</td>
 																				<td class="rightmen" valign="top">
 																					<div class="inmenue">
-																						<a class="del" href="managefile.php?action=delete&amp;id={$project.ID}&amp;file={$messages[message].files[file].ID}" title="{#delete#}" onclick="fadeToggle('iw_{$messages[message].files[file].ID}');"></a>
+																					{if $userpermissions.files.del}
+																						<a class="del" href="javascript:confirmfunction('{$langfile.confirmdel}','deleteElement(\'iw_{$messages[message].files[file].ID}\',\'managefile.php?action=delete&id={$project.ID}&file={$messages[message].files[file].ID}\')');" title="{#delete#}"></a>{/if}
 																						<!-- <a class="edit" href="#" title="{#editfile#}"></a> -->
 																					</div>
 																				</td>

@@ -33,8 +33,8 @@
 
 
 					<div class="row"><label for="server">{#mailserver#}:</label><input type="text" class="text" name="server" id="server" value = "{$settings.mailhost}" /></div>
-					<div class="row"><label for="mailuser">{#mailusername#}:</label><input type="text" class="text" name="mailuser" id="mailuser" value = "{$settings.mailuser}" /></div>
-					<div class="row"><label for="mailpass">{#mailpass#}:</label><input type="password" class="text" name="mailpass" id="mailpass" value = "{$settings.mailpass}" /></div>
+					<div class="row"><label for="mailuser">{#mailusername#}:</label><input type="text" class="text" name="mailuser" id="mailuser" value = "{$settings.mailuser}" autocomplete = "off" /></div>
+					<div class="row"><label for="mailpass">{#mailpass#}:</label><input type="password" class="text" name="mailpass" id="mailpass" value = "{$settings.mailpass}" autocomplete = "off" /></div>
 
 
 					<div class="row-butn-bottom">

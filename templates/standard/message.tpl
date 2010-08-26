@@ -137,7 +137,8 @@
 													</td>
 													<td class="rightmen" valign="top">
 														<div class="inmenue">
-															<a class="del" href="javascript:void(0);" onclick = "confirmit('{#confirmdel#}','managefile.php?action=delete&id={$message.project}&file={$message.files[file].ID}');" title="{#delete#}" onclick="fadeToggle('iw_{$myprojects[project].messages[message].files[file].ID}');"></a>
+															{if $userpermissions.files.del}
+															<a class="del" href="javascript:void(0);" onclick = "javascript:confirmfunction('{$langfile.confirmdel}','deleteElement(\'iw_{$message.files[file].ID}\',\'managefile.php?action=delete&id={$message.project}&file={$message.files[file].ID}\')');" title="{#delete#}"></a>{/if}
 															<!-- <a class="edit" href="#" title="{#editfile#}"></a> -->
 														</div>
 													</td>

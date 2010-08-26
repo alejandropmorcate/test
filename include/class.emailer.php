@@ -34,7 +34,8 @@ class emailer
 		$mailer = (object) new PHPmailer();
 		//setup PHPMailer
 		$mailer->From = $this->mailsettings["mailfrom"];
-		$mailer->FromName = $this->mailsettings["mailfromname"];  
+		$mailer->Sender = $this->mailsettings["mailfrom"];
+		$mailer->FromName = $this->mailsettings["mailfromname"];
 		$mailer->AddAddress($to);
 		$mailer->Subject = $subject;
 		$mailer->Body = $text;
@@ -55,9 +56,9 @@ class emailer
 				$mailer->Password = $this->mailsettings["mailpass"];
 				$mailer->SMTPAuth = true;
 			}
-		
+
 		}
-		
+
         if ($mailer->Send())
         {
             return true;

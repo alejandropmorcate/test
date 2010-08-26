@@ -59,7 +59,7 @@ form.main input {
 }
 
 .userwrapper form.main input, .userwrapper form.main select {
-	margin: 0;	
+	margin: 0;
 }
 
 /* ## LOGIN - Form ################################ */
@@ -73,7 +73,7 @@ form.main input {
 }
 
 .login form .row {
-	height: 38px;	
+	height: 38px;
 }
 
 .login form label {
@@ -83,28 +83,28 @@ form.main input {
 	height: 23px;
 	margin-right: 1px;
 	background-position: 0 0;
-	background-prepeat: no-repeat;	
+	background-prepeat: no-repeat;
 }
 
 .login .username {
-	background: url(../images/login-user.png);	
+	background: url(../images/login-user.png);
 }
 
 .login .pass {
-	background: url(../images/login-pass.png);	
+	background: url(../images/login-pass.png);
 }
 
 .login .keep, login .keep-active {
-	background: url(../images/login-keeplogged.png);	
+	background: url(../images/login-keeplogged.png);
 }
 
 .login .keep-active {
-	background: url(../images/login-keeplogged.png) no-repeat -68px 0;	
+	background: url(../images/login-keeplogged.png) no-repeat -68px 0;
 }
 
 .login label:hover {
 	background-position: -34px 0;
-	cursor: pointer;	
+	cursor: pointer;
 }
 
 .login label.keep-active:hover {
@@ -122,17 +122,17 @@ form.main input {
 }
 
 .login form label.keep span, .login form label.keep-active span {
-	margin: 0 0 0 35px;	
+	margin: 0 0 0 35px;
 	background: url(../images/login-logged-butn.png) repeat-x 0 0;
 }
 
 .login form label.keep:hover span, .login form label.keep-active:hover span {
-	background-position: 0 -23px;	
+	background-position: 0 -23px;
 }
 
 
 #stay {
-	visibility: hidden;	
+	visibility: hidden;
 }
 
 .loginbutn {
@@ -145,15 +145,16 @@ form.main input {
 }
 
 .loginbutn:hover {
-	background-position: -32px 0;	
-	cursor: pointer;	
+    background: url(../images/login-butn.png);
+	background-position: -32px 0;
+	cursor: pointer;
 }
 
 
 /* ## SEARCH - Form (Sidebar)) ############################### */
 
 #search {
-	position: relative;	
+	position: relative;
 	margin: 0;
 }
 
@@ -173,15 +174,15 @@ form.main input {
 #search button {
 	width: 34px;
 	height: 23px;
-	background: url(../images/search-butn-side.png) no-repeat 0 0;	
+	background: url(../images/search-butn-side.png) no-repeat 0 0;
 	float: left;
 	margin: 0;
 	-moz-border-radius: 0px;
-	-webkit-border-radius: 0px;	
+	-webkit-border-radius: 0px;
 }
 
 #search button:hover {
-	background-position: 0 -23px;	
+	background-position: 0 -23px;
 }
 
 #choices ul { /* Autocompleter */
@@ -236,7 +237,7 @@ button, button.inner, button.inner-active {
 	line-height: 22px;
 	color: #fff;
 	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;	
+	-webkit-border-radius: 3px;
 	font-size: 11px;
 	font-weight: bold;
 	margin: 0 5px 0 0;
@@ -259,7 +260,7 @@ button[disabled] {
 }
 
 button[disabled]:hover {
-	background: #384e67;		
+	background: #384e67;
 }
 
 form.main select {
@@ -331,7 +332,7 @@ form.main textarea {
 	height:90px;
 	font-size:9pt;
 	padding:2px 3px 2px 3px;
-	background:#fff url(../images/input_text_bg.png) repeat-x;
+	background:#fff url(../gfx/input_text_bg.png) repeat-x;
 	border:1px solid;
 	font-family:Arial, helvetica, sans-serif;
 	margin-bottom:6px;

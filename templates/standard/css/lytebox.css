@@ -12,18 +12,18 @@
 
 #lbImageContainer, #lbIframeContainer { padding: 10px; }
 #lbLoading {
-	position: absolute; top: 45%; left: 0%; height: 32px; width: 100%; text-align: center; line-height: 0; background: url(../img/symbols/loading.gif) center no-repeat;
+	position: absolute; top: 45%; left: 0%; height: 32px; width: 100%; text-align: center; line-height: 0; background: url(../images/symbols/loading.gif) center no-repeat;
 }
 
 #lbHoverNav { position: absolute; top: 0; left: 0; height: 100%; width: 100%; z-index: 1025; }
 #lbImageContainer>#lbHoverNav { left: 0; }
 #lbHoverNav a { outline: none; }
 
-#lbPrev { width: 49%; height: 100%; background: transparent url(../img/symbols/blank.gif) no-repeat; display: block; left: 0; float: left; }
-	#lbPrev.grey:hover, #lbPrev.grey:visited:hover { background: url(../img/symbols/prev.gif) left 15% no-repeat; }
+#lbPrev { width: 49%; height: 100%; background: transparent url(../images/symbols/blank.gif) no-repeat; display: block; left: 0; float: left; }
+	#lbPrev.grey:hover, #lbPrev.grey:visited:hover { background: url(../images/symbols/prev.gif) left 15% no-repeat; }
 
-#lbNext { width: 49%; height: 100%; background: transparent url(../img/symbols/blank.gif) no-repeat; display: block; right: 0; float: right; }
-	#lbNext.grey:hover, #lbNext.grey:visited:hover { background: url(../img/symbols/next.gif) right 15% no-repeat; }
+#lbNext { width: 49%; height: 100%; background: transparent url(../images/symbols/blank.gif) no-repeat; display: block; right: 0; float: right; }
+	#lbNext.grey:hover, #lbNext.grey:visited:hover { background: url(../images/symbols/next.gif) right 15% no-repeat; }
 
 #lbPrev2, #lbNext2 { text-decoration: none; font-weight: bold; }
 	#lbPrev2.grey, #lbNext2.grey, #lbSpacer.grey { color: #333333; }
@@ -40,10 +40,10 @@
 #lbNavDisplay { float: left; display: block; padding-bottom: 1.0em; }
 
 #lbClose {display:block; width: 17px; height: 22px; float: right; margin-bottom: 1px; position:relative; top:-4px;}
-	#lbClose.grey { background: url(../img/symbols/closelabel.gif) no-repeat; }
+	#lbClose.grey { background: url(../images/symbols/closelabel.gif) no-repeat; }
 
 #lbPlay { width: 64px; height: 28px; float: right; margin-bottom: 1px; }
-	#lbPlay.grey { background: url(../img/symbols/play.png) no-repeat; }
+	#lbPlay.grey { background: url(../images/symbols/play.png) no-repeat; }
 
 #lbPause { width: 64px; height: 28px; float: right; margin-bottom: 1px; }
-	#lbPause.grey { background: url(../img/symbols/pause_grey.png) no-repeat; }
+	#lbPause.grey { background: url(../images/symbols/pause_grey.png) no-repeat; }

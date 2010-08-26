@@ -1,5 +1,4 @@
 <?php
-
 ini_set("arg_separator.output", "&amp;");
 ini_set('default_charset', 'utf-8');
 // Start output buffering with gzip compression and start the session
@@ -10,12 +9,9 @@ define("CL_ROOT", realpath(dirname(__FILE__)));
 // configuration to load
 define("CL_CONFIG", "standard");
 // collabtive version
-define("CL_VERSION", "0.6.3");
+define("CL_VERSION", 0.6);
 // uncomment for debugging
-error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', 1);
-
-
+//error_reporting(E_ALL | E_STRICT);
 // include config file , pagination and global functions
 require(CL_ROOT . "/config/" . CL_CONFIG . "/config.php");
 require(CL_ROOT . "/include/SmartyPaginate.class.php");
@@ -26,22 +22,15 @@ if (!empty($db_name) and !empty($db_user))
     $tdb = new datenbank();
     $conn = $tdb->connect($db_name, $db_user, $db_pass, $db_host);
 }
-
-
 // Start template engine
 $template = new Smarty();
-// Start Plugin system
-$plugin = new plugin();
-// Load the active Plugins and their events
-$plugins = $plugin->getPlugins();
-
 // get the available languages
 $languages = getAvailableLanguages();
 // get URL to collabtive
 $url = getMyUrl();
 $template->assign("url", $url);
 $template->assign("languages", $languages);
-$template->assign("myversion", CL_VERSION);
+$template->assign("myversion", "0.6.4");
 $template->assign("cl_config", CL_CONFIG);
 // Assign globals to all templates
 if (isset($_SESSION["userid"]))
@@ -118,16 +107,6 @@ $template->config_dir = CL_ROOT . "/language/$locale/";
 $langfile = readLangfile($locale);
 $template->assign("langfile", $langfile);
 $template->assign("locale", $locale);
-
-$hookMainmenue = array();
-$template->assign("mainmenue",$hookMainmenue);
-
-//$plugin->addHookData($template,"mainmenue",array("class"=>"desktop","href"=>"index.php","text"=>"huhu"));
-
-
-$hookAdminsubmenue = array();
-$template->assign("adminsubmenue",$hookAdminsubmenue);
-
 // css classes for headmenue
 // this indicates which of the 3 main stages the user is on
 $mainclasses = array("desktop" => "desktop",

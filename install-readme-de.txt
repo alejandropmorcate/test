@@ -6,7 +6,7 @@ Server:
 Client:
 - Firefox 3, Internet Explorer 7/8, Opera 9, Safari
 - Cookies aktiviert
-
+hnjhnhnjhhh
 
 ### Installationsanweisungen ###
 1. Entpacke das Collabtive Archiv.

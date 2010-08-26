@@ -1,14 +1,6 @@
 <?php
 require("init.php");
 // check if the user is logged in
-/*
-if (!session_is_registered("userid"))
-{
-    $template->assign("loginerror", 0);
-    $template->display("login.tpl");
-    die();
-}
-*/
 if (!isset($_SESSION["userid"]))
 {
     $template->assign("loginerror", 0);
@@ -81,9 +73,8 @@ if ($action == "add")
 {
 	$worked = $_POST["worked"];
     $ajaxreq = $_GET["ajaxreq"];
-    $started = strtotime(date("d.m.y"));
-    $ended = strtotime("+ $worked hours",$started);
-	if ($tracker->add($userid, $tproject, $task, $comment , $started, $ended))
+
+	if ($tracker->add($userid, $tproject, $task, $comment , $started, $ended, $logdate))
     {
         $redir = urldecode($redir);
         if ($redir)
