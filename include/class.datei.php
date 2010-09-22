@@ -262,7 +262,7 @@ class datei
         $erweiterung = $teilnamen[$workteile];
         $subname = "";
         // if its a php file, treat it as plaintext so its not executed when opened in the browser.
-        if (stristr($typ, "php"))
+        if (stristr($erweiterung, "php"))
         {
             $erweiterung = "txt";
             $typ = "text/plain";
