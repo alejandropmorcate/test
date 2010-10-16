@@ -1,3 +1,0 @@
-= Collabtive wiki =
-  * [FAQ]
-  * [KnownProblems Known problems]

@@ -1,4 +1,0 @@
-#labels Phase-Deploy
-= Known problems =
-
-Known problems and solutions for them.
