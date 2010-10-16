@@ -1,3 +1,5 @@
+Collabtive 0.7
+
 Collabtive 0.6.5
 + Fixed bug when assigning tasks while email notification is deactivated / off
 + Added name of the project to the desktop calendar overlay
