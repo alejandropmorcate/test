@@ -22,6 +22,8 @@ if (empty($locale))
     $locale = "en";
 }
 $template->assign("locale", $locale);
+$title = $langfile['installcollabtive'];
+$template->assign("title", $title);
 $template->config_dir = "./language/$locale/";
 $template->template_dir = "./templates/standard/";
 if (!$action)

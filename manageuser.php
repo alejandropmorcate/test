@@ -7,7 +7,7 @@ $action = getArrayVal($_GET, "action");
 $id = getArrayVal($_GET, "id");
 $mode = getArrayVal($_GET, "mode");
 
-if ($action != "login" and $action != "logout")
+if ($action != "login" and $action != "logout" and $action != "resetpassword" and $action != "loginerror")
 {
     if (!isset($_SESSION["userid"]))
     {
@@ -58,7 +58,29 @@ $mainclasses = array("desktop" => "",
 $template->assign("mainclasses", $mainclasses);
 $template->assign("classes", $classes);
 
-if ($action == "login")
+if ($action == "loginerror")
+{
+	$template->display("resetpassword.tpl");
+}
+elseif ($action == "resetpassword")
+{
+	$newpass = $user->resetPassword($email);
+	if ($newpass != "")
+	{
+		// Send e-mail with new password
+		$themail = new emailer($settings);
+		$themail->send_mail($email, $langfile["projectpasswordsubject"], $langfile["projectpasswordtext"] . "<br /><br />" .  $langfile["newpass"] . ":&nbsp;" . "$newpass<br />" . $langfile["login"] . ":&nbsp;<a href = \"$url\">$url</a>");
+		
+		$template->assign("success", 1);
+		$template->display("resetpassword.tpl");
+	}
+	else
+	{
+		$template->assign("loginerror", 1);
+		$template->display("resetpassword.tpl");
+	}
+}
+elseif ($action == "login")
 {
     $mode = getArrayVal($_GET, "openid_mode");
     $username = getArrayVal($_POST, "username");
@@ -229,23 +251,6 @@ if ($action == "login")
         {
             $avatar = $fname;
         }
-
-        /**
-         * Resize Image on upload
-         * $imagehw = GetImageSize($pic);
-         * $imagewidth = $imagehw[0];
-         * $imageheight = $imagehw[1];
-         * $myThumb = new hft_image($datei_final);
-         * if ($imageheight > $imagewidth)
-         * {
-         * $myThumb->resize(105, 105, "+");
-         * }
-         * else
-         * {
-         * $myThumb->resize(105, 105, "-");
-         * }
-         * $myThumb->output_resized($datei_final);
-         */
 
         if ($user->edit($userid, $name, $realname, $email, $tel1, $tel2, $company, $zip, $gender, $turl, $address1, $address2, $state, $country, "", $locale, $avatar, 0))
         {

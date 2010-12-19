@@ -1,4 +1,4 @@
-{include file="header.tpl" title="install" showheader="no"}
+{include file="header.tpl" showheader="no"}
 
 
 		<div class="install" style="text-align:center;padding:5% 0 0 0;">

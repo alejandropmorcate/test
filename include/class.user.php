@@ -119,6 +119,56 @@ class user
     }
 
     /**
+     * Generate a new password and send it to the user's e-mail address
+     *
+     * @param string $email E-mail address entered by the user
+     * @return string
+     */
+    function resetPassword($email)
+    {
+		$email = mysql_real_escape_string($email);
+		
+		$sel = mysql_query("SELECT ID, email FROM user");
+		while ($user = mysql_fetch_array($sel))
+		{
+			if ($user["email"] == $email)
+			{
+				$id = $user["ID"];
+			}
+		}
+		
+		if (isset($id))
+		{
+ 			$dummy = array_merge(range('0', '9'), range('a', 'z'), range('A', 'Z'),range('0','9'));
+ 			shuffle($dummy);
+ 			mt_srand((double)microtime()*1000000);
+ 			$newpass = "";
+ 			for ($i = 1; $i <= 10; $i++)
+ 			{
+ 				$swap = mt_rand(0,count($dummy)-1);
+ 				$tmp = $dummy[$swap];
+ 				$newpass .= $tmp;
+ 			}
+ 			
+			$sha1pass = sha1($newpass);
+			
+			$upd = mysql_query("UPDATE user SET `pass` = '$sha1pass' WHERE ID = $id");
+			if ($upd)
+			{
+				return $newpass;
+			}
+			else
+			{
+				return false;
+			}
+		}
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
      * Change a password
      *
      * @param int $id Eindeutige Mitgliedsnummer
