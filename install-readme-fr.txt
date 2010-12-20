@@ -36,10 +36,7 @@ Pour lire l'ensemble des termes et des conditions d'utilisation, consultez le fi
 
 ### Crédits : ###
 - Collabtive est (c) Philipp Kiszka
-- Coordination: Eva Kranz
+- Coordination: Eva Kiszka
 - Graphisme par Marcus Fröhner
 - Les icônes proviennent en partie du set Oxygen
-- Les fichiers de localisation sont maintenus par différents contributeurs :
-    - Français maintenu par Fairytree (www.fairytree.fr) et Nilo (www.nilostudio.fr)
-    - Italien maintenu par Lephio (www.lephio.org)
-    - Japonais maintenu par Yamamoto Shoot
+- Les fichiers de localisation sont maintenus par différents contributeurs.

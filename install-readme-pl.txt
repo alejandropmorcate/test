@@ -37,11 +37,7 @@ Nieoficjalne polskie tlumaczenie licencji GPL (Version 3) znajduje sie pod adres
 
 ### Tworcy ###
 - Collabtive tworzy (c) Philipp Kiszka
-- Koordynator projektu oraz wsparcie: Eva Kranz
-- Artwork: Marcus Fr√∂hner
+- Koordynator projektu oraz wsparcie: Eva Kiszka
+- Artwork: Marcus Fröhner
 - Ikony sa czesciowo zaczerpniete z zestawu ikon Oxygen.
-- Wiele lokalizacji jest utrzymywana przez wspolpracownikow:
-    - Jezyk francuski zapewniaja Fairytree (www.fairytree.fr) oraz Nilo (www.nilostudio.fr)
-	- Jezyk wloski zapewnia Lephio (www.lephio.org)
-	- Jezyk japoński zapewnia Yamamoto Shoot
-	- Jezyk hiszpański zapewnia Efrain Barcena
+- Wiele lokalizacji jest utrzymywana przez wspolpracownikow.

@@ -35,8 +35,7 @@ Collabtive ist freie Software unter den Bedingungen der GNU General Public licen
 
 ### Credits ###
 - Collabtive ist (c) Philipp Kiszka
-- Projektkoordination: Eva Kranz
+- Projektkoordination: Eva Kiszka
 - Artwork: Marcus Fröhner
 - Icons stammen zum Teil aus dem Oxygen Iconset
-- Viele Übersetzungen von Community Mitgliedern betreut:
-    - Französisch: Jean-Christophe Breboin (www.fairytree.fr)
+- Viele Übersetzungen werden von Community Mitgliedern betreut.

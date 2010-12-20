@@ -36,12 +36,7 @@ Molimo vas da pogledate license.txt za potpun spisak uslova za licenciranje.
 
 ### Zasluge ###
 - Collabtive je (c) Philipp Kiszka
-- Koordinacija projekta i podrška: Eva Kranz
+- Koordinacija projekta i podrška: Eva Kiszka
 - Grafika: Marcus Fröhner
 - Ikone su delimično preuzete iz Oxygen iconset-a.
-- Mnoge lokalne verzije održavaju razni pomagači:
-    - Francusku verziju održavaju Fairytree (www.fairytree.fr) i Nilo (www.nilostudio.fr)
-	- Italijansku verziju održava Lephio (www.lephio.org)
-	- Japansku verziju održava Yamamoto Shoot
-	- Špansku verziju održava Efrain Barcena
-	- Srpsku verziju održava Vladimir Minčev
+- Mnoge lokalne verzije održavaju razni pomagači.

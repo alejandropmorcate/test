@@ -39,13 +39,7 @@ de esta licencia y sus condiciones.
 
 ### Créditos ###
 - Los derechos de Collabtive pertenecen a Philipp Kiszka
-- Coordinación del proyecto y soporte por Eva Kranz
+- Coordinación del proyecto y soporte por Eva Kiszka
 - Diseño por Marcus Fröhner
 - Los iconos han sido parcialmente extraídos del pack de iconos de Oxygen.
-- Las traducciones son mantenidas por varios colaboradores:
-    - Francés mantenido por Jean-Christophe Breboin (www.fairytree.fr)
-	- Búlgaro mantenido por Jordan Hlebarov
-	- Chino mantenido por Hu Yanggang
-	- Polaco mantenido por Hubert Miazek, Jakub Dyda y Maciej Smolinski
-	- Serbio mantenido por Vladimir Mincev
-	- Turco mantenido por Mustafa Sarac
+- Las traducciones son mantenidas por varios colaboradores.
