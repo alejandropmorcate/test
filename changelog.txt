@@ -1,5 +1,7 @@
 Collabtive 0.7
 + Added a function to reset a password when the user forgot it
++ Added missing e-mail notification function when replying to a message
++ Beautified code of some template files
 
 Collabtive 0.6.5
 + Fixed bug when assigning tasks while email notification is deactivated / off

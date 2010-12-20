@@ -211,11 +211,17 @@ if ($action == "addform")
 	// get page title from language file
     $title = $langfile["reply"];
     $template->assign("title", $title);
+    
+    // get all notifiable members
+    $myproject = new project();
+    $pro = $myproject->getProject($id);
+    $members = $myproject->getProjectMembers($id, 10000);
 	
     $myfile = new datei();
-    $ordner = $myfile->getProjectFiles($id, 1000);
+    $ordner = $myfile->getProjectFiles($id, 10000);
     $message = $msg->getMessage($mid);
     $template->assign("message", $message);
+    $template->assign("members", $members);
     $template->assign("files", $ordner);
     $template->display("replyform.tpl");
 } elseif ($action == "reply")
@@ -238,10 +244,48 @@ if ($action == "addform")
         if ($thefiles > 0)
         {
             $msg->attachFile($thefiles, $themsg);
-        } elseif ($thefiles == 0 and $numfiles > 0)
+        }
+        elseif ($thefiles == 0 and $numfiles > 0)
         {
             $msg->attachFile(0, $themsg, $id);
         }
+        
+		if ($settings["mailnotify"])
+        {
+            $sendto = getArrayVal($_POST, "sendto");
+            $usr = (object) new project();
+            $users = $usr->getProjectMembers($id, 10000);
+            if ($sendto[0] == "all")
+            {
+                $sendto = $users;
+                $sendto = reduceArray($sendto);
+            } elseif ($sendto[0] == "none")
+            {
+                $sendto = array();
+            }
+            foreach($users as $user)
+            {
+                if (!empty($user["email"]))
+                {
+                    if (is_array($sendto))
+                    {
+                        if (in_array($user["ID"], $sendto))
+                        {
+                            // send email
+                            $themail = new emailer($settings);
+							$themail->send_mail($user["email"], $langfile["messagewasaddedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["messagewasaddedtext"] . "<br /><br />". $message . "<br /><br /><a href = \"" . $url . "managemessage.php?action=showmessage&id=$id&mid=$themsg\">$title</a>");
+                        }
+                    }
+                    else
+                    {
+                        // send email
+                        $themail = new emailer($settings);
+						$themail->send_mail($user["email"], $langfile["messagewasaddedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["messagewasaddedtext"] . "<br /><br />". $message . "<br /><br /><a href = \"" . $url . "managemessage.php?action=showmessage&id=$id&mid=$themsg\">$title</a>");
+                    }
+                }
+            }
+        }
+        
         $loc = $url . "managemessage.php?action=showmessage&mid=$mid_post&id=$id&mode=replied";
         header("Location: $loc");
     }

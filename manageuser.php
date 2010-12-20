@@ -69,7 +69,7 @@ elseif ($action == "resetpassword")
 	{
 		// Send e-mail with new password
 		$themail = new emailer($settings);
-		$themail->send_mail($email, $langfile["projectpasswordsubject"], $langfile["projectpasswordtext"] . "<br /><br />" .  $langfile["newpass"] . ":&nbsp;" . "$newpass<br />" . $langfile["login"] . ":&nbsp;<a href = \"$url\">$url</a>");
+		$themail->send_mail($email, $langfile["projectpasswordsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["projectpasswordtext"] . "<br /><br />" .  $langfile["newpass"] . ": " . "$newpass<br />" . $langfile["login"] . ": <a href = \"$url\">$url</a>");
 		
 		$template->assign("success", 1);
 		$template->display("resetpassword.tpl");
