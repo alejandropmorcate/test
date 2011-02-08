@@ -374,7 +374,7 @@ class project {
     }
 
     /**
-     * Listet alle einem Mitglied zugewiesenen Projekte auf
+     * Lists all projects assigned to a given member ordered by due date ascending
      *
      * @param int $user Eindeutige Mitgliedsnummer
      * @param int $status Bearbeitungsstatus von Projekten (1 = offenes Projekt)
@@ -399,6 +399,13 @@ class project {
         }
 
         if (!empty($myprojekte)) {
+			// Sort projects by due date ascending
+			$date = array();
+			foreach ($myprojekte as $key => $row) {
+				$date[$key] = $row['end'];
+			}
+			array_multisort($date, SORT_ASC, $myprojekte);
+			
             return $myprojekte;
         } else {
             return false;
