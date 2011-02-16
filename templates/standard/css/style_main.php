@@ -1283,7 +1283,7 @@ body a.butn_link, body a.butn_link_active {
 }
 
 .msgs .message {
-	width: 562px;
+	width: 585px;
 	margin: 0;
 	padding: 0;
 }
@@ -1293,7 +1293,7 @@ body a.butn_link, body a.butn_link_active {
 }
 
 .message-in {
-	width: 562px;
+	width: 585px;
 	overflow-x: auto;
 }
 .message-in ul
@@ -2032,7 +2032,7 @@ a.dir_up_butn:hover {
 
 	border-top: 1px solid <?php echo $leftBlockBg;
 ?>;
-	padding: 12px 9px 18px 45px;
+	padding: 12px 9px 18px 9px;
 	line-height: normal;
 	overflow: hidden;
 }
