@@ -41,6 +41,9 @@
 								<label for = "thefiles">{#attachfile#}:</label>
 								<select name = "thefiles" id = "thefiles">
 									<option value = "0">{#chooseone#}</option>
+									{section name = file loop=$files}
+									<option value = "{$files[file].ID}">{$files[file].name}</option>
+									{/section}
 									{section name = file loop=$myprojects[project].files}
 									<option value = "{$myprojects[project].files[file].ID}">{$myprojects[project].files[file].name}</option>
 									{/section}

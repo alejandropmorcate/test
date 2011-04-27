@@ -316,6 +316,8 @@ if ($action == "addform")
     // print_r($myprojects);
     $title = $langfile['mymessages'];
     $template->assign("title", $title);
+    $members = $myproject->getProjectMembers($id, 10000);
+	$template->assign("members", $members);
     $template->assign("myprojects", $myprojects);
     $template->display("mymessages.tpl");
 } elseif ($action == "showproject")
@@ -328,6 +330,7 @@ if ($action == "addform")
     $members = $myproject->getProjectMembers($id, 10000);
     $projectname = $pro['name'];
     $template->assign("projectname", $projectname);
+    $template->assign("files", $ordner);
     // get the page title
     $title = $langfile['messages'];
     $template->assign("title", $title);
