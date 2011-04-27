@@ -1,6 +1,13 @@
 Collabtive 0.7
 + Added a function to enable a user to reset his/her password when he/she forgot it
 + Added missing e-mail notification function when replying to a message
++ Added missing image files for lytebox feature
++ Added translation: Slovenian, Croatian, Farsi
++ Improved translations: Norvegian, Portuguese (Brasilian), Polish, Japanese, Russian, Greek, Chinese, Finnish, Lithuanian
++ Improved security: open .php files as plaintext only
++ Improved sorting of projects on desktop, now sorted chronologically by default
++ Improved message display: Avatar now appears next to body of text
++ Fixed bug which prevented choosing existing project files as attachments for a reply
 + Beautified code of some template files
 
 Collabtive 0.6.5
