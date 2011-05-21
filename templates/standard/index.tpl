@@ -47,7 +47,7 @@
 			<div class="block" id="projecthead" style = "{$projectstyle}">
 				{*Add Project*}
 				<div id = "form_addmyproject" class="addmenue" style = "display:none;">
-				{include file="addproject.tpl"}
+				{include file="addproject.tpl" myprojects="1"}
 				</div>
 				<table id = "desktopprojects" cellpadding="0" cellspacing="0" border="0">
 
@@ -75,7 +75,7 @@
 					{else}
 					<tbody class="color-b" id="proj_{$myprojects[project].ID}" rel = "{$myprojects[project].ID},{$myprojects[project].name},{$myprojects[project].daysleft}">
 					{/if}
-						<tr {if $myprojects[project].daysleft < 0} class="marker-late"{elseif $myprojects[project].daysleft == 0} class="marker-today"{/if}>
+						<tr {if $myprojects[project].daysleft < 0 && $myprojects[project].daysleft != ""} class="marker-late"{elseif $myprojects[project].daysleft == "0"} class="marker-today"{/if}>
 							<td>{if $userpermissions.projects.close}<a class="butn_check" href="javascript:closeElement('proj_{$myprojects[project].ID}','manageproject.php?action=close&amp;id={$myprojects[project].ID}');" title="{#close#}"></a>{/if}</td>
 							<td>
 								<div class="toggle-in">

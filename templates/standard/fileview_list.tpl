@@ -56,9 +56,9 @@
                     <div id = "fli_{$files[file].ID}">
 					{*Color-Mix*}
 					{if $smarty.section.file.index % 2 == 0}
-					<tbody class="color-a" id="iw_{$files[file].ID}">
+					<tbody class="color-a" id="fli_{$files[file].ID}">
 					{else}
-					<tbody class="color-b" id="iw_{$files[file].ID}">
+					<tbody class="color-b" id="fli_{$files[file].ID}">
 					{/if}
 						<tr >
 							<td><a href = "{$files[file].datei}" {if $files[file].imgfile == 1} rel="lytebox[]" {elseif $files[file].imgfile == 2} rel = "lyteframe[text]" rev="width: 650px; height: 500px;"{/if}>
@@ -81,7 +81,7 @@
 
                             <td class="tools">
 								<a class="tool_edit" href="managefile.php?action=editform&amp;id={$project.ID}&amp;file={$files[file].ID}" title="{#editfile#}"></a>
-							   	<a class="tool_del" href="javascript:confirmfunction('{$langfile.confirmdel}','deleteElement(\'iw_{$files[file].ID}\',\'managefile.php?action=delete&amp;id={$project.ID}&amp;file={$files[file].ID}\')');" title="{#delete#}"></a>
+							   	<a class="tool_del" href="javascript:confirmfunction('{$langfile.confirmdel}','deleteElement(\'fli_{$files[file].ID}\',\'managefile.php?action=delete&amp;id={$project.ID}&amp;file={$files[file].ID}\')');" title="{#delete#}"></a>
 
 							</td>
 						</tr>

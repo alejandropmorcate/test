@@ -39,7 +39,14 @@ della licenza.
 
 ### Crediti ###
 - Collabtive è (c) Philipp Kiszka
-- Coordinatore di progetto e supporto: Eva Kiszka
+- Coordinatore di progetto e supporto: Eva Kranz
 - Grafica: Marcus Fröhner
 - Le icone sono prese in parte dall'iconset di Oxygen.
-- Le versioni localizzate sono mantenute da diversi contribuenti.
+- Le versioni localizzate sono mantenute da diversi contribuenti:
+   - Francese: mantenuto da Jean-Christophe Breboin (www.fairytree.fr)
+	- Italiano: mantenuto da Edoardo Stefani
+	- Bulgaro: mantenuto da Jordan Hlebarov
+	- Cinese: mantenuto da Hu Yanggang
+	- Polacco: mantenuto da Hubert Miazek, Jakub Dyda e Maciej Smolinski
+	- Serbo: mantenuto da Vladimir Mincev
+	- Turco: mantenuto da Mustafa Sarac

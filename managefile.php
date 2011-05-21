@@ -135,8 +135,6 @@ if ($action == "upload") {
         die();
     }
     if ($myfile->loeschen($thisfile)) {
-        // $loc = $url .= "managefile.php?action=showproject&id=$id&mode=deleted";
-        // header("Location: $loc");
         echo "ok";
     }
 } elseif ($action == "zipexport") {

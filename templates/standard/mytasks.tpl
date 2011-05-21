@@ -59,11 +59,6 @@
 				<a href="javascript:void(0);" id="block-{$myprojects[project].ID}_toggle" class="win_block" onclick = "toggleBlock('block-{$myprojects[project].ID}');"></a>
 
 				<div class="wintools">
-					<!--
-					<a class="close" href="#"><span>{#close#}</span></a>
-					<a class="edit" href="#"><span>{#edit#}</span></a>
-					<a class="del" href="#"><span>{#delete#}</span></a>
-					-->
 					{if $userpermissions.tasks.add}
 					<a class="add" href="javascript:blindtoggle('form_{$myprojects[project].ID}');" id="add_{$myprojects[project].ID}" onclick="toggleClass(this,'add-active','add');toggleClass('add_butn_{$myprojects[project].ID}','butn_link_active','butn_link');toggleClass('sm_{$myprojects[project].ID}','smooth','nosmooth');"><span>{#addtask#}</span></a>
 					{/if}
@@ -71,7 +66,7 @@
 
 
 				<h2>
-					<a href="managetask.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].name} / {#mytasks#}"><img src="./templates/standard/images/symbols/projects.png" alt="" />{$myprojects[project].name|truncate:30:"...":true}</a>
+					<a href="managetask.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].desc} / {#mytasks#}"><img src="./templates/standard/images/symbols/projects.png" alt="" />{$myprojects[project].name|truncate:100:"...":true}</a>
 				</h2>
 			</div>
 

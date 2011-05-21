@@ -16,6 +16,9 @@ mysql_query("ALTER TABLE `user` CHANGE `zip` `zip` VARCHAR( 10 )"); // overlooke
 //0.6.3
 mysql_query("ALTER TABLE `files` DROP `seenby`");
 
+//0.7
+mysql_query("ALTER TABLE `files` CHANGE `type` `type` VARCHAR( 255 )"); 
+
 // version independent
 // clear templates cache
 $handle = opendir($template->compile_dir);
@@ -33,12 +36,17 @@ $opt3 = mysql_query("OPTIMIZE TABLE `log`");
 $opt4 = mysql_query("OPTIMIZE TABLE `messages`");
 $opt5 = mysql_query("OPTIMIZE TABLE `milestones`");
 $opt6 = mysql_query("OPTIMIZE TABLE `milestones_assigned`");
-$opt7 = mysql_query("OPTIMIZE TABLE `projekte`");
-$opt8 = mysql_query("OPTIMIZE TABLE `projekte_assigned`");
-$opt9 = mysql_query("OPTIMIZE TABLE `timetracker`");
-$opt10 = mysql_query("OPTIMIZE TABLE `projectfolders`");
-$opt11 = mysql_query("OPTIMIZE TABLE `ŗoles`");
-$opt12 = mysql_query("OPTIMIZE TABLE `roles_assigned`");
+$opt7 = mysql_query("OPTIMIZE TABLE `projectfolders`");
+$opt8 = mysql_query("OPTIMIZE TABLE `projekte`");
+$opt9 = mysql_query("OPTIMIZE TABLE `projekte_assigned`");
+$opt10 = mysql_query("OPTIMIZE TABLE `roles`");
+$opt11 = mysql_query("OPTIMIZE TABLE `roles_assigned`");
+$opt12 = mysql_query("OPTIMIZE TABLE `settings`");
+$opt13 = mysql_query("OPTIMIZE TABLE `tasklist`");
+$opt14 = mysql_query("OPTIMIZE TABLE `tasks`");
+$opt15 = mysql_query("OPTIMIZE TABLE `tasks_assigned`");
+$opt16 = mysql_query("OPTIMIZE TABLE `timetracker`");
+$opt17 = mysql_query("OPTIMIZE TABLE `user`");
 
 $template->display("update.tpl");
 ?>

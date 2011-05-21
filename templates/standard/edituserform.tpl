@@ -63,7 +63,7 @@
 						<td class="right">
 
 								<div class="fileinput" >
-										<input type="file" class="file" name = "userfile" id="avatar"  realname="{#file#}" size="26" onchange = "file_{$myprojects[project].ID}.value = this.value;"  tabindex="2" />
+										<input type="file" class="file" name = "userfile" id="avatar"  realname="{#file#}" size="19" onchange = "file_{$myprojects[project].ID}.value = this.value;"  tabindex="2" />
 										<table class = "faux" cellpadding="0" cellspacing="0" border="0">
 											<tr>
 											<td><input type="text" class="text-file" name = "file-$myprojects[project].ID" id="file_{$myprojects[project].ID}"></td>

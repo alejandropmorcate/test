@@ -58,7 +58,7 @@ if ($action == "post")
 {
     $cook = "chatstart" . $userto_id;
     $start = $_COOKIE["$cook"];
-    $start = mysql_real_escape_string($start);
+    $start = (int) $start;
     if (!$start)
     {
         $start = 0;

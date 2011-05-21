@@ -1,4 +1,4 @@
-{include file="header.tpl" showheader="no"}
+{include file="header.tpl" title="install" showheader="no"}
 
 
 		<div class="install" style="text-align:center;padding:5% 0 0 0;">
@@ -19,25 +19,6 @@
 
 			</fieldset>
 			<br />
-			<!--
-			<h2>{#import#}</h2>
-			<fieldset>
-
-			<div class="row">
-						<label for="file">{#file#}:</label>
-						<div class="fileinput" >
-								<input type="file" class="file" name="importfile" id="importfile"  realname="{#file#}" size="26" onchange = "file.value = this.value;" />
-								<table class = "faux" cellpadding="0" cellspacing="0" border="0" style="padding:0;margin:0;border:none;">
-									<tr>
-									<td><input type="text" class="text-file" name = "userfile1" id="file" required="1" realname="{#file#}"></td>
-									<td class="choose"><button class="inner" onclick="return false;">{#chooseone#}</button></td>
-									</tr>
-								</table>
-						</div>
-					</div>
-
-			<div style="border-bottom:1px dashed;height:16px;display:block;clear:both;margin-bottom:16px;"></div>
-			-->
 			<div class="row-butn-bottom">
 				<label>&nbsp;</label>
 				<button type="submit"  onfocus="this.blur();">{#continue#}</button>

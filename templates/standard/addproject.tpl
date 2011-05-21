@@ -51,9 +51,9 @@
 		<label>&nbsp;</label>
 		<button type="submit" onfocus="this.blur();">{#addbutton#}</button>
 		{if $myprojects == "1"}
-		<button onclick="blindtoggle('form_addmyproject');toggleClass('add_myprojects','add-active','add');toggleClass('add_butn_myprojects','butn_link_active','butn_link');toggleClass('sm_myprojects','smooth','nosmooth');return false;" onfocus="this.blur();">{#cancel#}</button>
+		<button type = "reset" onclick="blindtoggle('form_addmyproject');toggleClass('add_myprojects','add-active','add');toggleClass('add_butn_myprojects','butn_link_active','butn_link');toggleClass('sm_myprojects','smooth','nosmooth');return false;" onfocus="this.blur();">{#cancel#}</button>
 		{else}
-		<button onclick="blindtoggle('form_{$myprojects[project].ID}');return false;">{#cancel#}</button>
+		<button type = "reset" onclick="blindtoggle('form_{$myprojects[project].ID}');return false;">{#cancel#}</button>
 		{/if}
 		</div>
 

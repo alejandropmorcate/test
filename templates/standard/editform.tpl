@@ -26,6 +26,7 @@
 
 	<div class="row"><label for="name">{#name#}:</label><input type="text" class="text" name="name" id="name" required="1" realname="{#name#}" value = "{$project.name}" /></div>
 	<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc"  rows="3" cols="1">{$project.desc}</textarea></div></div>
+	<div class="row"><label for="budget">{#budget#}:</label><input type="text" class="text" name="budget" id="budget" required="0" realname="{#budget#}" value = "{$project.budget}" /></div>
 
 	<div class="row">
 		<label for="end">{#due#}:</label><input type="text" class="text" value="{$project.endstring}" name="end"  id="end"  {if $project.end == 0}disabled = "disabled"{/if} realname="{#due#}" />

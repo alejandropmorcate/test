@@ -4,8 +4,8 @@
  *
  * @author Open Dynamics / Philipp Kiszka <info@o-dyn.de>
  * @name datei
- * @version 0.5.5
- * @package Cffollabtive
+ * @version 0.7
+ * @package Collabtive
  * @link http://www.o-dyn.de
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
  */
@@ -19,6 +19,7 @@ class datei
     {
         $this->mylog = new mylog;
     }
+    
     // FOLDER METHODS
     /**
      * Create a new folder
@@ -211,6 +212,7 @@ class datei
             return false;
         }
     }
+    
     // FILE METHODS
     /**
      * Upload a file
@@ -273,7 +275,7 @@ class datei
             $subname .= $teilnamen[$i];
         }
 
-        $randval = mt_rand(1, 9999999);
+        $randval = mt_rand(1, 99999);
         // only allow a-z , 0-9 in filenames, substitute other chars with _
         $subname = str_replace("ä", "ae" , $subname);
         $subname = str_replace("ö", "oe" , $subname);

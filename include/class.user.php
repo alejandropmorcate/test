@@ -4,7 +4,7 @@
  *
  * @author Open Dynamics <info@o-dyn.de>
  * @name user
- * @version 0.4.7
+ * @version 0.7
  * @package Collabtive
  * @link http://www.o-dyn.de
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or laterg
@@ -14,8 +14,8 @@ class user
     public $mylog;
 
     /**
-     * Konstruktor
-     * Initialisiert den Eventlog
+     * Constructor
+     * Initializes event log
      */
     function __construct()
     {
@@ -26,10 +26,11 @@ class user
      * Creates a user
      *
      * @param string $name Name of the member
-     * @param string $email Email Address of the member
+     * @param string $email E-mail address of the member
      * @param int $company Company ID of the member (unused)
      * @param string $pass Password
      * @param string $locale Localisation
+	 * @param float $rate Hourly rate
      * @return int $insid ID of the newly created member
      */
     function add($name, $email, $company, $pass, $locale = "", $tags = "", $rate = 0.0)
@@ -82,8 +83,9 @@ class user
     {
         $name = mysql_real_escape_string($name);
         $realname = mysql_real_escape_string($realname);
-        $job = mysql_real_escape_string($role);
         $email = mysql_real_escape_string($email);
+        $tel1 = mysql_real_escape_string($tel1);
+        $tel2 = mysql_real_escape_string($tel2);
         $zip = mysql_real_escape_string($zip);
         $gender = mysql_real_escape_string($gender);
         $url = mysql_real_escape_string($url);
@@ -91,12 +93,13 @@ class user
         $address2 = mysql_real_escape_string($address2);
         $state = mysql_real_escape_string($state);
         $country = mysql_real_escape_string($country);
+        $tags = mysql_real_escape_string($tags);
         $locale = mysql_real_escape_string($locale);
         $avatar = mysql_real_escape_string($avatar);
 
         $rate = (float) $rate;
+        $company = (int) $company;
         $id = (int) $id;
-       // $company = (int) $company;
 
         if ($avatar != "")
         {
@@ -104,7 +107,6 @@ class user
         }
         else
         {
-            // realname='$realname',,role='$role'
             $upd = mysql_query("UPDATE user SET name='$name',email='$email', tel1='$tel1', tel2='$tel2', company='$company',zip='$zip',gender='$gender',url='$url',adress='$address1',adress2='$address2',state='$state',country='$country',tags='$tags',locale='$locale',rate='$rate' WHERE ID = $id");
         }
         if ($upd)
@@ -169,11 +171,11 @@ class user
     }
 
     /**
-     * Change a password
+     * Change password
      *
-     * @param int $id Eindeutige Mitgliedsnummer
-     * @param string $oldpass Altes Passwort
-     * @param string $newpass Neues Passwort
+     * @param int $id Member ID
+     * @param string $oldpass Old password
+     * @param string $newpass New password
      * @param string $repeatpass Repetition of the new password
      * @return bool
      */
@@ -213,10 +215,10 @@ class user
     }
 
     /**
-     * Change a password as admin
+     * Change password as admin
      *
      * @param int $id User ID
-     * @param string $newpass New passwort
+     * @param string $newpass New password
      * @param string $repeatpass Repetition of the new password
      * @return bool
      */
@@ -457,6 +459,12 @@ class user
         }
     }
 
+    /**
+     * Get all users who are logged in
+     *
+     * @param int $offset Allowed time from last login
+     * @return array $users
+     */
     function getOnlinelist($offset = 30)
     {
         $offset = (int) $offset;
@@ -488,6 +496,13 @@ class user
         }
     }
 
+    /**
+     * Is the given user logged in?
+     *
+	 * @param int $user Member ID
+     * @param int $offset Allowed time from last login
+     * @return bool
+     */
     function isOnline($user, $offset = 30)
     {
         $user = (int) $user;
@@ -509,6 +524,12 @@ class user
         }
     }
 
+    /**
+     * Get a user's ID
+     *
+     * @param string $user Username
+     * @return int $theid
+     */
     function getId($user){
         $user = mysql_real_escape_string($user);
 
@@ -529,7 +550,6 @@ class user
             return array();
         }
     }
-
 }
 
 ?>

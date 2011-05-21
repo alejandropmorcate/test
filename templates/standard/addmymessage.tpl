@@ -57,7 +57,7 @@
 				<div class="row"><label for = "title">{#title#}:</label><input type = "text" name = "userfile1-title" id="title" /></div>
 				<div class="row">	<label for="file">{#file#}:</label>
 					<div class="fileinput" >
-							<input type="file" class="file" name="userfile1" id="file"  realname="{#file#}" size="26" onchange = "file_{$myprojects[project].ID}.value = this.value;" />
+							<input type="file" class="file" name="userfile1" id="file"  realname="{#file#}" size="19" onchange = "file_{$myprojects[project].ID}.value = this.value;" />
 							<table class = "faux" cellpadding="0" cellspacing="0" border="0" style="padding:0;margin:0;border:none;">
 								<tr>
 								<td><input type="text" class="text-file" name = "file-$myprojects[project].ID" id="file_{$myprojects[project].ID}"></td>

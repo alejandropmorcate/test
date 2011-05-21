@@ -1,4 +1,30 @@
 Collabtive 0.7
++ Added permission check for showing the delete button for attached files in My Messages and single message view
++ Fixed reloading after deleting of attached files in My message view
++ Added alt text to the button in the project files view which takes you a level higher in the folders hierarchy
++ Optimized project files view to display longer chunks of the files' names
++ Fixed a notice in project messages
++ Fixed a bug in the project files lists and message files list: When a file is deleted, its icon now neatly fades out and is replaced by the other files moving up
++ Added new "Winter" template. It is based on "standard" and provides a lighter alternative. Replaces the unmaintained "frost" template.
++ Fixed wrong image file path resulting in missing image in system message for folder added
++ Fixed wrong image file path resulting in missing image in system message for reply added
++ Added XSS protection for strings input by the user in getArrayVal()
++ Added function to edit a user's hourly rate if you are an admin
++ Updated bundled TC_PDF class to 5.9.038
++ Updated the bundled tinyMCE to 3.4.2
++ Removed unused search modal HTML code
++ Enabled rounded borderd in IE9 (Css)
++ Corrected hard-coded string "Budget" on project dashboard to translated string
++ Added function to edit project budget
++ Optimized truncating of project name in "my tasks" and hovering now shows project description instead of project name
++ Corrected regular expression in timetracker in order to allow for single digit hours and to dismiss things like 10:60 or 25:00
++ Corrected color-coding for projects with due date in the future on dashboard
++ Removed 'Days left' from dashboard for projects without due date
++ Color-coding for projects without due dates on desktop now same as for projects with due date in the future
++ More string sanitizing in class.user.php
++ Added comments
++ Corrected typo in tables optimization queries and added missing queries in update script
++ Fixed bug in files table which prevented .docx files from being stored in the database
 + Added a function to enable a user to reset his/her password when he/she forgot it
 + Added missing e-mail notification function when replying to a message
 + Added missing image files for lytebox feature
@@ -8,6 +34,7 @@ Collabtive 0.7
 + Improved sorting of projects on desktop, now sorted chronologically by default
 + Improved message display: Avatar now appears next to body of text
 + Fixed bug which prevented choosing existing project files as attachments for a reply
++ Added title for install script
 + Beautified code of some template files
 
 Collabtive 0.6.5
@@ -467,7 +494,7 @@ Collabtive 0.3.5
 + Excel export for timetracker
 + PDF export for timetracker
 + Fixed pagination to not always "remember" the last page visited. Caused problems when previously visited page doesn't exist anymore.
-+ Fixed a possible security vulnerability in class.datei.php
++ Fixed a 4545possible security vulnerability in class.datei.php
 + Fixed localisation for eventmessages in the filemanager
 + Added a Javascript confirm popup to all delete actions, to avoid accidential deletes
 + Added a Timetracking Tab in the projectview

@@ -45,7 +45,20 @@ Please see license.txt for full licensing terms and conditions.
 ### Credits ###
 
 - Collabtive is (c) Philipp Kiszka
-- Project coordination and support by Eva Kiszka
-- Artwork by Marcus Fröhner
+- Project coordination and support by Eva Kranz
+- Artwork by Marcus Froehner
 - Icons are partially taken from the Oxygen iconset.
-- Many locales maintained by various contributors.
+- Many locales maintained by various contributors:
+    - French maintained by Jean-Christophe Breboin (www.fairytree.fr) and Nilo (www.nilostudio.fr)
+    - Hungarian maintained by Ferenc Forgacs
+	- Italian maintained by Lephio (www.lephio.org) and Edoardo Stefani
+	- Japanese maintained by Yamamoto Shoot
+	- Spanish maintained by Efrain Barcena
+	- Bulgarian maintained by Jordan Hlebarov
+	- Chinese maintained by Hu Yanggang
+	- Czech maintained by Jan Hanzelka
+	- Polish maintained by Hubert Miazek, Jakub Dyda and Maciej Smolinski
+	- Russian maintained by Danil Pridvorov
+	- Serbian maintained by Vladimir Mincev
+	- Turkish maintained by Mustafa Sarac
+	- Finnish maintained by Harri Vesanen

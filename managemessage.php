@@ -16,7 +16,7 @@ $action = getArrayVal($_GET, "action");
 $id = getArrayVal($_GET, "id");
 $mid = getArrayVal($_GET, "mid");
 $mode = getArrayVal($_GET, "mode");
-$thefiles = getArrayVal($_POST, "mode");
+$thefiles = getArrayVal($_POST, "thefiles");
 $numfiles = getArrayVal($_POST, "numfiles");
 $userfile = getArrayVal($_POST, "userfiles");
 $tags = getArrayVal($_POST, "tags");
@@ -63,6 +63,7 @@ if ($action == "addform")
         $template->display("error.tpl");
         die();
     }
+    
     // format tags properly
     if ($tags)
     {
@@ -76,11 +77,11 @@ if ($action == "addform")
     {
         if ($thefiles > 0)
         {
-            // if upload files are set, upload and attach
+			// attach existing file
             $msg->attachFile($thefiles, $themsg);
         } elseif ($thefiles == 0 and $numfiles > 0)
         {
-            // else just attach existing file
+            // if upload files are set, upload and attach
             $msg->attachFile(0, $themsg, $id);
         }
 
@@ -211,14 +212,14 @@ if ($action == "addform")
 	// get page title from language file
     $title = $langfile["reply"];
     $template->assign("title", $title);
-    
+	    
     // get all notifiable members
     $myproject = new project();
     $pro = $myproject->getProject($id);
     $members = $myproject->getProjectMembers($id, 10000);
 	
     $myfile = new datei();
-    $ordner = $myfile->getProjectFiles($id, 10000);
+    $ordner = $myfile->getProjectFiles($id, 1000);
     $message = $msg->getMessage($mid);
     $template->assign("message", $message);
     $template->assign("members", $members);
@@ -238,15 +239,16 @@ if ($action == "addform")
 
     $tagobj = new tags();
     $tags = $tagobj->formatInputTags($tags);
-    $themsg = $msg->add($id, $title, $message, $tags, $userid, $username, $mid_post);
+    $themsg = $msg->add($id, $title, $message, $tags, $userid, $username, $mid_post, $milestone);
     if ($themsg)
     {
         if ($thefiles > 0)
         {
+			// attach existing file
             $msg->attachFile($thefiles, $themsg);
-        }
-        elseif ($thefiles == 0 and $numfiles > 0)
+        } elseif ($thefiles == 0 and $numfiles > 0)
         {
+            // if upload files are set, upload and attach
             $msg->attachFile(0, $themsg, $id);
         }
         
@@ -316,7 +318,7 @@ if ($action == "addform")
     // print_r($myprojects);
     $title = $langfile['mymessages'];
     $template->assign("title", $title);
-    $members = $myproject->getProjectMembers($id, 10000);
+    $members = $project->getProjectMembers($id, 10000);
 	$template->assign("members", $members);
     $template->assign("myprojects", $myprojects);
     $template->display("mymessages.tpl");
@@ -330,7 +332,6 @@ if ($action == "addform")
     $members = $myproject->getProjectMembers($id, 10000);
     $projectname = $pro['name'];
     $template->assign("projectname", $projectname);
-    $template->assign("files", $ordner);
     // get the page title
     $title = $langfile['messages'];
     $template->assign("title", $title);
@@ -358,15 +359,20 @@ if ($action == "addform")
     $template->display("projectmessages.tpl");
 } elseif ($action == "showmessage")
 {
-    // get the message and it's replies
+    // get the message and its replies
     $message = $msg->getMessage($mid);
     $replies = $msg->getReplies($mid);
 
     $myproject = new project();
     $pro = $myproject->getProject($id);
-    $myfile = new datei();
-    $ordner = $myfile->getProjectFiles($id);
-
+    
+    // get all notifiable members
+    $members = $myproject->getProjectMembers($id, 10000);
+    
+	// get all attachable files
+	$myfile = new datei();
+	$ordner = $myfile->getProjectFiles($id, 1000);
+    
     $projectname = $pro['name'];
     $title = $langfile['message'];
 
@@ -376,6 +382,8 @@ if ($action == "addform")
     $template->assign("message", $message);
     $template->assign("ordner", $ordner);
     $template->assign("replies", $replies);
+    $template->assign("files", $ordner);
+    $template->assign("members", $members);
     $template->display("message.tpl");
 } elseif ($action == "export-project")
 {

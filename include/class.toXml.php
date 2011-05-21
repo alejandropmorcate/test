@@ -13,13 +13,13 @@
 class toXml
 {
 	private $writer;
-	
+
 	function __construct()
 	{
 		//create XMLWriter Object
 		$this->writer = (object) new XMLWriter();
 	}
-	
+
 	/**
     * Convert array to complete XML document.
     * Accepts an associative array.
@@ -28,7 +28,7 @@ class toXml
     *
     * @param array $inarr Array to convert
     * @param string $rootname Name of the root XML element
-    * @return string Array as XML 
+    * @return string Array as XML
     */
 	public function arrToXml(array $inarr, $rootname)
 	{
@@ -40,20 +40,20 @@ class toXml
 		$writer->setIndent(true);
 		//create the root element
 		$writer->startElement($rootname);
-		$writer->writeAttribute("count",count($inarr));
+	//	$writer->writeAttribute("count",count($inarr));
 
 		//convert the array recursively
 		$this->convertit($inarr);
-		
+
 		//end the root element
 		$writer->endElement();
 		//close the document
 		$writer->endDocument();
-		
+
 		//return the XML as string
-		return $writer->outputMemory(); 
+		return $writer->outputMemory();
 	}
-	
+
 	/**
     * Convert array to JSON.
     * Accepts an associative array.
@@ -61,13 +61,13 @@ class toXml
 	* This is a wrapper around PHPs json_encode()
     *
     * @param array $inarr Array to convert
-    * @return string Array as JSON 
+    * @return string Array as JSON
     */
 	public function arrToJSON(array $inarr)
 	{
 		return json_encode($inarr);
 	}
-	
+
     /**
     * Private function that recursively converts an Array to XML.
     * Used by arrToXml()
@@ -76,7 +76,7 @@ class toXml
     * but strips the numeric index from those.
     *
     * @param array $inarr Array to convert
-    * 
+    *
     * @return void
     */
 	private function convertit(array $inarr)
@@ -91,18 +91,18 @@ class toXml
 				if(is_numeric($key))
 				{
 					$numkey = $key;
-					$key = "node" . (string) $key;	
+					$key = "node";
 					$writer->startElement($key);
-					$writer->writeAttribute("num",$numkey);
+					//$writer->writeAttribute("num",$numkey);
 				}
 				else
 				{
 					$writer->startElement($key);
 				}
 				//convert $val recursively
-				
+
 				$this->convertit($val);
-				$writer->endElement();	
+				$writer->endElement();
 			}
 			else
 			{
@@ -110,12 +110,12 @@ class toXml
 				{
 					$writer->writeElement($key,strip_tags($val));
 				}
-				
+
 			}
-			
+
 		}
 	}
-	
+
 
 }
 ?>

@@ -27,14 +27,14 @@
 
 	  	<div class = "row">
 	  		<label for = "started">{#started#}:</label>
-	  		<input type = "text" class="text" style="width:80px;margin:0 6px 0 0;" id = "started" name = "started" required = "1" regexp="^\d\d:\d\d$" realname = "{#started#} (Format: hh:mm)" />
+	  		<input type = "text" class="text" style="width:80px;margin:0 6px 0 0;" id = "started" name = "started" required = "1" regexp="^([01]?\d|2[0123]):[012345]\d$" realname = "{#started#} (Format: hh:mm)" />
 
 	  		<button onclick="getnow('started');return false;" onfocus="this.blur();" title = "{#inserttime#}">hh:mm</button>
 		</div>
 
 	  	<div class = "row">
 	  		<label for = "ended">{#ended#}:</label>
-			<input  type = "text" class="text" style="width:80px;margin:0 6px 0 0;" id = "ended" name = "ended"  required = "1" regexp="^\d\d:\d\d$" realname = "{#ended#} (Format: hh:mm)" / >
+			<input  type = "text" class="text" style="width:80px;margin:0 6px 0 0;" id = "ended" name = "ended"  required = "1" regexp="^([01]?\d|2[0123]):[012345]\d$" realname = "{#ended#} (Format: hh:mm)" / >
 
 			<button onclick="getnow('ended');return false;" onfocus="this.blur();" title = "{#inserttime#}">hh:mm</button>
 		</div>

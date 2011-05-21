@@ -16,6 +16,8 @@ function __autoload($class_name)
 
 function chkproject($user, $project)
 {
+	$user = (int) $user;
+	$project = (int) $project;
     $sel = @mysql_query("SELECT ID FROM projekte_assigned WHERE projekt = $project AND user = $user");
     $chk = @mysql_fetch_row($sel);
     $chk = $chk[0];
@@ -152,12 +154,24 @@ function getMyUrl()
 
     return $url;
 }
-
+function strip_only_tags($str, $tags, $stripContent=false) {
+    $content = '';
+    if(!is_array($tags)) {
+        $tags = (strpos($str, '>') !== false ? explode('>', str_replace('<', '', $tags)) : array($tags));
+        if(end($tags) == '') array_pop($tags);
+    }
+    foreach($tags as $tag) {
+        if ($stripContent)
+             $content = '(.+</'.$tag.'(>|\s[^>]*>)|)';
+         $str = preg_replace('#</?'.$tag.'(>|\s[^>]*>)'.$content.'#is', '', $str);
+    }
+    return $str;
+}
 function getArrayVal(array $array, $name)
 {
     if (array_key_exists($name, $array))
     {
-        return $array[$name];
+        return strip_only_tags($array[$name], "script");
     }
     else
     {

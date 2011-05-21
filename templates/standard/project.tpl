@@ -38,10 +38,12 @@
 				{/if}
 				{if $userpermissions.projects.del}
 				{if $project.budget}
-				<li><a>Budget: {$project.budget}</a></li>
+				<li><a>{#budget#}: {$project.budget}</a></li>
 				{/if}{/if}
-
-				<li {if $project.daysleft < 0}class="red"{else}class="green"{/if}><a>{$project.daysleft} {#daysleft#}</a></li>
+				
+				{if $project.daysleft != "" || $project.daysleft == "0"}
+					<li {if $project.daysleft < 0}class="red"{elseif $project.daysleft == "0"}class="green"{/if}><a>{$project.daysleft} {#daysleft#}</a></li>
+				{/if}
 			</ul>
 
 			<div class="status">

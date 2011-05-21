@@ -1,34 +1,33 @@
 <?php
 error_reporting(0);
+// check if collabtive is already installed
+include("./config/standard/config.php");
+if ($db_host != "" && $db_name != "" && $db_user != "") {
+    die("Collabtive is already installed. Installer will now abort.<br>If you believe this is an error, please clear your config.php.");
+}
 // Check if directory templates_c exists and is writable
-if (!file_exists("./templates_c") or !is_writable("./templates_c"))
-{
+if (!file_exists("./templates_c") or !is_writable("./templates_c")) {
     die("Required folder templates_c does not exist or is not writable. <br>Please create the folder or make it writable in order to proceed.");
 }
 
 require("./init.php");
 $action = getArrayVal($_GET, "action");
 $locale = getArrayVal($_GET, "locale");
-if (!empty($locale))
-{
+if (!empty($locale)) {
     $_SESSION['userlocale'] = $locale;
-}
-else
-{
+} else {
     $locale = $_SESSION['userlocale'];
 }
-if (empty($locale))
-{
+if (empty($locale)) {
     $locale = "en";
 }
 $template->assign("locale", $locale);
+$template->config_dir = "./language/$locale/";
 $title = $langfile['installcollabtive'];
 $template->assign("title", $title);
-$template->config_dir = "./language/$locale/";
 $template->template_dir = "./templates/standard/";
-if (!$action)
-{
-    //check if required directories are writable
+if (!$action) {
+    // check if required directories are writable
     $configfilechk = is_writable(CL_ROOT . "/config/" . CL_CONFIG . "/config.php");
     $filesdir = is_writable(CL_ROOT . "/files/");
     $templatesdir = is_writable(CL_ROOT . "/templates_c/");
@@ -42,13 +41,12 @@ if (!$action)
     $template->assign("is_mbstring_enabled", $is_mbstring_enabled);
 
     $template->display("install1.tpl");
-} elseif ($action == "step2")
-{
+} elseif ($action == "step2") {
     $db_host = $_POST['db_host'];
     $db_name = $_POST['db_name'];
     $db_user = $_POST['db_user'];
     $db_pass = $_POST['db_pass'];
-    //write db login data to config file
+    // write db login data to config file
     $file = fopen(CL_ROOT . "/config/" . CL_CONFIG . "/config.php", "w+");
     $str = "<?php
 \$db_host = '$db_host';\n
@@ -57,21 +55,18 @@ if (!$action)
 \$db_pass = '$db_pass';\n
 ?>";
     $put = fwrite($file, "$str");
-    if ($put)
-    {
+    if ($put) {
         @chmod(CL_ROOT . "/config/" . CL_CONFIG . "/config.php", 0755);
     }
     // connect database.
     $db = new datenbank();
     $conn = $db->connect($db_name, $db_user, $db_pass, $db_host);
-    if (!($conn))
-    {
+    if (!($conn)) {
         $template->assign("errortext", "Database connection could not be established. <br>Please check if database exists and check if login credentials are correct.");
         $template->display("error.tpl");
         die();
     }
-
-    //Create MySQL Tables
+    // Create MySQL Tables
     $table1 = mysql_query("CREATE TABLE `company` (
   `ID` int(10) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
@@ -84,7 +79,7 @@ if (!$action)
   `logo` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`ID`),
   KEY `name` (`name`)
-) TYPE=MyISAM");
+) ENGINE=MyISAM");
 
     $table2 = mysql_query("CREATE TABLE `company_assigned` (
   `ID` int(10) NOT NULL auto_increment,
@@ -93,7 +88,7 @@ if (!$action)
   PRIMARY KEY  (`ID`),
   KEY `company` (`company`),
   KEY `user` (`user`)
-) TYPE=MyISAM");
+) ENGINE=MyISAM");
 
     $table3 = mysql_query("CREATE TABLE `files` (
   `ID` int(10) NOT NULL auto_increment,
@@ -105,7 +100,7 @@ if (!$action)
   `tags` varchar(255) NOT NULL default '',
   `added` varchar(255) NOT NULL default '',
   `datei` varchar(255) NOT NULL default '',
-  `type` varchar(50) NOT NULL default '',
+  `type` varchar(255) NOT NULL default '',
   `title` varchar(255) NOT NULL default '',
   `folder` int(10) NOT NULL,
   `visible` text NOT NULL,
@@ -132,7 +127,7 @@ if (!$action)
   KEY `action` (`action`),
   FULLTEXT KEY `username` (`username`),
   FULLTEXT KEY `name` (`name`)
-) TYPE=MyISAM");
+) ENGINE=MyISAM");
 
     $table5 = mysql_query("CREATE TABLE `messages` (
   `ID` int(10) NOT NULL auto_increment,
@@ -164,8 +159,7 @@ if (!$action)
   KEY `name` (`name`),
   KEY `end` (`end`),
   KEY `project` (`project`)
-) TYPE=MyISAM;
-");
+) ENGINE=MyISAM");
 
     $table7 = mysql_query("CREATE TABLE `milestones_assigned` (
   `ID` int(10) NOT NULL auto_increment,
@@ -174,7 +168,7 @@ if (!$action)
   PRIMARY KEY  (`ID`),
   KEY `user` (`user`),
   KEY `milestone` (`milestone`)
-) TYPE=MyISAM");
+) ENGINE=MyISAM");
 
     $table8 = mysql_query("CREATE TABLE `projekte` (
   `ID` int(10) NOT NULL auto_increment,
@@ -195,7 +189,7 @@ if (!$action)
   PRIMARY KEY  (`ID`),
   KEY `user` (`user`),
   KEY `projekt` (`projekt`)
-) TYPE=MyISAM");
+) ENGINE=MyISAM");
 
     $table10 = mysql_query("CREATE TABLE `settings` (
   `ID` tinyint(1)  default '0',
@@ -233,7 +227,7 @@ if (!$action)
   PRIMARY KEY  (`ID`),
   KEY `status` (`status`),
   KEY `milestone` (`milestone`)
-) TYPE=MyISAM");
+) ENGINE=MyISAM");
 
     $table12 = mysql_query("CREATE TABLE `tasks` (
   `ID` int(10) NOT NULL auto_increment,
@@ -248,7 +242,7 @@ if (!$action)
   KEY `liste` (`liste`),
   KEY `status` (`status`),
   KEY `end` (`end`)
-) TYPE=MyISAM");
+) ENGINE=MyISAM");
 
     $table13 = mysql_query("CREATE TABLE `tasks_assigned` (
   `ID` int(10) NOT NULL auto_increment,
@@ -257,7 +251,7 @@ if (!$action)
   PRIMARY KEY  (`ID`),
   KEY `user` (`user`),
   KEY `task` (`task`)
-) TYPE=MyISAM");
+) ENGINE=MyISAM");
 
     $table14 = mysql_query("
 CREATE TABLE `user` (
@@ -295,7 +289,7 @@ CREATE TABLE `user` (
   `userto_id` int(10) NOT NULL default '0',
   `text` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`ID`)
-) TYPE=MyISAM");
+) ENGINE=MyISAM");
 
     $table16 = mysql_query("CREATE TABLE `files_attached` (
   `ID` int(10) unsigned NOT NULL auto_increment,
@@ -303,7 +297,7 @@ CREATE TABLE `user` (
   `message` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`ID`),
   KEY `file` (`file`,`message`)
-) TYPE=MyISAM;");
+) ENGINE=MyISAM");
 
     $table17 = mysql_query("CREATE TABLE `timetracker` (
   `ID` int(10) NOT NULL auto_increment,
@@ -355,27 +349,23 @@ CREATE TABLE `roles_assigned` (
   PRIMARY KEY  (`ID`)
 ) ENGINE=MyISAM");
     // Checks if tables could be created
-    if (!$table1 or !$table2 or !$table3 or !$table4 or !$table5 or !$table6 or !$table7 or !$table8 or !$table9 or !$table10 or !$table11 or !$table12 or !$table13 or !$table14 or !$table15 or !$table16 or !$table17 or !$table18 or !$table19 or !$table20)
-    {
+    if (!$table1 or !$table2 or !$table3 or !$table4 or !$table5 or !$table6 or !$table7 or !$table8 or !$table9 or !$table10 or !$table11 or !$table12 or !$table13 or !$table14 or !$table15 or !$table16 or !$table17 or !$table18 or !$table19 or !$table20) {
         $template->assign("errortext", "Error: Tables could not be created.");
         $template->display("error.tpl");
         die();
     }
-
-    //Get the servers default timezone
+    // Get the servers default timezone
     $timezone = date_default_timezone_get();
     // insert default settings
     $ins = mysql_query("INSERT INTO settings (name,subtitle,locale,timezone,dateformat,template,mailnotify,mailfrom,mailmethod) VALUES ('Collabtive','Projectmanagement','$locale','$timezone','d.m.Y','standard',1,'collabtive@localhost','mail')");
 
-    if (!$ins)
-    {
+    if (!$ins) {
         $template->assign("errortext", "Error: Failed to create initial settings.");
         $template->display("error.tpl");
         die();
     }
     $template->display("install2.tpl");
-} elseif ($action == "step3")
-{
+} elseif ($action == "step3") {
     mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/");
     mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/avatar/", 0777);
     mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/ics/", 0777);
@@ -389,8 +379,7 @@ CREATE TABLE `roles_assigned` (
     // create the first user
     $usr = new user();
     $usrid = $usr->add($user, "", 0, $pass);
-    if (!$usrid)
-    {
+    if (!$usrid) {
         $template->assign("errortext", "Error: Failed to create first user.");
         $template->display("error.tpl");
         die();
@@ -404,27 +393,12 @@ CREATE TABLE `roles_assigned` (
 
     $clientrid = $rolesobj->add("Client", array("add" => 0, "edit" => 0, "del" => 0, "close" => 0), array("add" => 0, "edit" => 0, "del" => 0, "close" => 0), array("add" => 0, "edit" => 0, "del" => 0, "close" => 0), array("add" => 0, "edit" => 0, "del" => 0, "close" => 0), array("add" => 0, "edit" => 0, "del" => 0), array("add" => 0, "edit" => 0, "del" => 0, "read" => 0), array("add" => 0), array("add" => 0));
 
-    if (!$adminrid or !$userrid or !$clientrid)
-    {
+    if (!$adminrid or !$userrid or !$clientrid) {
         $template->assign("errortext", "Error: Failed to create initial roles.");
         $template->display("error.tpl");
         die();
     }
     $rolesobj->assign($adminrid, $usrid);
-
-    /*basecamp import, disabled
-    if (isset($_FILES["importfile"]))
-    {
-        $importer = new importer();
-        $myfile = new datei();
-        // import basecamp file
-        $up = $myfile->upload("importfile", "files/" . CL_CONFIG . "/ics", 0);
-        if ($up)
-        {
-            $importer->importBasecampXmlFile(CL_ROOT . "/files/" . CL_CONFIG . "/ics/$up");
-        }
-    }
-    */
 
     $template->display("install3.tpl");
 }
