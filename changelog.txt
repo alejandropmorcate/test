@@ -1,10 +1,16 @@
 Collabtive 0.7
++ Fixed a warning by correcting some calls to templates from managemilestone.tpl
++ Fixed the "cancel" button on the add project form to not submit the form.
++ Optimized task add form: Now in the assign field, the current user is always pre-selected, which often will save a click
++ Optimized e-mail notification when a task is added, so that the adding person does not get an e-mail
++ Added (fake) progress bar that replaces the file upload button when upload is in progress
++ Added link titles for milestone names in the project milestones view
 + Added permission check for showing the delete button for attached files in My Messages and single message view
 + Fixed reloading after deleting of attached files in My message view
 + Added alt text to the button in the project files view which takes you a level higher in the folders hierarchy
 + Optimized project files view to display longer chunks of the files' names
 + Fixed a notice in project messages
-+ Fixed a bug in the project files lists and message files list: When a file is deleted, its icon now neatly fades out and is replaced by the other files moving up
++ Fixed a bug in the project files lists and all message files lists: When a file is deleted, its icon now neatly fades out and is replaced by the other files moving up
 + Added new "Winter" template. It is based on "standard" and provides a lighter alternative. Replaces the unmaintained "frost" template.
 + Fixed wrong image file path resulting in missing image in system message for folder added
 + Fixed wrong image file path resulting in missing image in system message for reply added
@@ -23,6 +29,7 @@ Collabtive 0.7
 + Color-coding for projects without due dates on desktop now same as for projects with due date in the future
 + More string sanitizing in class.user.php
 + Added comments
++ Improved security in chat component (added typecast to int)
 + Corrected typo in tables optimization queries and added missing queries in update script
 + Fixed bug in files table which prevented .docx files from being stored in the database
 + Added a function to enable a user to reset his/her password when he/she forgot it

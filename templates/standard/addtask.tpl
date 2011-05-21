@@ -25,9 +25,9 @@
 	<div class="row">
 		<label for="assigned" >{#assignto#}:</label>
 		<select name="assigned[]" multiple="multiple" style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}" >
-			<option value="-1" selected="selected">{#chooseone#}</option>
+			<option value="-1">{#chooseone#}</option>
 			{section name=user loop=$assignable_users}
-				<option value="{$assignable_users[user].ID}">{$assignable_users[user].name}</option>
+				<option value="{$assignable_users[user].ID}" {if $assignable_users[user].ID == $userid}selected{/if}>{$assignable_users[user].name}</option>
 			{/section}
 		</select>
 	</div>

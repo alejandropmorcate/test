@@ -47,7 +47,7 @@
 					<label for = "tags">{#tags#}:</label><input type = "text" name = "userfile1-tags" id="tags" />
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<label for = "desc">{#description#}:</label><textarea name="desc" id="desc" rows="3" cols="1"></textarea>
 			</div>
@@ -79,8 +79,12 @@
 
 	<div class="row-butn-bottom">
 		<label>&nbsp;</label>
-		<button type="submit" onfocus="this.blur();">{#addbutton#}</button>
-		<button onclick="blindtoggle('form_file');toggleClass('addfile','addfile-active','addfile');toggleClass('add_file_butn','butn_link_active','butn_link');toggleClass('sm_files','smooth','nosmooth');return false;" onfocus="this.blur();">{#cancel#}</button>
+		<img id = "fakeprogress" src = "templates/standard/images/symbols/ajax-loader.gif" alt = "fakeprogress" style = "display:none;" />
+
+		<div id = "filesubmit" >
+			<button type="submit" onclick = "$('filesubmit').hide();$('fakeprogress').show();" onfocus="this.blur();">{#addbutton#}</button>
+			<button type="reset" onclick="blindtoggle('form_file');toggleClass('addfile','addfile-active','addfile');toggleClass('add_file_butn','butn_link_active','butn_link');toggleClass('sm_files','smooth','nosmooth');return false;" onfocus="this.blur();">{#cancel#}</button>
+		</div>
 	</div>
 
 

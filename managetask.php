@@ -12,7 +12,6 @@ $action = getArrayVal($_GET, "action");
 $tasklist = getArrayVal($_GET, "tasklist");
 $mode = getArrayVal($_GET, "mode");
 $tid = getArrayVal($_GET, "tid");
-
 $end = getArrayVal($_POST, "end");
 $project = getArrayVal($_POST, "project");
 $assigned = getArrayVal($_POST, "assigned");
@@ -20,16 +19,17 @@ $tasklist = getArrayVal($_POST, "tasklist");
 $text = getArrayVal($_POST, "text");
 $title = getArrayVal($_POST, "title");
 $redir = getArrayVal($_GET, "redir");
-
 $id = getArrayVal($_GET, "id");
+
 $project = array();
 $project['ID'] = $id;
-
-$template->assign("mode", $mode);
 $template->assign("project", $project);
+
 // define the active tab in the project navigation
 $classes = array("overview" => "overview", "msgs" => "msgs", "tasks" => "tasks_active", "miles" => "miles", "files" => "files", "users" => "users", "tracker" => "tracking");
 $template->assign("classes", $classes);
+
+$template->assign("mode", $mode);
 
 if ($action == "addform") {
     // check if user has appropriate permissions
@@ -74,12 +74,13 @@ if ($action == "addform") {
         foreach($assigned as $member) {
             $task->assign($tid, $member);
         }
+
         if ($settings["mailnotify"]) {
             foreach($assigned as $member) {
                 $usr = (object) new user();
                 $user = $usr->getProfile($member);
 
-                if (!empty($user["email"])) {
+                if (!empty($user["email"]) && $userid != $user["ID"]) {
                     // send email
                     $themail = new emailer($settings);
                     $themail->send_mail($user["email"], $langfile["taskassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
@@ -203,8 +204,6 @@ if ($action == "addform") {
             $redir = $url . $redir;
             header("Location: $redir");
         } else {
-            // $loc = $url . "managetask.php?action=showproject&id=$id&mode=opened";
-            // header("Location: $loc");
             echo "ok";
         }
     } else {
@@ -225,8 +224,6 @@ if ($action == "addform") {
             $redir = $url . $redir;
             header("Location: $redir");
         } else {
-            // $loc = $url . "managetask.php?action=showproject&id=$id&mode=closed";
-            // header("Location: $loc");
             echo "ok";
         }
     } else {
@@ -334,4 +331,3 @@ if ($action == "addform") {
     $mytask = new task();
     $task = $mytask->getIcal($userid);
 }
-

@@ -84,11 +84,6 @@ if ($action == "addform")
         $loc = $url . "managemilestone.php?action=showproject&id=$id&mode=added";
         header("Location: $loc");
     }
-    else
-    {
-        $template->assign("newproject", 0);
-    }
-    $template->display("milestones.tpl");
 } elseif ($action == "editform")
 {
     if (!$userpermissions["milestones"]["edit"])
@@ -181,7 +176,7 @@ if ($action == "addform")
     if ($milestone->assign($user, $mid))
     {
         $template->assign("assignmilestone", 1);
-        $template->display("milestones.tpl");
+        $template->display("projectmilestones.tpl");
     }
     else
     {
@@ -192,7 +187,7 @@ if ($action == "addform")
     if ($milestone->deassign($user, $mid))
     {
         $template->assign("deassignmilestone", 1);
-        $template->display("milestones.tpl");
+        $template->display("projectmilestones.tpl");
     }
     else
     {
