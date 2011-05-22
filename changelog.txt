@@ -1,4 +1,5 @@
 Collabtive 0.7
++ Optimized log to show more of the entries' titles, also log actions applied to folders, display deleted files' names, and log user added
 + Fixed a warning by correcting some calls to templates from managemilestone.tpl
 + Fixed the "cancel" button on the add project form to not submit the form.
 + Optimized task add form: Now in the assign field, the current user is always pre-selected, which often will save a click

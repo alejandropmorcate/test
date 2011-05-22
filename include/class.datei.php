@@ -33,6 +33,7 @@ class datei
     {
         $project = (int) $project;
         $folder = mysql_real_escape_string($folder);
+        $folderOrig = $folder;
         $desc = mysql_real_escape_string($desc);
         if(!empty($visible))
         {
@@ -60,7 +61,8 @@ class datei
             {
                 if (mkdir($makefolder, 0777, true))
                 {
-                    // folder created return true
+                    // folder created
+					$this->mylog->add($folderOrig, 'folder', 1, $project);
                     return true;
                 }
             }
@@ -103,11 +105,14 @@ class datei
             }
         }
         $del = mysql_query("DELETE FROM projectfolders WHERE ID = $id");
-        // remove directory
-        $foldstr = CL_ROOT . "/files/" . CL_CONFIG . "/$project/" . $folder["name"] . "/";
-        delete_directory($foldstr);
-
-        return true;
+        if ($del)
+		{
+			// remove directory
+			$foldstr = CL_ROOT . "/files/" . CL_CONFIG . "/$project/" . $folder["name"] . "/";
+			delete_directory($foldstr);
+			$this->mylog->add($folder["name"], 'folder', 3, $project);
+			return true;
+		}
     }
 
     /**
@@ -310,11 +315,11 @@ class datei
                     $fid = $this->add_file($name, $desc, $project, 0, "$tags", $datei_final2, "$typ", $title, $folder, $visstr);
 					if(!empty($title))
 					{
-						$this->mylog->add($title, 'datei', 1, $project);
+						$this->mylog->add($title, 'file', 1, $project);
                     }
 					else
 					{
-						$this->mylog->add($name, 'datei', 1, $project);
+						$this->mylog->add($name, 'file', 1, $project);
 					}
 					return $fid;
                 }
@@ -360,7 +365,7 @@ class datei
         $sql = mysql_query("UPDATE files SET `title` = '$title', `desc` = '$desc', `tags` = '$tags' WHERE id = $id");
         if ($sql)
         {
-            $this->mylog->add($title, 'datei' , 2, $project);
+            $this->mylog->add($title, 'file' , 2, $project);
             return true;
         }
         else
@@ -400,7 +405,11 @@ class datei
             {
                 if (unlink($delfile))
                 {
-                    $this->mylog->add($ftitle, 'datei' , 3, $project);
+					if ($ftitle != "") {
+						$this->mylog->add($ftitle, 'file', 3, $project);
+					} else {
+						$this->mylog->add($fname, 'file', 3, $project);
+					}
                     return true;
                 }
                 else

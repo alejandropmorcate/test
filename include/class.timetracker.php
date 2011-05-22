@@ -71,7 +71,7 @@ class timetracker
         {
             $insid = mysql_insert_id();
             $title = $username . " " . $hours . "h";
-            $this->mylog->add($title, "track", 1, $project);
+            //$this->mylog->add($title, "track", 1, $project);
             return $insid;
         }
         else
